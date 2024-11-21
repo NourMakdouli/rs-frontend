@@ -1,0 +1,144 @@
+<main id="main" class="main">
+
+  <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+        <div class="card mb-3">
+
+          <div class="card-body">
+
+            <div class="pt-4 pb-2">
+              <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
+              <p class="text-center small">Enter your personal details to create account</p>
+            </div>
+
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="row g-3 needs-validation" novalidate>
+              <!-- First Name -->
+              <div class="col-12">
+                <label for="firstname" class="form-label">First Name</label>
+                <input type="text" formControlName="firstname" id="firstname" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['firstname'].errors }">
+                <div *ngIf="submitted && f['firstname'].errors" class="invalid-feedback">
+                  <div *ngIf="f['firstname'].hasError('required')">First Name is required</div>
+                </div>
+              </div>
+
+              <!-- Last Name -->
+              <div class="col-12">
+                <label for="lastname" class="form-label">Last Name</label>
+                <input type="text" formControlName="lastname" id="lastname" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['lastname'].errors }">
+                <div *ngIf="submitted && f['lastname'].errors" class="invalid-feedback">
+                  <div *ngIf="f['lastname'].hasError('required')">Last Name is required</div>
+                </div>
+              </div>
+
+              <!-- Username -->
+              <div class="col-12">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" formControlName="username" id="username" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['username'].errors }">
+                <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
+                  <div *ngIf="f['username'].hasError('required')">Username is required</div>
+                  <div *ngIf="f['username'].hasError('pattern')">Username can only contain letters, numbers, and
+                    underscores</div>
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div class="col-12">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" formControlName="email" id="email" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+                <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                  <div *ngIf="f['email'].hasError('required')">Email is required</div>
+                  <div *ngIf="f['email'].hasError('email')">Invalid email format</div>
+                </div>
+              </div>
+
+              <!-- Phone Number with ng2-tel-input -->
+              <div class="col-12">
+                <label for="phone" class="form-label">Phone</label>
+<ngx-intl-tel-input
+  name="phoneNumber"
+  formControlName="phoneNumber"
+  [preferredCountries]="['fr', 'us']"
+  [enableAutoCountrySelect]="true"
+  [enablePlaceholder]="true"
+  [separateDialCode]="true"
+  [cssClass]="'form-control'"
+  (countryChange)="onCell1CountryChange($event)"
+  [ngClass]="{ 'is-invalid': submitted && f['phoneNumber'].errors }"
+></ngx-intl-tel-input>
+
+<div *ngIf="submitted && f['phoneNumber'].errors" class="invalid-feedback">
+  <div *ngIf="f['phoneNumber'].hasError('required')">Phone number is required</div>
+</div>
+
+              </div>
+
+              <!-- Password -->
+              <div class="col-12">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" formControlName="password" id="password" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
+                <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                  <div *ngIf="f['password'].hasError('required')">Password is required</div>
+                  <div *ngIf="f['password'].hasError('minlength')">Password must be at least 6 characters long</div>
+                </div>
+              </div>
+
+              <!-- Confirm Password -->
+              <div class="col-12">
+                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                <input type="password" formControlName="confirmPassword" id="confirmPassword" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['confirmPassword'].errors }">
+                <div *ngIf="submitted && f['confirmPassword'].errors" class="invalid-feedback">
+                  <div *ngIf="f['confirmPassword'].hasError('required')">Confirm Password is required</div>
+                  <div *ngIf="f['confirmPassword'].hasError('passwordMismatch')">Passwords do not match</div>
+                </div>
+              </div>
+
+              <!-- Birthday -->
+              <div class="col-12">
+                <label for="birthday" class="form-label">Birthday</label>
+                <input type="date" formControlName="birthday" id="birthday" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['birthday'].errors }">
+                <div *ngIf="submitted && f['birthday'].errors" class="invalid-feedback">
+                  <div *ngIf="f['birthday'].hasError('required')">Birthday is required</div>
+                  <div *ngIf="f['birthday'].hasError('futureDate')">Birthday cannot be in the future</div>
+                </div>
+              </div>
+
+
+
+              <!-- Register Button -->
+              <div class="col-12">
+                <button type="submit" [disabled]="loading" class="btn btn-primary">Register</button>
+                <div *ngIf="loading">Loading...</div>
+              </div>
+
+              <!-- Already have an account -->
+              <div class="col-12">
+                <p class="small mb-0">Already have an account? <a routerLink="/login">Login</a></p>
+              </div>
+            </form>
+
+          </div>
+        </div>
+
+        <div class="credits">
+          <!-- All the links in the footer should remain intact. -->
+          <!-- You can delete the links only if you purchased the pro version. -->
+          <!-- Licensing information: https://bootstrapmade.com/license/ -->
+          <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+</main>

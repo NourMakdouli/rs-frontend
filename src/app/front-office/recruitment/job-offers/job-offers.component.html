@@ -1,0 +1,85 @@
+<div class="heading-container">
+    <h4>
+      Nos commerçants
+    </h4>
+  </div>
+  
+  <div class="commercants-container">
+    <div class="commercant">
+      <img src="https://reseau.site/image/Commercants_RECRUTEMENT-01.png" alt="Coiffeur/Coiffeuse">
+    </div>
+    <div class="commercant">
+      <img src="https://reseau.site/image/Commercants_RECRUTEMENT-02.png" alt="Serveur/Serveuse">
+    </div>
+    <div class="commercant">
+      <img src="https://reseau.site/image/Commercants_RECRUTEMENT-03.png" alt="Cuisinier/Cuisinière">
+    </div>
+    <div class="commercant">
+      <img src="https://reseau.site/image/Commercants_RECRUTEMENT-04.png" alt="Vendeur/Vendeuse">
+    </div>
+  </div>
+  
+  <!-- Buttons container -->
+  <div class="buttons-container">
+    <button class="custom-button" data-bs-toggle="modal" data-bs-target="#jobApplicationModal">
+      DÉPOSEZ VOTRE CANDIDATURE
+    </button>
+    <button class="custom-button" (click)="onPostJobAd()">
+      DÉPOSEZ VOTRE ANNONCE ICI</button>
+  </div>
+  <div class="heading-container">
+    <h3>
+      Recrutements
+    </h3>
+  </div>
+  
+  <section>
+    <div class="container">
+      <div class="row">
+        <!-- content -->
+        <div class="col-lg-12">
+          <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" *ngFor="let jo of jobOffersList ">
+              <div class="card text-center">
+                <div class="card-header">
+                  {{jo.typeOfJob}}
+                </div>
+                <div class="card-body">
+                  <a [routerLink]="['/job-offer-details', jo._id]">
+                    <img [src]="jo.image" class="product-image" alt="job offer image">
+                  </a>
+                  <h5 class="card-title text-center">{{jo.store.name}}</h5>
+                  <p class="card-text">Lieu de travail: {{jo.address| slice:0:30}}</p>
+                  <p class="card-text">{{jo.description | slice:0:35}} ...</p>
+                </div> 
+                <div class="card-footer">
+                  <a [routerLink]="['/job-offer-details', jo._id]" class="btn btn-primary">Postuler</a>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="jobApplicationModal" tabindex="-1" aria-labelledby="jobApplicationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+         
+          <h5 class="modal-title" id="jobApplicationModalLabel">
+            <img src="assets/images/favicons/logowithoutlinelong.png" alt="Reseau-site-logo" >
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Include the JobApplicationFormComponent here -->
+          <app-job-application-form></app-job-application-form>
+        </div>
+      </div>
+    </div>
+  </div>
+  

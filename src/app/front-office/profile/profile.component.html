@@ -1,0 +1,536 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Profile</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home">Acceuil</a></li>
+        <li class="breadcrumb-item">Users</li>
+        <li class="breadcrumb-item active">Profile</li>
+      </ol>
+    </nav>
+  </div>
+  <!-- End Page Title -->
+
+  <section class="section profile">
+    <div class="row">
+      <!-- Profile Image and Details -->
+      <div class="col-xl-4">
+        <div class="card">
+          <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+            <div style="position: relative; cursor: pointer" (click)="triggerFileInput()" data-bs-toggle="tooltip"
+              data-bs-placement="bottom" title="Click to change image">
+              <img [src]="
+                  imagePreview ||
+                  (user?.image
+                    ? user?.image + '?' + timestamp
+                    : 'assets/img/profile-img.jpg')
+                " alt="Profile" class="rounded-circle" [style.width.px]="150" />
+              <!-- Optional overlay icon -->
+              <div class="overlay">
+                <i class="bi bi-camera-fill" style="font-size: 1.5rem; color: #fff"></i>
+                <p style="color: white; font-size: 0.8rem">Change Image</p>
+              </div>
+            </div>
+            <h2>{{ user?.firstname }} {{ user?.lastname }}</h2>
+            <h3>{{ user?.role }}</h3>
+
+            <!-- Hidden File Input -->
+            <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" style="display: none" />
+
+            <!-- Confirm Button -->
+            <button *ngIf="selectedFile" class="btn btn-success mt-2" (click)="uploadImage()" [disabled]="loading">
+              Confirm Change
+            </button>
+            <div class="social-links mt-2">
+              <a href="#" class="twitter"><i class="bi bi-twitter-x"></i> </a>
+              <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+              <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile Details and Edit Form -->
+      <div class="col-xl-8">
+        <div class="card">
+          <div class="card-body pt-3">
+            <ul class="nav nav-tabs nav-tabs-bordered">
+              <li class="nav-item">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">
+                  Overview
+                </button>
+              </li>
+              <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">
+                  Edit Profile
+                </button>
+              </li>
+              <!-- New Store Tab Button -->
+              <li class="nav-item" *ngIf="user?.role === 'MERCHANT'">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#store-tab">
+                  Edit Store
+                </button>
+              </li>
+              <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">
+                  Change Password
+                </button>
+              </li>
+            </ul>
+            <div class="tab-content pt-2">
+              <!-- Overview Tab -->
+              <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                <div class="accordion" id="overviewAccordion">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingBasic">
+                      <button class="accordion-button card-title" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseBasic" aria-expanded="true" aria-controls="collapseBasic">
+                        Basic Information
+                      </button>
+                    </h2>
+                    <div id="collapseBasic" class="accordion-collapse collapse show" aria-labelledby="headingBasic"
+                      data-bs-parent="#overviewAccordion">
+                      <div class="accordion-body">
+                        <div class="row">
+                          <div class="col-lg-3 col-md-4 label">First Name</div>
+                          <div class="col-lg-9 col-md-8">
+                            {{ user?.firstname }}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-3 col-md-4 label">Last Name</div>
+                          <div class="col-lg-9 col-md-8">
+                            {{ user?.lastname }}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-3 col-md-4 label">Email</div>
+                          <div class="col-lg-9 col-md-8">{{ user?.email }}</div>
+                        </div>
+                        <div class="row" *ngIf="user?.username">
+                          <div class="col-lg-3 col-md-4 label">Username</div>
+                          <div class="col-lg-9 col-md-8">
+                            {{ user?.username }}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-3 col-md-4 label">
+                            Phone Number
+                          </div>
+                          <div class="col-lg-9 col-md-8">
+                            {{ user?.phoneNumber }}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-3 col-md-4 label">Nationality</div>
+                          <div class="col-lg-9 col-md-8">
+                            {{ user?.nationality }}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-3 col-md-4 label">
+                            Country of Residence
+                          </div>
+                          <div class="col-lg-9 col-md-8">
+                            {{ user?.countryOfResidence }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion" id="overviewAccordion">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingDelivery">
+                      <button class="accordion-button card-title" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseDelivery" aria-expanded="true" aria-controls="collapseDelivery">
+                        Delievery Information
+                      </button>
+                    </h2>
+                    <div id="collapseDelivery" class="accordion-collapse collapse show"
+                      aria-labelledby="headingDelivery" data-bs-parent="#overviewAccordion">
+                      <div class="accordion-body">
+                        <div class="row">
+                          <div class="col-lg-3 col-md-4 label">Address</div>
+                          <div class="col-lg-9 col-md-8">
+                            {{ user?.addressdelievery }}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-3 col-md-4 label">City</div>
+                          <div class="col-lg-9 col-md-8">
+                            {{ user?.cityldelivery }}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-3 col-md-4 label">ZIP Code</div>
+                          <div class="col-lg-9 col-md-8">
+                            {{ user?.zipdelivery }}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-3 col-md-4 label">
+                            Phone (Delivery)
+                          </div>
+                          <div class="col-lg-9 col-md-8">
+                            {{ user?.phonedelivery }}
+                          </div>
+                        </div>
+                        <div class="row" *ngIf="user?.mobileldelivery">
+                          <div class="col-lg-3 col-md-4 label">
+                            Mobile (Delivery)
+                          </div>
+                          <div class="col-lg-9 col-md-8">
+                            {{ user?.mobileldelivery }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion" id="overviewAccordion">
+                  <!-- Store Information in Accordion -->
+                  <div class="accordion-item" *ngIf="user?.role === 'MERCHANT'">
+                    <!-- General Information Accordion -->
+                    <h2 class="accordion-header" id="headingGeneralInfo">
+                      <button class="accordion-button card-title" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseGeneralInfo" aria-expanded="true" aria-controls="collapseGeneralInfo">
+                        Store General Information
+                      </button>
+                    </h2>
+                    <div id="collapseGeneralInfo" class="accordion-collapse collapse show"
+                      aria-labelledby="headingGeneralInfo" data-bs-parent="#overviewAccordion">
+                      <div class="accordion-body">
+                        <div class="row">
+                          <div class="col-lg-3 col-md-4 label">Name</div>
+                          <div class="col-lg-9 col-md-8">{{ store?.name }}</div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-3 col-md-4 label">Address</div>
+                          <div class="col-lg-9 col-md-8">
+                            {{ store?.address }}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-3 col-md-4 label">City</div>
+                          <div class="col-lg-9 col-md-8">{{ store?.city }}</div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-3 col-md-4 label">
+                            Phone Number
+                          </div>
+                          <div class="col-lg-9 col-md-8">
+                            {{ store?.phoneNumber }}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-3 col-md-4 label">Description</div>
+                          <div class="col-lg-9 col-md-8">
+                            {{ store?.description }}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-3 col-md-4 label">ZIP Code</div>
+                          <div class="col-lg-9 col-md-8">
+                            {{ store?.zipCode }}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-3 col-md-4 label">Blog Type</div>
+                          <div class="col-lg-9 col-md-8">
+                            {{ store?.blogtype }}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-3 col-md-4 label">
+                            SIRET Number
+                          </div>
+                          <div class="col-lg-9 col-md-8">
+                            {{ store?.siretNumber }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Social Media Links Accordion -->
+                    <h2 class="accordion-header" id="headingSocialMedia">
+                      <button class="accordion-button card-title collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseSocialMedia" aria-expanded="false" aria-controls="collapseSocialMedia">
+                        Social Media Links
+                      </button>
+                    </h2>
+                    <div id="collapseSocialMedia" class="accordion-collapse collapse"
+                      aria-labelledby="headingSocialMedia" data-bs-parent="#overviewAccordion">
+                      <div class="accordion-body">
+                        <div class="row">
+                          <div class="col-lg-3 col-md-4 label">Twitter</div>
+                          <div class="col-lg-9 col-md-8">
+                            <a *ngIf="store?.twitterLink; else noTwitterLink" href="{{ store?.twitterLink }}"
+                              target="_blank">{{ store?.twitterLink }}</a>
+                            <ng-template #noTwitterLink>No Twitter link provided.</ng-template>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-3 col-md-4 label">Instagram</div>
+                          <div class="col-lg-9 col-md-8">
+                            <a *ngIf="store?.instagramLink; else noInstagramLink" href="{{ store?.instagramLink }}"
+                              target="_blank">{{ store?.instagramLink }}</a>
+                            <ng-template #noInstagramLink>No Instagram link provided.</ng-template>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-3 col-md-4 label">LinkedIn</div>
+                          <div class="col-lg-9 col-md-8">
+                            <a *ngIf="store?.linkedinLink; else noLinkedInLink" href="{{ store?.linkedinLink }}"
+                              target="_blank">{{ store?.linkedinLink }}</a>
+                            <ng-template #noLinkedInLink>No LinkedIn link provided.</ng-template>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- End Overview Tab -->
+              </div>
+              <!-- Edit Profile Tab -->
+              <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+                <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+                  <h5 class="card-title">Basic Information</h5>
+                  <div class="row mb-3">
+                    <label for="firstname" class="col-md-4 col-lg-3 col-form-label">First Name</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="firstname" type="text" class="form-control" id="firstname"
+                        formControlName="firstname" />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="lastname" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="lastname" type="text" class="form-control" id="lastname"
+                        formControlName="lastname" />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="email" type="email" class="form-control" id="email" formControlName="email"
+                        [disabled]="true" />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="phoneNumber" class="col-md-4 col-lg-3 col-form-label">Phone Number</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="phoneNumber" type="text" class="form-control" id="phoneNumber"
+                        formControlName="phoneNumber" />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="nationality" class="col-md-4 col-lg-3 col-form-label">Nationality</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="nationality" type="text" class="form-control" id="nationality"
+                        formControlName="nationality" />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="countryOfResidence" class="col-md-4 col-lg-3 col-form-label">Country of
+                      Residence</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="countryOfResidence" type="text" class="form-control" id="countryOfResidence"
+                        formControlName="countryOfResidence" />
+                    </div>
+                  </div>
+
+                  <h5 class="card-title mt-3">Delivery Information</h5>
+                  <div class="row mb-3">
+                    <label for="addressdelievery" class="col-md-4 col-lg-3 col-form-label">Address</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="addressdelievery" type="text" class="form-control" id="addressdelievery"
+                        formControlName="addressdelievery" />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="cityldelivery" class="col-md-4 col-lg-3 col-form-label">City</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="cityldelivery" type="text" class="form-control" id="cityldelivery"
+                        formControlName="cityldelivery" />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="zipdelivery" class="col-md-4 col-lg-3 col-form-label">ZIP Code</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="zipdelivery" type="text" class="form-control" id="zipdelivery"
+                        formControlName="zipdelivery" />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="phonedelivery" class="col-md-4 col-lg-3 col-form-label">Phone (Delivery)</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="phonedelivery" type="text" class="form-control" id="phonedelivery"
+                        formControlName="phonedelivery" />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="mobileldelivery" class="col-md-4 col-lg-3 col-form-label">Mobile (Delivery)</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="mobileldelivery" type="text" class="form-control" id="mobileldelivery"
+                        formControlName="mobileldelivery" />
+                    </div>
+                  </div>
+
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-primary" [disabled]="loading">
+                      Save Changes
+                    </button>
+                  </div>
+                </form>
+                <!-- End Profile Edit Form -->
+              </div>
+              <!-- End Edit Profile Tab -->
+              <div class="tab-pane fade" id="store-tab" *ngIf="user?.role === 'MERCHANT'">
+                <h5 class="card-title">Edit Store Details</h5>
+                <form *ngIf="store" [formGroup]="storeForm" (ngSubmit)="updateStore()">
+                  <!-- Form fields as per your requirements -->
+                  <div class="row mb-3">
+                    <label for="storeName" class="col-md-4 col-lg-3 col-form-label">Name</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input type="text" id="storeName" class="form-control" formControlName="name" />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="storeAddress" class="col-md-4 col-lg-3 col-form-label">Address</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input type="text" id="storeAddress" class="form-control" formControlName="address" />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="storeCity" class="col-md-4 col-lg-3 col-form-label">City</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input type="text" id="storeCity" class="form-control" formControlName="city" />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="storeZipCode" class="col-md-4 col-lg-3 col-form-label">ZIP Code</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input type="text" id="storeZipCode" class="form-control" formControlName="zipCode" />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="storePhone" class="col-md-4 col-lg-3 col-form-label">Phone Number</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input type="text" id="storePhone" class="form-control" formControlName="phoneNumber" />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="storeDescription" class="col-md-4 col-lg-3 col-form-label">Description</label>
+                    <div class="col-md-8 col-lg-9">
+                      <textarea id="storeDescription" class="form-control" formControlName="description"></textarea>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="storeBlogType" class="col-md-4 col-lg-3 col-form-label">Blog Type</label>
+                    <div class="col-md-8 col-lg-9">
+                      <select id="storeBlogType" class="form-control" formControlName="blogtype">
+                        <option *ngFor="let type of blogTypes" [value]="type">
+                          {{ type }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="storeSiretNumber" class="col-md-4 col-lg-3 col-form-label">SIRET Number</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input type="text" id="storeSiretNumber" class="form-control" formControlName="siretNumber" />
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-primary" [disabled]="loading">
+                      Save Changes
+                    </button>
+                  </div>
+                </form>
+                <div *ngIf="!store">
+                  <p>No store information available.</p>
+                </div>
+              </div>
+
+
+
+              <div class="tab-pane fade profile-change-password pt-3 " id="profile-change-password">
+                <!-- Change Password Form -->
+                <form [formGroup]="changePasswordForm" (ngSubmit)="onChangePasswordSubmit()">
+                  <div class="row mb-3">
+                    <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input formControlName="currentPassword" type="password" class="form-control"
+                        id="currentPassword" />
+                      <div
+                        *ngIf="changePasswordForm.get('currentPassword')?.invalid && (changePasswordForm.get('currentPassword')?.dirty || changePasswordForm.get('currentPassword')?.touched)"
+                        class="text-danger text-center">
+                        <small *ngIf="changePasswordForm.get('currentPassword')?.hasError('required')">Current password
+                          is required</small>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input formControlName="newPassword" type="password" class="form-control" id="newPassword" />
+
+
+
+
+
+
+
+
+                      <div
+                        *ngIf="changePasswordForm.get('newPassword')?.invalid && (changePasswordForm.get('newPassword')?.dirty || changePasswordForm.get('newPassword')?.touched)"
+                        class="text-danger text-center">
+                        <small *ngIf="changePasswordForm.get('newPassword')?.hasError('required')">New password is
+                          required</small>
+                        <small *ngIf="changePasswordForm.get('newPassword')?.hasError('pattern')">
+                          Password must be at least 8 characters, and include uppercase, lowercase, number, and special
+                          character
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="confirmNewPassword" class="col-md-4 col-lg-3 col-form-label">Confirm New
+                      Password</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input formControlName="confirmNewPassword" type="password" class="form-control"
+                        id="confirmNewPassword" />
+                      <div
+                        *ngIf="changePasswordForm.get('confirmNewPassword')?.invalid && (changePasswordForm.get('confirmNewPassword')?.dirty || changePasswordForm.get('confirmNewPassword')?.touched)"
+                        class="text-danger text-center">
+                        <small *ngIf="changePasswordForm.get('confirmNewPassword')?.hasError('required')">Please confirm
+                          your new password</small>
+                        <small *ngIf="changePasswordForm.hasError('passwordMismatch')">Passwords do not match</small>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Change Password</button>
+                  </div>
+                </form>
+              </div>
+
+
+
+              <!-- End Store Tab -->
+            </div>
+
+            <!-- End Tab Content -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<!-- End #main -->

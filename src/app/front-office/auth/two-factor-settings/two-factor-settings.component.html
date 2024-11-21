@@ -1,0 +1,111 @@
+
+          <!-- Section for Enabling 2FA -->
+          <div *ngIf="!isTwoFactorEnabled">
+            <p class="text-center card-title">
+              Enhance the security of your account by enabling Two-Factor Authentication (2FA).
+            </p>
+  
+            <!-- Mini-Tutorial -->
+            <div class="mb-4">
+              <h5>How to Enable 2FA:</h5>
+              <ol>
+                <li>Click the <strong>"Generate QR Code"</strong> button below.</li>
+                <li>A QR code will appear on the screen.</li>
+                <li>
+                  Open an authenticator app on your phone (e.g., Google Authenticator, Authy).
+                </li>
+                <li>Use the app to scan the QR code.</li>
+                <li>
+                  After scanning, enter the 6-digit code from your authenticator app in the input field.
+                </li>
+                <li>Click <strong>"Enable 2FA"</strong> to complete the process.</li>
+              </ol>
+            </div>
+  
+            <div class="text-center">
+              <button
+                class="btn btn-primary"
+                (click)="generateQrCode()"
+                [disabled]="loading"
+              >
+                Generate QR Code
+              </button>
+            </div>
+  
+            <div *ngIf="qrCodeDataURL" class="mt-4">
+              <h5 class="text-center">Scan the QR Code Below:</h5>
+              <div class="d-flex justify-content-center">
+                <img
+                  [src]="qrCodeDataURL"
+                  alt="2FA QR Code"
+                  class="qr-code-img mb-3"
+                />
+              </div>
+              <p class="text-center">
+                Use your authenticator app to scan this QR code.
+              </p>
+  
+              <div class="form-group">
+                <label for="code">Enter the 6-digit code from your app:</label>
+                <input
+                  type="text"
+                  id="code"
+                  [(ngModel)]="code"
+                  name="code"
+                  class="form-control"
+                  maxlength="6"
+                  required
+                />
+              </div>
+              <div class="text-center">
+                <button
+                  class="btn btn-success"
+                  (click)="enableTwoFactor()"
+                  [disabled]="loading"
+                >
+                  Enable 2FA
+                </button>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Section for Disabling 2FA -->
+          <div *ngIf="isTwoFactorEnabled">
+            <p class="text-center text-success">
+              Two-Factor Authentication is currently <strong>enabled</strong> on your account.
+            </p>
+  
+            <!-- Mini-Tutorial -->
+            <div class="mb-4">
+              <h5>How to Disable 2FA:</h5>
+              <ol>
+                <li>
+                  Open your authenticator app and get the current 6-digit code for your account.
+                </li>
+                <li>Enter the code in the input field below.</li>
+                <li>Click <strong>"Disable 2FA"</strong> to confirm.</li>
+              </ol>
+            </div>
+  
+            <div class="form-group">
+              <label for="disableCode">Enter the 6-digit code from your app:</label>
+              <input
+                type="text"
+                id="disableCode"
+                [(ngModel)]="disableCode"
+                name="disableCode"
+                class="form-control"
+                maxlength="6"
+                required
+              />
+            </div>
+            <div class="text-center">
+              <button
+                class="btn btn-danger"
+                (click)="disableTwoFactor()"
+                [disabled]="loading"
+              >
+                Disable 2FA
+              </button>
+            </div>
+          </div>

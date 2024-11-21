@@ -1,0 +1,128 @@
+
+  
+
+  .status-enabled {
+    color: #28a745;
+  }
+  
+  .status-disabled {
+    color: #dc3545;
+  }
+  
+  /* Toggle Button */
+/* Flex container for alignment */
+.automation-status-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Automation Button Styling */
+  .toggle-automation-btn {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .toggle-automation-btn:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  .toggle-automation-btn:active {
+    transform: scale(0.98);
+  }
+  
+  
+  /* Loading Spinner */
+  .loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    color: #007bff;
+  }
+  
+  /* Error Message */
+  .error-message {
+    margin-top: 20px;
+    padding: 12px;
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  /* Styled Table */
+  .styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .styled-table th, .styled-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+    font-size: 0.95em;
+  }
+  
+  .styled-table th {
+    background-color: #007bff;
+    color: white;
+    font-weight: 600;
+  }
+  
+  .styled-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .styled-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .action-btn {
+    padding: 6px 12px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .action-btn:hover {
+    background-color: #218838;
+  }
+  
+  .action-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* No PayIns Message */
+  .no-payins-message {
+    text-align: center;
+    font-size: 1.1em;
+
+    color: #000000;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    
+  }
+  .img {
+    
+    max-width: 15%;
+    height: auto;
+  }
+  

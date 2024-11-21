@@ -1,0 +1,12 @@
+.text-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #012970;
+    font-family: "Poppins", sans-serif;
+  }
+  input.ng-invalid.ng-touched {
+    border-color: #dc3545; /* Bootstrap's danger color */
+  }
+  .text-center {
+    text-align: center;
+  }

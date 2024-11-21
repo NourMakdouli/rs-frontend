@@ -1,0 +1,134 @@
+/* General Layout */
+.main {
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+/* Uniform image styling */
+.product-thumbnail img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/* Button styles */
+.btn {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-add-cart {
+  background-color: #007bff;
+  color: #fff;
+}
+.btn-add-cart:hover {
+  background-color: #0056b3;
+}
+.btn-remove {
+  color: #dc3545;
+  background: none;
+}
+.btn-remove:hover {
+  color: #c82333;
+}
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+}
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+/* Disabled button */
+.btn[disabled] {
+  background-color: #6c757d;
+  pointer-events: none;
+}
+
+/* Stock status styles */
+.product-stock-status .in-stock {
+  color: green;
+  font-weight: bold;
+}
+.product-stock-status .out-stock {
+  color: red;
+  font-weight: bold;
+}
+
+/* Responsive table */
+@media (max-width: 767px) {
+  .table-responsive table,
+  .table-responsive tbody,
+  .table-responsive th,
+  .table-responsive td,
+  .table-responsive tr {
+    display: block;
+  }
+
+  .table-responsive tr {
+    margin-bottom: 15px;
+  }
+
+  .table-responsive td {
+    position: relative;
+    padding-left: 50%;
+    text-align: left;
+  }
+
+  .table-responsive td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 15px;
+    font-weight: bold;
+  }
+}
+
+/* No Favorites Styling */
+.no-favorites {
+  text-align: center;
+  padding: 40px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.no-favorites-icon {
+  font-size: 48px;
+  color: #dc3545;
+  margin-bottom: 20px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.no-favorites p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.no-favorites .btn-primary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.no-favorites .btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Additional Spacing */
+.mt-3 {
+  margin-top: 1rem;
+}
+
+.text-right {
+  text-align: right;
+}

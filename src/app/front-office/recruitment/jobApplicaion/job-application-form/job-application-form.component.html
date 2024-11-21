@@ -1,0 +1,123 @@
+
+
+            <form [formGroup]="applicationForm" (ngSubmit)="onSubmit()" class="row g-3 needs-validation" novalidate>
+              <!-- First Name -->
+              <div class="col-12">
+                <label for="firstname" class="form-label">First Name</label>
+                <input
+                  type="text"
+                  formControlName="firstname"
+                  id="firstname"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': isSubmitted && f['firstname'].errors }"
+                />
+                <div *ngIf="isSubmitted && f['firstname'].errors" class="invalid-feedback">
+                  <div *ngIf="f['firstname'].hasError('required')">First Name is required</div>
+                </div>
+              </div>
+
+              <!-- Last Name -->
+              <div class="col-12">
+                <label for="lastname" class="form-label">Last Name</label>
+                <input
+                  type="text"
+                  formControlName="lastname"
+                  id="lastname"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': isSubmitted && f['lastname'].errors }"
+                />
+                <div *ngIf="isSubmitted && f['lastname'].errors" class="invalid-feedback">
+                  <div *ngIf="f['lastname'].hasError('required')">Last Name is required</div>
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div class="col-12">
+                <label for="email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  formControlName="email"
+                  id="email"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': isSubmitted && f['email'].errors }"
+                />
+                <div *ngIf="isSubmitted && f['email'].errors" class="invalid-feedback">
+                  <div *ngIf="f['email'].hasError('required')">Email is required</div>
+                  <div *ngIf="f['email'].hasError('emailFormat')">Invalid email format</div>
+                </div>
+              </div>
+
+              <!-- Phone Number with ng2-tel-input -->
+              <div class="col-12">
+                <label for="phoneNumber" class="form-label">Phone Number</label>
+                <input
+                type="text"
+                class="form-control"
+                id="phoneNumber"
+                formControlName="phoneNumber"
+                [ngClass]="{ 'is-invalid': isSubmitted && f['phoneNumber'].errors }"
+              />
+                <div *ngIf="isSubmitted && f['phoneNumber'].errors" class="invalid-feedback">
+                  <div *ngIf="f['phoneNumber'].hasError('required')">Phone number is required</div>
+                </div>
+              </div>
+
+              <!-- City -->
+              <div class="col-12">
+                <label for="city" class="form-label">City</label>
+                <input type="text" formControlName="city" id="city" class="form-control" />
+              </div>
+
+              <!-- Postal Code -->
+              <div class="col-12">
+                <label for="postalCode" class="form-label">Postal Code</label>
+                <input type="text" formControlName="postalCode" id="postalCode" class="form-control" />
+              </div>
+
+              <!-- Type of Job -->
+              <div class="col-12">
+                <label for="typeOfJob" class="form-label">Type of Job</label>
+                <select
+                  id="typeOfJob"
+                  class="form-select"
+                  formControlName="typeOfJob"
+                  [ngClass]="{ 'is-invalid': isSubmitted && f['typeOfJob'].errors }"
+                >
+                  <option value="" disabled>Select Type of Job</option>
+                  <option *ngFor="let jobType of jobTypes" [value]="jobType">{{ jobType }}</option>
+                </select>
+                <div *ngIf="isSubmitted && f['typeOfJob'].errors" class="invalid-feedback">
+                  <div *ngIf="f['typeOfJob'].hasError('required')">Type of Job is required</div>
+                </div>
+              </div>
+
+              <!-- Description -->
+              <div class="col-12">
+                <label for="description" class="form-label">Description</label>
+                <textarea
+                  class="form-control"
+                  id="description"
+                  formControlName="description"
+                  rows="3"
+                ></textarea>
+              </div>
+
+              <!-- Resume Upload -->
+              <div class="col-12">
+                <label for="resume" class="form-label">Resume</label>
+                <input
+                  type="file"
+                  class="form-control"
+                  id="resume"
+                  (change)="onFileSelected($event)"
+                  accept=".pdf,.doc,.docx"
+                />
+                <div *ngIf="uploadError" class="text-danger">{{ uploadError }}</div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="col-12">
+                <button type="submit" [disabled]="uploadInProgress" class="btn btn-primary w-100">Submit</button>
+                <div *ngIf="uploadInProgress">Uploading...</div>
+              </div>
+            </form>

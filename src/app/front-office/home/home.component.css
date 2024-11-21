@@ -1,0 +1,62 @@
+.logo_home {
+  width: 260px;
+  margin-top: 20px; /* Adjust the value as needed */
+}
+
+#home-bar p {
+  color: #134294;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.btn_marketplace {
+  width: 250px;
+  border: 1px solid #134294 !important;
+  color: #134294;
+  margin-right: 10px;
+  background-color: white;
+  text-align: center; /* Center text within buttons */
+  flex: 1; /* Make buttons take up equal width */
+  max-width: 200px; /* Optional: Set a maximum width for the buttons */
+  box-shadow: 0 10px 10px rgba(153, 153, 153, 0.2);
+
+}
+
+.btn_marketplace:hover, .btn_last_marketplace:hover {
+  color: #fff !important;
+  background-color: #134294 !important;
+  border-color: #134294 !important;
+  transform: none !important; 
+}
+
+#search_input_home {
+  border: 1px solid grey;
+  border-top-left-radius: 27px;
+  border-bottom-left-radius: 27px;
+}
+
+#search_btn_home {
+  border-top-right-radius: 27px;
+  border-bottom-right-radius: 27px;
+}
+
+.btngroup {
+  display: flex;
+  justify-content: center; /* Center the buttons horizontally */
+  gap: 20px; /* Add space between the buttons */
+  padding: 20px 0; /* Optional: Add some padding for spacing */
+}
+
+@media (max-width: 768px) {
+  .logo_mr_rs {
+    display: none;
+  }
+  #home-bar .d-flex {
+    flex-direction: column;
+    align-items: center;
+  }
+  #home-bar > div {
+    width: 100%;
+    text-align: center;
+  }
+}

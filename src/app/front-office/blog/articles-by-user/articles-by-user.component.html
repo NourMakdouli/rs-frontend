@@ -1,0 +1,80 @@
+<main id="main" class="main"> 
+  <div class="pagetitle">
+    <h1>Create New Article</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home">Acceuil</a></li>
+        <li class="breadcrumb-item"><a routerLink="/articlesByUser">My Articles</a></li>
+        <li class="breadcrumb-item active">Create Article</li>
+      </ol>
+    </nav>
+  </div>
+  <div class="row">
+    <div class="col">
+
+      <!-- Heading and Add Article Button on the same line -->
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Published Articles</h2>
+        <button [routerLink]="['/create-article']" class="btn btn-primary btn-add-article">
+          <i class="fa fa-plus"></i> Add Article
+        </button>
+      </div>
+
+      <div *ngIf="!published.length" class="alert alert-info">
+        You have no published articles at the moment.
+      </div>
+
+      <!-- Published Articles List -->
+      <ul class="list-listings">
+        <li *ngFor="let article of published">
+          <div class="listing-image">
+            <img [src]="article.image" style="height: 200px; width: 100%; object-fit: cover;" alt="{{ article.title }}">
+          </div>
+          <div class="listing-body">
+            <h3>{{ article.title }}</h3>
+            <p [innerHTML]="article.content"></p>
+            <div class="meta-info">
+              <ul>
+                <li><i class="fa fa-calendar"></i> <small>{{ article.createdAt | date }}</small></li>
+                <li><i class="fa fa-thumbs-up"></i> <small>{{ article.likes.length }} </small></li>
+                <li><i class="fa fa-thumbs-down"></i> <small>{{ article.dislikes.length }} </small></li>
+                <li><i class="fa fa-comment"></i> <small>{{ article.comments.length }} comments</small></li>
+              </ul>
+              <div class="actions">
+                <button class="delete" (click)="deleteArticle(article._id)">Delete</button>
+                <button class="see-more" [routerLink]="['/article-details', article._id]">See More</button>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <h2>Draft Articles</h2>
+      <div *ngIf="!drafts.length" class="alert alert-info">
+        You have no drafts at the moment.
+      </div>
+
+      <!-- Draft Articles List -->
+      <ul class="list-listings">
+        <li *ngFor="let article of drafts">
+          <div class="listing-image">
+            <img [src]="article.image" class="img-responsive" alt="{{ article.title }}">
+          </div>
+          <div class="listing-body">
+            <h3>{{ article.title }}</h3>
+            <p [innerHTML]="article.content"></p>
+            <div class="meta-info">
+              <ul>
+                <li><i class="fa fa-calendar"></i> <small>{{ article.createdAt | date }}</small></li>
+              </ul>
+              <div class="actions">
+                <button class="delete" (click)="deleteArticle(article._id)">Delete</button>
+                <button class="publish" (click)="publishArticle(article._id)">Publish</button>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</main>

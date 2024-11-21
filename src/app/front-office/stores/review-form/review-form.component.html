@@ -1,0 +1,61 @@
+<section class="review-section">
+  <div class="container my-1 py-1 text-body">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-12 col-lg-10 col-xl-8">
+        <div *ngIf="!isConnected" class="alert alert-warning text-center">
+          Vous devez être connecté pour ajouter un avis.
+        </div>
+    
+    <form *ngIf="isConnected" [formGroup]="reviewForm" (ngSubmit)="submitReview()" class="review-form">
+      <!-- Review Content -->
+      <div class="form-group mb-4">
+        <label for="content" class="form-label">Ajouter votre avis :</label>
+        <textarea
+          id="content"
+          class="form-control"
+          formControlName="content"
+          rows="4"
+          placeholder="Écrivez votre avis ici..."
+        ></textarea>
+        <div *ngIf="reviewForm.controls['content'].invalid && reviewForm.controls['content'].touched" class="text-danger mt-1">
+          Le contenu est requis.
+        </div>
+      </div>
+
+      <!-- Star Rating and Submit Button in one line -->
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <!-- Star Rating -->
+        <div class="rating">
+          <ng-container *ngFor="let star of stars">
+            <input
+              type="radio"
+              [id]="'star' + star"
+              name="rating"
+              [value]="star"
+              formControlName="rating"
+              class="star-input"
+            />
+            <label [for]="'star' + star" [title]="star + ' étoiles'" class="star-label">
+              <i
+                [class]="
+                  reviewForm.get('rating')?.value >= star ? 'fas fa-star filled-star' : 'far fa-star empty-star'
+                "
+              ></i>
+            </label>
+          </ng-container>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary" [disabled]="reviewForm.invalid">
+          Soumettre l'avis
+        </button>
+      </div>
+
+      <div *ngIf="reviewForm.controls['rating'].invalid && reviewForm.controls['rating'].touched" class="text-danger">
+        La note est requise.
+      </div>
+    </form>
+      </div>
+    </div>
+  </div>
+</section>

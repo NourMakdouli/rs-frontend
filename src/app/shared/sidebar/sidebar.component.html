@@ -1,0 +1,115 @@
+<!-- ======= Sidebar ======= --> 
+<aside id="sidebar" class="sidebar">
+  <ul class="sidebar-nav" id="sidebar-nav">
+
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/home">
+        <i class="bi bi-house-door-fill"></i>
+        <span>Acceuil</span>
+      </a>
+    </li><!-- end Home Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" routerLink="/marketplace/cart" routerLinkActive="active">
+        <i class="bi bi-person-lines-fill"></i>
+        <span>Contact</span>
+      </a>
+    </li><!-- End Contacts Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" routerLink="/marketplace/cart" routerLinkActive="active">
+        <i class="bi bi-cart-fill"></i>
+        <span>Mon Panier</span>
+      </a>
+    </li><!-- End Cart Nav -->
+    <!-- Extra nav-items for merchants only -->
+    <li *ngIf="isMerchant()" class="nav-item">
+      <a class="nav-link collapsed" routerLink="/productsByUser">
+        <i class="bi bi-shop"></i>
+        <span>Biens</span>
+      </a>
+    </li><!-- End Merchant Dashboard Nav -->
+
+    <li *ngIf="isMerchant()" class="nav-item">
+      <a class="nav-link collapsed" routerLink="/orders-by-merchant">
+        <i class="bi bi-receipt"></i>
+        <span>Commandes</span>
+      </a>
+    </li><!-- End Merchant Orders Nav -->
+
+    <li class="nav-item" *ngIf="isMerchant()">
+      <a class="nav-link collapsed" routerLink="/orders-by-individual">
+        <i class="bi bi-bag-fill"></i>
+        <span>Cmmands Made By me</span>
+      </a>
+    </li><!-- End Merchant Orders Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" routerLink="/marketpalace/products">
+        <i class="bi bi-envelope"></i>
+        <span>Avis & Notes</span>
+      </a>
+    </li><!-- End Contact Page Nav -->
+    <li class="nav-item" *ngIf="isMerchant()">
+      <a class="nav-link collapsed" routerLink="/disounts">
+        <i class="bi bi-percent"></i>
+        <span>Réductions</span>
+      </a>
+    </li><!-- End Contact Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-register.html">
+        <i class="bi bi-wallet2"></i>
+        <span>Mes parrainanges</span>
+      </a>
+    </li><!-- End Register Page Nav -->
+    <li class="nav-item" *ngIf="isMerchant()"></li>
+      <a class="nav-link collapsed" routerLink="/articlesByUser">
+        <i class="bi bi-card-text"></i>
+        <span>Mes Actualités</span>
+      </a>
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/wishlist">
+        <i class="bi bi-heart-fill"></i>
+        <span>Favoris</span>
+      </a>
+    </li><!-- End Favorites Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-error-404.html">
+        <i class="bi bi-bar-chart-line"></i>
+        <span>Coworking</span>
+      </a>
+    </li><!-- End Coworking Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-blank.html">
+        <img src="https://reseau.site/compte/upload/FAVICONE_ASSURANCE_FRANCE-03.png" style="display:inline!important;max-width: 15px;height: auto;margin-right: 1rem!important;" class="avatar">
+        <span>Assurances France</span>
+      </a>
+    </li><!-- End Blank Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-blank.html">
+        <img src="https://reseau.site/compte/upload/chien.jpg" style="display:inline!important;max-width: 14px;height: auto;margin-right: 1rem!important;" class="avatar">
+        <span>Le plus beau chien</span>
+      </a>
+    </li><!-- End Blank Page Nav -->
+
+    <li class="nav-item">
+      <a href="https://reseau.site/compte/beauxchats.php" class="nav-link collapsed">
+        <img src="https://reseau.site/compte/upload/chat.jpg" style="display:inline!important;max-width: 15px;height: auto;margin-right: 1rem!important;" class="avatar">
+        <span>Le plus beau chat</span>
+      </a>
+    </li><!-- End Blank Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-blank.html">
+        <img src="https://www.immocredit.fr/assets/images/logo.png" style="display:inline!important;max-width: 20px;height: auto;margin-right: 1rem!important;" class="avatar">
+        <span>Immocrédit</span>
+      </a>
+    </li><!-- End Immocrédit Page Nav -->
+
+
+  </ul>
+</aside><!-- End Sidebar-->

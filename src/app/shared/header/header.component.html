@@ -1,0 +1,143 @@
+<header id="header" class="header fixed-top d-flex align-items-center navbar-expand-lg">
+  <div class="container-fluid d-flex align-items-center justify-content-between header-nav">
+    
+    <!-- Logo and Toggle Button -->
+    <div class="d-flex align-items-center">
+      <img src="https://reseau.site/image/logors.jpeg" class="img-logo" alt="Logo">
+      <a routerLink="/home" class="text-white ms-2">
+        <span class="text-first p-2">Par</span>
+        <span class="text-red">R</span>éseau.<span class="text-red">S</span>ite
+      </a>
+      <i *ngIf="isAuthenticated" class="bi bi-list toggle-sidebar-btn ms-3" (click)="toggle()"></i>
+    </div>
+
+    <!-- Centered Welcome Message or Register Link -->
+    <div class="">
+      <!-- Authenticated: Welcome Message -->
+      <div *ngIf="isAuthenticated" class="navbar-text text-white">
+        <app-clock></app-clock>, it's
+        <app-weather></app-weather>
+      </div>
+
+      <!-- Not Authenticated: Register Link -->
+      <a *ngIf="!isAuthenticated" routerLink="/register" class="btn btn-info site-link">Rejoignez-nous</a>
+    </div>
+
+    <!-- Right-Aligned Buttons -->
+    <div class="d-flex align-items-center">
+
+      <!-- Notifications Dropdown -->
+      <div *ngIf="isAuthenticated" class="nav-item dropdown position-relative me-2">
+        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-bell"></i>
+          <span *ngIf="unreadNotificationsCount > 0" class="badge bg-primary badge-number">{{ unreadNotificationsCount }}</span>
+        </a><!-- End Notification Icon -->
+    
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+          <li class="dropdown-header">
+            Vous avez {{ unreadNotificationsCount }} nouvelles notifications
+            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">Voir tout</span></a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+        
+          <!-- Notification Items -->
+          <ng-container *ngFor="let notification of notifications">
+            <li class="notification-item" (click)="markAsRead(notification)" [class.unread]="!notification.read">
+              <span
+                class="notification-icon"
+                [ngStyle]="{ 'background-color': getNotificationColor(notification.type) }"
+              ></span>
+              <div class="notification-content">
+                <p>
+                  {{ notification.message }} - {{ notification.createdAt | date:'short' }}
+                </p>
+              </div>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+          </ng-container>
+        
+          <li class="dropdown-footer">
+            <a href="#">Afficher toutes les notifications</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Wishlist Button -->
+      <button type="button" class="position-relative me-2 icon-btn" (click)="accessWishlist()">
+        <div class="wishlist-icon-wrapper">
+          <i class="bi bi-heart"></i>
+        </div>                          
+        <span *ngIf="wishlistCount > 0" class="badge bg-danger badge-number">{{ wishlistCount }}</span>
+      </button>
+
+      <!-- Cart Button -->
+      <button
+        class="position-relative me-2 icon-btn"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasExample"
+        aria-controls="offcanvasExample">
+        <div class="cart-icon-wrapper">
+          <i class="bi bi-basket"></i>
+        </div>
+        <span *ngIf="cartCount > 0" class="badge bg-dark badge-number">{{ cartCount }}</span>
+      </button>
+
+      <!-- Profile and Logout Buttons -->
+      <a class="nav-link nav-profile d-flex align-items-center me-2" href="#" data-bs-toggle="dropdown" *ngIf="isAuthenticated">
+        <span class="d-none d-md-block dropdown-toggle ps-2 text-light">{{user?.username}}</span>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+        <li class="dropdown-header">
+          <h6>{{user?.firstname}} {{user?.lastname}}</h6>
+          <span>{{user?.role}}</span>
+        </li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <li>
+          <a class="dropdown-item d-flex align-items-center" routerLink="/profile">
+            <i class="bi bi-person"></i>
+            <span>Mon profil</span>
+          </a>
+        </li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <li>
+          <a class="dropdown-item d-flex align-items-center" routerLink="/profile-settings">
+            <i class="bi bi-gear"></i>
+            <span>Paramètres du compte</span>
+          </a>
+        </li>
+        <hr class="dropdown-divider">
+        <li>
+          <a class="dropdown-item d-flex align-items-center" routerLink="/buy-tokens">
+            <i class="bi bi-coin"></i>
+            <span>Acheter des jetons</span>
+          </a>
+        </li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <li>
+          <a class="dropdown-item d-flex align-items-center" (click)="logout()">
+            <i class="bi bi-box-arrow-right"></i>
+            <span>Déconnexion</span>
+          </a>
+        </li>
+      </ul>
+      
+      <!-- Not Authenticated: Login Button -->
+      <p *ngIf="!isAuthenticated" class="text-white mt-3 mx-2">Avez vous déjà un compte ?</p>
+      <a *ngIf="!isAuthenticated" routerLink="/login" class="btn btn-light">Connexion</a>
+    </div>
+  </div>
+</header>
+
+<!-- Sidebar visible uniquement si l'utilisateur est authentifié -->
+<app-sidebar *ngIf="isAuthenticated"></app-sidebar>

@@ -1,0 +1,4 @@
+<span *ngIf="temperature !== null && weatherIconUrl">
+  <span>{{ getFormattedTemperature() }} °C</span>
+  <img [src]="weatherIconUrl" alt="Weather Icon" >
+</span>

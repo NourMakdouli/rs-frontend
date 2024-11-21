@@ -1,0 +1,229 @@
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Profile</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">Users</li>
+          <li class="breadcrumb-item active">Profile</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section profile">
+      <div class="row">
+        <div class="col-xl-4">
+
+          <div class="card">
+            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+              <img [src]="currentUser.image
+                ? currentUser.image 
+                : 'assets/img/profile-img.jpg'
+            " alt="Profile" class="rounded-circle" [style.width.px]="150" />
+              
+              
+              <h2>{{ currentUser.firstname }} {{ currentUser.lastname }}</h2>
+              <h3> {{ currentUser.role }}</h3>
+              <div class="social-links mt-2">
+                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-xl-8">
+
+          <div class="card">
+            <div class="card-body pt-3">
+              <!-- Bordered Tabs -->
+              <ul class="nav nav-tabs nav-tabs-bordered" role="tablist">
+
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview" aria-selected="true" role="tab">Overview</button>
+                </li>
+
+
+
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings" aria-selected="false" tabindex="-1" role="tab">Enable Payment</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit" aria-selected="false" tabindex="-1" role="tab">2 factor autnetification</button>
+                  </li>
+
+             
+
+              </ul>
+              <div class="tab-content pt-2">
+
+                <div class="tab-pane fade show active profile-overview" id="profile-overview" role="tabpanel">
+                  <h5 class="card-title">Profile Settings</h5>
+                  <p class="small fst-italic">This page contains the different settings that you can modift to personalize your brwsing experience.</p>
+
+                  <h5 class="card-title">Profile settings Details</h5>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                    <div class="col-lg-9 col-md-8">{{ currentUser.firstname }} {{ currentUser.lastname }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Username</div>
+                    <div class="col-lg-9 col-md-8">{{ currentUser.username }}</div>
+                  </div>
+                
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Role</div>
+                    <div class="col-lg-9 col-md-8">{{ currentUser.role }}</div>
+                  </div>
+                
+                  <h5 class="card-title mt-4">Settings Status</h5>
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Selling Enabled</div>
+                    <div class="col-lg-9 col-md-8">
+                      <span [ngClass]="isSellingEnabled ? 'text-success' : 'text-danger'">
+                        {{ isSellingEnabled ? 'Enabled' : 'Disabled' }}
+                      </span>
+                    </div>
+                  </div>
+                
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Two-Factor Authentication</div>
+                    <div class="col-lg-9 col-md-8">
+                      <span [ngClass]="isTwoFactorEnabled ? 'text-success' : 'text-danger'">
+                        {{ isTwoFactorEnabled ? 'Enabled' : 'Disabled' }}
+                      </span>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="tab-pane fade profile-edit pt-3" id="profile-edit" role="tabpanel">
+
+                    <app-two-factor-settings></app-two-factor-settings>
+
+                </div>
+
+<!-- Enable Payment Tab -->
+<div class="tab-pane fade pt-3" id="profile-settings" role="tabpanel" >
+  <p class="text-center " *ngIf="!isSellingEnabled">
+    Enable payment and make everything profitable.
+  </p>
+  <p class="text-center text-title"  *ngIf="isSellingEnabled">
+All your products are available for sale.  </p>
+
+
+  <!-- Check if selling is enabled -->
+  <div *ngIf="!isSellingEnabled">
+    <button class="btn btn-primary" (click)="enableSelling()" [disabled]="isLoading">
+      {{ isLoading ? 'Processing...' : 'Enable Selling' }}
+    </button>
+  </div>
+  <!-- Bank Account Registration Form
+ <input [(ngModel)]="documentId" placeholder="Document ID" />
+    <select [(ngModel)]="status">
+      <option value="VALIDATION_ASKED">Validation Asked</option>
+      <option value="VALIDATED">Validated</option>
+      <option value="REFUSED">Refused</option>
+    </select>
+    <button (click)="simulate()">Simulate Document Status</button>
+   -->
+  <div *ngIf="showBankForm">
+    <h3>Register Bank Account</h3>
+    <form (ngSubmit)="registerBankAccount()" #bankForm="ngForm" class="needs-validation" novalidate>
+      <div class="row mb-3">
+        <label for="iban" class="col-md-4 col-form-label">IBAN</label>
+        <div class="col-md-8">
+          <input
+            type="text"
+            class="form-control"
+            id="iban"
+            name="iban"
+            [(ngModel)]="bankAccountDetails.iban"
+            required
+            minlength="15"
+            maxlength="34"
+            pattern="[A-Z]{2}[0-9A-Z]{13,32}"
+            #ibanInput="ngModel"
+          />
+          <div *ngIf="ibanInput.invalid && (ibanInput.dirty || ibanInput.touched)" class="invalid-feedback">
+            <div *ngIf="ibanInput.hasError('required')">IBAN is required.</div>
+            <div *ngIf="ibanInput.hasError('pattern')">Please provide a valid IBAN.</div>
+            <div *ngIf="ibanInput.hasError('minlength') || ibanInput.hasError('maxlength')">
+              IBAN must be between 15 and 34 characters.
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="row mb-3">
+        <label for="bic" class="col-md-4 col-form-label">BIC</label>
+        <div class="col-md-8">
+          <input
+            type="text"
+            class="form-control"
+            id="bic"
+            name="bic"
+            [(ngModel)]="bankAccountDetails.bic"
+            required
+            minlength="8"
+            maxlength="11"
+            pattern="^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$"
+            #bicInput="ngModel"
+          />
+          <div *ngIf="bicInput.invalid && (bicInput.dirty || bicInput.touched)" class="invalid-feedback">
+            <div *ngIf="bicInput.hasError('required')">BIC is required.</div>
+            <div *ngIf="bicInput.hasError('pattern')">Please provide a valid BIC.</div>
+            <div *ngIf="bicInput.hasError('minlength') || bicInput.hasError('maxlength')">
+              BIC must be 8 or 11 characters.
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary" [disabled]="bankForm.invalid || isLoading">
+          {{ isLoading ? 'Registering...' : 'Register Bank Account' }}
+        </button>
+      </div>
+    </form>
+    
+  </div>
+<!-- Document Upload Form for KYC Verification -->
+<div *ngIf="isSellingEnabled && showBankForm">
+  <h3>Upload KYC Document</h3>
+  <p class="text-muted">Please upload your ID or proof of address to complete KYC verification.</p>
+  <input type="file" (change)="onFileSelected($event)" accept=".pdf,.jpg,.jpeg,.png" />
+
+  <button class="btn btn-primary mt-2" (click)="uploadKycDocument()" [disabled]="isLoading || !selectedFile">
+    {{ isLoading ? 'Uploading...' : 'Upload Document' }}
+  </button>
+</div>
+
+  <!-- Selling Enabled Message with Disable Option -->
+  <div *ngIf="isSellingEnabled && !showBankForm" class="text-center">
+    <div class="alert alert-success" role="alert">
+      Selling is currently enabled.
+    </div>
+    <button class="btn btn-danger" (click)="disableSelling()" [disabled]="isLoading">
+      {{ isLoading ? 'Processing...' : 'Disable Selling' }}
+    </button>
+  </div>
+</div>
+
+
+              </div><!-- End Bordered Tabs -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>

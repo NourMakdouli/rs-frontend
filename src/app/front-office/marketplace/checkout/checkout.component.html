@@ -1,0 +1,109 @@
+<main id="main" class="main">
+    <div class="row">
+      <div class="col-md-4 order-md-2 mb-4">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-muted">Your Order details  </span>
+           <span class="badge rounded-pill bg-secondary">{{itemCartsNumber}}</span>      </h4>
+        <div *ngIf="pendingOrder">
+          <ul class="list-group mb-3">
+            <li *ngFor="let item of pendingOrder.cartItems" class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <h6 class="my-0">{{ item.title }}</h6>
+                <small class="text-muted" [innerHTML]="item.description">
+                </small>
+              </div>
+              <span class="text-muted">{{ item.price | currency }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Total (USD)</span>
+              <strong>{{ pendingOrder.totalPrice | currency }}</strong>
+            </li>
+          </ul>
+        </div>
+        
+  
+      </div>
+      <div class="col-md-8 order-md-1">
+        <h4 class="mb-3">Payment</h4>
+        <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()" novalidate>
+      
+          <!-- Name on Card -->
+          <div class="row mb-3">
+            <div class="col-md-9">
+              <div class="comment-form__input-box">
+                <input type="text" placeholder="Name on card" class="form-control" formControlName="cardName">
+              </div>
+              <small class="text-muted">Full name as displayed on card</small>
+            </div>
+            <span class="text-danger error-msg"
+                  *ngIf="checkoutForm.controls['cardName'].invalid && checkoutForm.controls['cardName'].touched">
+              <span *ngIf="checkoutForm.controls['cardName'].hasError('required')">This field is required.</span>
+            </span>
+          </div>
+        
+          <!-- Card Number with dynamic card logos -->
+          <div class="row mb-3"> 
+            <div class="col-md-7">
+              <div class="comment-form__input-box input-with-icon">
+                <input type="text" placeholder="Credit card number" class="form-control" formControlName="cardNumber">
+                <!-- Card icons next to input field -->
+              </div>
+              <small class="text-muted">The 16 digits on the front of your credit card.</small>
+            </div>
+            <div class="col-md-2">
+              <img src="assets/images/pngegg.png" alt="Visa_mastercard_cb" style="width: 120%; height: auto;">
+
+            </div>
+
+            <span class="text-danger error-msg"
+                  *ngIf="checkoutForm.controls['cardNumber'].invalid && checkoutForm.controls['cardNumber'].touched">
+              <span *ngIf="checkoutForm.controls['cardNumber'].hasError('required')">This field is required.</span>
+              <span *ngIf="checkoutForm.controls['cardNumber'].hasError('pattern')">Invalid card number.</span>
+            </span>
+          </div>
+      
+          <!-- Expiration Date -->
+      <!-- Expiration Date -->
+<div class="row mb-3">
+  <div class="col-md-9">
+    <div class="comment-form__input-box">
+      <input type="text" placeholder="Expiration (MMYY)" class="form-control" formControlName="cardExpiration">
+    </div>
+    <small class="text-muted">The date your credit card expires.</small>
+  </div>
+  <span class="text-danger error-msg"
+        *ngIf="checkoutForm.controls['cardExpiration'].invalid && checkoutForm.controls['cardExpiration'].touched">
+    <span *ngIf="checkoutForm.controls['cardExpiration'].hasError('required')">This field is required.</span>
+    <span *ngIf="checkoutForm.controls['cardExpiration'].hasError('pattern')">Invalid expiration format. (MMYY)</span>
+    <span *ngIf="checkoutForm.controls['cardExpiration'].hasError('invalidExpiration')">Invalid expiration date.</span>
+    <span *ngIf="checkoutForm.controls['cardExpiration'].hasError('expired')">Card has expired!</span>
+  </span>
+</div>
+
+      
+          <!-- CVV -->
+          <div class="row mb-3">
+            <div class="col-md-9">
+              <div class="comment-form__input-box">
+                <input type="text" placeholder="CVV" class="form-control" formControlName="cardCvx">
+              </div>
+              <small class="text-muted">The last 3 digits displayed on the back of your credit card.</small>
+            </div>
+            <span class="text-danger error-msg"
+                  *ngIf="checkoutForm.controls['cardCvx'].invalid && checkoutForm.controls['cardCvx'].touched">
+              <span *ngIf="checkoutForm.controls['cardCvx'].hasError('required')">This field is required.</span>
+              <span *ngIf="checkoutForm.controls['cardCvx'].hasError('pattern')">Invalid CVV code.</span>
+            </span>
+          </div>
+      
+          <hr class="mb-4">
+          <button class="btn btn-primary btn-lg btn-block" type="submit"  [disabled]="checkoutForm.invalid || isLoading" >Continue to checkout               {{ isLoading ? 'Processing...' : 'Submit' }}
+          </button>
+        
+        </form>
+      </div>
+      
+      
+    </div>
+  </main>
+  

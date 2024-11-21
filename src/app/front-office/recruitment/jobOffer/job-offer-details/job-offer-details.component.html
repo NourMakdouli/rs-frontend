@@ -1,0 +1,160 @@
+<main id="main" class="main">
+    <div class="pagetitle">
+      <h1>Postuler</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/home">Acceuil</a></li>
+          <li class="breadcrumb-item">Recrutement</li>
+          <li class="breadcrumb-item active">Postuler</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+  
+    <section class="section">
+      <div class="row">
+        <!-- Job Offer Details Section -->
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-body" *ngIf="jobOffer">
+              <h5 class="card-title">Offre D'emploi: {{ jobOffer.typeOfJob }}</h5>
+              <img [src]="jobOffer.image" alt="Job Image" class="img-fluid job-image" />
+              <div class="job-details">
+                <p><strong>Description:</strong> {{ jobOffer.description }}</p>
+                <p><strong>Type de Contrat:</strong> {{ jobOffer.contractType }}</p>
+                <p><strong>Temps de Travail:</strong> {{ jobOffer.time }}</p>
+                <p><strong>Salaire:</strong> {{ jobOffer.salaryMin }} - {{ jobOffer.salaryMax }} {{ jobOffer.salaryType }}</p>
+                <p *ngIf="jobOffer.driversLicense"><strong>Permis de conduire requis</strong></p>
+                <p><strong>Adresse:</strong> {{ jobOffer.address }}</p>
+                <p *ngIf="jobOffer.immediateHire"><strong>Embauche immédiate</strong></p>
+                <p><strong>Store:</strong> {{ jobOffer.store.name }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Job Application Section -->
+       <!-- Job Application Section -->
+<div class="col-lg-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Postuler</h5>
+        <p>Remplissez le formulaire ci-dessous pour postuler à cette offre.</p>
+  
+        <form [formGroup]="applicationForm" (ngSubmit)="onSubmit()" class="row g-3 needs-validation" novalidate>
+          <!-- First Name -->
+          <div class="col-12">
+            <label for="firstname" class="form-label">Prénom</label>
+            <input
+              type="text"
+              formControlName="firstname"
+              id="firstname"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': isSubmitted && f['firstname'].errors }"
+            />
+            <div *ngIf="isSubmitted && f['firstname'].errors" class="invalid-feedback">
+              <div *ngIf="f['firstname'].hasError('required')">Le prénom est requis</div>
+            </div>
+          </div>
+  
+          <!-- Last Name -->
+          <div class="col-12">
+            <label for="lastname" class="form-label">Nom</label>
+            <input
+              type="text"
+              formControlName="lastname"
+              id="lastname"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': isSubmitted && f['lastname'].errors }"
+            />
+            <div *ngIf="isSubmitted && f['lastname'].errors" class="invalid-feedback">
+              <div *ngIf="f['lastname'].hasError('required')">Le nom est requis</div>
+            </div>
+          </div>
+  
+          <!-- Email -->
+          <div class="col-12">
+            <label for="email" class="form-label">Email</label>
+            <input
+              type="email"
+              formControlName="email"
+              id="email"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': isSubmitted && f['email'].errors }"
+            />
+            <div *ngIf="isSubmitted && f['email'].errors" class="invalid-feedback">
+              <div *ngIf="f['email'].hasError('required')">L'email est requis</div>
+              <div *ngIf="f['email'].hasError('emailFormat')">Format d'email invalide</div>
+            </div>
+          </div>
+  
+          <!-- Phone Number -->
+          <div class="col-12">
+            <label for="phoneNumber" class="form-label">Numéro de téléphone</label>
+            <input
+              type="text"
+              formControlName="phoneNumber"
+              id="phoneNumber"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': isSubmitted && f['phoneNumber'].errors }"
+            />
+            <div *ngIf="isSubmitted && f['phoneNumber'].errors" class="invalid-feedback">
+              <div *ngIf="f['phoneNumber'].hasError('required')">Le numéro de téléphone est requis</div>
+            </div>
+          </div>
+  
+          <!-- City -->
+          <div class="col-12">
+            <label for="city" class="form-label">Ville</label>
+            <input type="text" formControlName="city" id="city" class="form-control" />
+          </div>
+  
+          <!-- Postal Code -->
+          <div class="col-12">
+            <label for="postalCode" class="form-label">Code Postal</label>
+            <input type="text" formControlName="postalCode" id="postalCode" class="form-control" />
+          </div>
+  
+          <!-- Description -->
+          <div class="col-12">
+            <label for="description" class="form-label">Description</label>
+            <textarea
+              class="form-control"
+              id="description"
+              formControlName="description"
+              rows="3"
+            ></textarea>
+          </div>
+  
+          <!-- Resume Upload -->
+          <div class="col-12">
+            <label for="resume" class="form-label">CV (Optionnel)</label>
+            <input
+              type="file"
+              class="form-control"
+              id="resume"
+              (change)="onFileSelected($event)"
+              accept=".pdf,.doc,.docx"
+            />
+            <div *ngIf="uploadError" class="text-danger">{{ uploadError }}</div>
+          </div>
+  
+          <!-- Hidden Fields -->
+          <input type="hidden" formControlName="typeOfJob" />
+          <input type="hidden" formControlName="applicationType" />
+          <input type="hidden" formControlName="isLinkedToJobOffer" />
+          <input type="hidden" formControlName="jobOffer" />
+  
+          <!-- Submit Button -->
+          <div class="col-12">
+            <button type="submit" [disabled]="loading" class="btn btn-primary w-100">Envoyer ma candidature</button>
+            <div *ngIf="loading">Envoi en cours...</div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+      </div>
+    </section>
+  </main>
+  

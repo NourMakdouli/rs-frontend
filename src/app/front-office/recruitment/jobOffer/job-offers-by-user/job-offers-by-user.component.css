@@ -1,0 +1,155 @@
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Page Title */
+.pagetitle h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.breadcrumb {
+  margin-bottom: 20px;
+}
+
+/* Toolbar: Search and Add Button */
+.toolbar {
+  margin-bottom: 20px;
+}
+
+.search-bar {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 300px;
+}
+
+.btn-primary {
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Job Offers Dashboard */
+.job-offers-dashboard {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.job-offer-card {
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  background-color: #fff;
+  transition: box-shadow 0.3s ease;
+}
+
+.job-offer-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.job-offer-header h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.job-offer-header .description {
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.job-offer-header .posted-date {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.expand-button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  color: #007bff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.expand-button:hover {
+  text-decoration: none;
+}
+
+.expand-button i {
+  margin-left: 5px;
+}
+
+
+
+/* Loading and Error Styles */
+.loading-indicator,
+.error-message {
+  font-style: italic;
+  margin: 15px 0
+}/* Applications Section with Transition */
+.applications-section {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.applications-section.expanded {
+  max-height: 1000px; /* Set a high enough value for the expanded state */
+}
+
+.table-applications {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #fff;
+}
+
+.table-applications th,
+.table-applications td {
+  border: 1px solid #ddd;
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.table-applications th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+.table-applications tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.table-applications tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.table-applications td button {
+  padding: 8px 12px;
+  font-size: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.table-applications td button:hover {
+  background-color: #0056b3;
+}

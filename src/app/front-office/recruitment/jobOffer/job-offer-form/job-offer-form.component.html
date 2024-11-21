@@ -1,0 +1,187 @@
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Créer une offre d'emploi</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/home">Acceuil</a></li>
+            <li class="breadcrumb-item"><a routerLink="/job-offers-by-merchant">Mes Offres</a></li>
+            <li class="breadcrumb-item active">Créer une offre d'emploi</li>
+          </ol>
+        </nav>
+      </div>
+    <section class="section">
+        <div class="row justify-content-center">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Remplissez ce formulaire</h5>
+
+                        <form [formGroup]="jobOfferForm" (ngSubmit)="onSubmit()" class="row g-3">
+                            <!-- Type of Job -->
+                            <div class="col-md-3">
+                                <label for="typeOfJob" class="form-label">Type of Job</label>
+                                <select id="typeOfJob" class="form-select" formControlName="typeOfJob"
+                                    [ngClass]="{ 'is-invalid': isSubmitted && f['typeOfJob'].errors }">
+                                    <option value="" disabled>Select Type of Job</option>
+                                    <option *ngFor="let jobType of jobTypes" [value]="jobType">{{ jobType }}</option>
+                                </select>
+                                <div *ngIf="isSubmitted && f['typeOfJob'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['typeOfJob'].hasError('required')">Type of Job is required</div>
+                                </div>
+                            </div>
+
+                           
+
+                            <!-- Contract Type -->
+                            <div class="col-md-3">
+                                <label for="contractType" class="form-label">Contract Type</label>
+                                <select id="contractType" class="form-select" formControlName="contractType"
+                                    [ngClass]="{ 'is-invalid': isSubmitted && f['contractType'].errors }">
+                                    <option value="" disabled>Select Contract Type</option>
+                                    <option *ngFor="let contractType of contractTypes" [value]="contractType">
+                                        {{ contractType }}
+                                    </option>
+                                </select>
+                                <div *ngIf="isSubmitted && f['contractType'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['contractType'].hasError('required')">Contract Type is required</div>
+                                </div>
+                            </div>
+
+                            <!-- Address -->
+                            <div class="col-md-6">
+                                <label for="address" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="address" formControlName="address"
+                                    [ngClass]="{ 'is-invalid': isSubmitted && f['address'].errors }" />
+                                <div *ngIf="isSubmitted && f['address'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['address'].hasError('required')">Address is required</div>
+                                </div>
+                            </div>
+                         
+
+                            <!-- Salary Min -->
+                            <div class="col-md-3">
+                                <label for="salaryMin" class="form-label">Minimum Salary</label>
+                                <input type="number" class="form-control" id="salaryMin" formControlName="salaryMin"
+                                    [ngClass]="{ 'is-invalid': isSubmitted && f['salaryMin'].errors }" />
+                                <div *ngIf="isSubmitted && f['salaryMin'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['salaryMin'].hasError('required')">Minimum Salary is required</div>
+                                    <div *ngIf="f['salaryMin'].hasError('min')">Minimum Salary must be positive</div>
+                                </div>
+                            </div>
+
+                            <!-- Salary Max -->
+                            <div class="col-md-3">
+                                <label for="salaryMax" class="form-label">Maximum Salary</label>
+                                <input type="number" class="form-control" id="salaryMax" formControlName="salaryMax"
+                                    [ngClass]="{ 'is-invalid': isSubmitted && f['salaryMax'].errors }" />
+                                <div *ngIf="isSubmitted && f['salaryMax'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['salaryMax'].hasError('required')">Maximum Salary is required</div>
+                                    <div *ngIf="f['salaryMax'].hasError('min')">Maximum Salary must be positive</div>
+                                    <!-- Salary Max -->
+                                    <div *ngIf="f['salaryMax'].hasError('salaryRangeInvalid') && isSubmitted"
+                                        class="invalid-feedback">
+                                        <div>Maximum Salary must be greater than Minimum Salary</div>
+                                    </div>
+
+                                </div>
+                            </div>
+   <!-- Time Type -->
+   <div class="col-md-3">
+    <label for="time" class="form-label">Time Type</label>
+    <select id="time" class="form-select" formControlName="time"
+        [ngClass]="{ 'is-invalid': isSubmitted && f['time'].errors }">
+        <option value="" disabled>Select Time Type</option>
+        <option *ngFor="let timeType of timeTypes" [value]="timeType">{{ timeType }}
+        </option>
+    </select>
+    <div *ngIf="isSubmitted && f['time'].errors" class="invalid-feedback">
+        <div *ngIf="f['time'].hasError('required')">Time Type is required</div>
+    </div>
+</div>
+                            <!-- Salary Type -->
+                            <div class="col-md-3">
+                                <label for="salaryType" class="form-label">Salary Type</label>
+                                <select id="salaryType" class="form-select" formControlName="salaryType"
+                                    [ngClass]="{ 'is-invalid': isSubmitted && f['salaryType'].errors }">
+                                    <option value="" disabled>Select Salary Type</option>
+                                    <option *ngFor="let salaryType of salaryTypes" [value]="salaryType">
+                                        {{ salaryType }}
+                                    </option>
+                                </select>
+                                <div *ngIf="isSubmitted && f['salaryType'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['salaryType'].hasError('required')">Salary Type is required</div>
+                                </div>
+                            </div>
+
+                            <!-- Driver's License -->
+                            <div class="col-md-3">
+                                <label class="form-label">Driver's License Required</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="driversLicenseYes" [value]="true"
+                                        formControlName="driversLicense" />
+                                    <label class="form-check-label" for="driversLicenseYes">Yes</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="driversLicenseNo" [value]="false"
+                                        formControlName="driversLicense" />
+                                    <label class="form-check-label" for="driversLicenseNo">No</label>
+                                </div>
+                            </div>
+                             <!-- Immediate Hire -->
+                             <div class="col-md-3">
+                                <label class="form-label">Immediate Hire</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="immediateHireYes" [value]="true"
+                                        formControlName="immediateHire" />
+                                    <label class="form-check-label" for="immediateHireYes">Oui</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="immediateHireNo" [value]="false"
+                                        formControlName="immediateHire" />
+                                    <label class="form-check-label" for="immediateHireNo">Non</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="image"  class="form-label">Télecharger  Image</label>
+
+                                <div class="col-sm-10">
+                                  <input
+                                    class="form-control"
+                                    type="file"
+                                    id="image"
+                                    (change)="onFileSelected($event)"
+                                    [ngClass]="{'is-invalid': jobOfferForm.get('image')?.invalid && jobOfferForm.get('image')?.touched}"
+                                  />
+                                  <img *ngIf="previewUrl" [src]="previewUrl" class="img-thumbnail mt-3" alt="Selected Image" />
+                                  <div *ngIf="jobOfferForm.get('image')?.invalid && jobOfferForm.get('image')?.touched" class="invalid-feedback">
+                                    <div *ngIf="jobOfferForm.get('image')?.errors?.['required']">Image is required.</div>
+                                  </div>
+                                </div>
+                              </div>
+
+ <!-- Description -->
+ <div class="col-md-12">
+    <label for="description" class="form-label">Description</label>
+    <textarea class="form-control" id="description" formControlName="description" rows="3"
+        [ngClass]="{ 'is-invalid': isSubmitted && f['description'].errors }"></textarea>
+    <div *ngIf="isSubmitted && f['description'].errors" class="invalid-feedback">
+        <div *ngIf="f['description'].hasError('required')">Description is required</div>
+    </div>
+</div>
+                           
+                            
+                            
+                            <!-- Submit Button -->
+                            <div class="row justify-content-center">
+
+                            <div class="col-4 mt-4">
+                                <button type="submit" [disabled]="loading" class="btn btn-primary w-100">Submit</button>
+                                <div *ngIf="loading">Submitting...</div>
+                            </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </section>
+</main>

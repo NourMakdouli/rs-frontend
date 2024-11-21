@@ -1,0 +1,27 @@
+/* Add this in your component's CSS file */
+.image-container:hover .overlay {
+    position: absolute;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay for better visibility of the icon */
+    width: 100%;
+    transition: 0.5s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .overlay {
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .profile-img {
+    transition: transform 0.5s ease;
+  }
+  
+  .image-container:hover .profile-img {
+    transform: scale(1.05); /* Optional: scale up the image slightly on hover */
+  }
+  

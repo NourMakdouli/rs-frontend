@@ -1,0 +1,33 @@
+<main >
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">Les Actualités</h1>
+    </div>
+  </section>
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+      <div class="row">
+        <!-- Loop through articles -->
+        <div class="col-md-4" *ngFor="let article of articles | isDraftFilter: false">
+          <div class="card mb-4 box-shadow">
+            <a [routerLink]="['/article-details', article._id]">
+              <img 
+                class="card-img-top" 
+                [src]="article.image" 
+                [alt]="article.title" 
+                style="height: 200px; width: 100%; object-fit: cover;">
+            </a>
+            <div class="card-body">
+              <div class="small text-muted">{{ article.createdAt | date:'MMMM d, y' }}</div>
+              <h2 class="card-title h3">{{ article.title }}</h2>
+              <div class="card-text" [innerHTML]="(article.content | slice:0:100) + '...'"></div>
+              <a class="btn btn-primary" [routerLink]="['/article-details', article._id]">Read more →</a>
+            </div>
+          </div>
+        </div>
+        <!-- End loop -->
+      </div>
+    </div>
+  </div>
+</main>

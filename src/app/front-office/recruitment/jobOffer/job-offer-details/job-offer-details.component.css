@@ -1,0 +1,37 @@
+/* Custom styles for job offer */
+.job-image {
+    max-height: 300px;
+    object-fit: cover;
+    margin-bottom: 15px;
+  }
+  
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .job-details p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    border: none;  /* Removes any borders */
+    padding: 0;    /* No extra padding */
+  }
+  
+  .job-details p strong {
+    font-weight: 600;
+  }
+  
+  @media (max-width: 768px) {
+    .col-lg-6 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  
+    .job-image {
+      width: 100%;
+      height: auto;
+    }
+  }
+  

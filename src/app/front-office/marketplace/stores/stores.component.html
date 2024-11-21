@@ -1,0 +1,52 @@
+<main>
+  <div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
+    <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
+      <div *ngFor="let store of visibleStores" class="col">
+        <div class="card h-100 shadow-sm fixed-size-card">
+          <img [src]="store.image ? store.image : 'https://reseau.site/image/Commercant_reseau.site.png'" class="card-img-top" [alt]="store.name">
+          <div class="label-top shadow-sm">{{ store.blogtype }}</div>
+          <div class="card-body">
+            <div class="clearfix mb-3">
+              <!-- Star Rating (Replace Numeric Rating with Star System) -->
+              <div class="float-start star-rating">
+                <ng-container *ngFor="let star of getStarsArray(store.globalRating)">
+                  <i class="star-icon" [ngClass]="{
+                      'bi bi-star-fill': star === 'full',
+                      'bi bi-star-half': star === 'half',
+                      'bi bi-star': star === 'empty'
+                    }"></i>
+                </ng-container>
+              </div>
+              <span class="float-end">
+                <a class="text-muted small" href="#">Reviews ({{ store.numberOfReviews }})</a>
+              </span>
+            </div>
+
+            <h5 class="card-title">{{ store.name }}</h5>
+            <p class="card-text">{{ store.description ? store.description : 'This store does not have a description.' }}</p>
+
+            <div class="text-center my-4">
+              <a [routerLink]="['/store-details', store._id]" class="btn btn-warning">Visit Store</a>
+            </div>
+
+            <!-- Social Icons -->
+          
+          </div>
+          <div class="card-footer">
+            <div class="d-flex justify-content-center mb-1">
+              <span class="social-icon" aria-label="Share on Twitter">
+                <a *ngIf="store.twitterLink" [href]="store.twitterLink" target="_blank"><i class="bi bi-twitter"></i></a>
+              </span>
+              <span class="social-icon" aria-label="Share on LinkedIn">
+                <a *ngIf="store.linkedinLink" [href]="store.linkedinLink" target="_blank"><i class="bi bi-linkedin"></i></a>
+              </span>
+              <span class="social-icon" aria-label="Share on Instagram">
+                <a *ngIf="store.instagramLink" [href]="store.instagramLink" target="_blank"><i class="bi bi-instagram"></i></a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

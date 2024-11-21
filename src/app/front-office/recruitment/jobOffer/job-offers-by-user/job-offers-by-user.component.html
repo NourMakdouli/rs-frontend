@@ -1,0 +1,97 @@
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Mes Offres d'Emploi</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/home">Accueil</a></li>
+                <li class="breadcrumb-item active">Mes Offres d'Emploi</li>
+            </ol>
+        </nav>
+    </div>
+
+    <section class="top-section">
+        <!-- Barre de recherche et bouton d'ajout -->
+        <div class="toolbar d-flex justify-content-between align-items-center">
+            <input class="search-bar" placeholder="Rechercher des offres..." type="search" name="search" />
+            <button class="btn btn-primary" [routerLink]="['/job-offer-create']">+ Ajouter une Offre</button>
+        </div>
+
+        <!-- Liste des Offres d'Emploi -->
+        <div class="job-offers-dashboard">
+            <!-- États de chargement et d'erreur -->
+            <div *ngIf="isLoadingOffers" class="loading-indicator">Chargement des offres d'emploi...</div>
+            <div *ngIf="errorLoadingOffers" class="error-message">{{ errorLoadingOffers }}</div>
+
+            <!-- Offres d'Emploi -->
+            <div *ngIf="!isLoadingOffers && !errorLoadingOffers">
+                <article class="job-offer-card" *ngFor="let offer of jobOffers">
+                    <header class="job-offer-header d-flex justify-content-between align-items-center"
+                        (click)="toggleApplications(offer)">
+                        <div>
+                            <h3>{{ offer.typeOfJob }}</h3>
+                            <p class="description">{{ offer.description }}</p>
+                            <p class="posted-date">Publié le : {{ offer.createdAt | date }}</p>
+                        </div>
+                        <button class="expand-button btn btn-link">
+                            {{ offer.isExpanded ? 'Masquer les Candidatures' : 'Afficher les Candidatures' }}
+                            <i class="icon">{{ offer.isExpanded ? '▲' : '▼' }}</i>
+                        </button>
+                    </header>
+
+                    <!-- Applications List with Smooth Transition -->
+                    <section *ngIf="offer.isExpanded" class="applications-section"
+                        [ngClass]="{'expanded': offer.isExpanded}">
+                        <div *ngIf="offer.isLoadingApplications" class="loading-indicator">Chargement des
+                            candidatures...</div>
+                        <div *ngIf="offer.errorLoadingApplications" class="error-message">{{
+                            offer.errorLoadingApplications }}</div>
+
+                        <div *ngIf="!offer.isLoadingApplications && !offer.errorLoadingApplications">
+                            <h4>Candidatures ({{ offer.applications.length }})</h4>
+                            <div *ngIf="offer.applications.length === 0">Aucune candidature pour cette offre d'emploi.
+                            </div>
+
+                            <!-- Applications Table -->
+                            <!-- Applications Table -->
+                            <table class="table table-applications" *ngIf="offer.applications.length > 0">
+                                <thead>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Email</th>
+                                        <th>Téléphone</th>
+                                        <th>Ville</th>
+                                        <th>CV</th> <!-- New column for the resume -->
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let app of offer.applications">
+                                        <td>{{ app.firstname }} {{ app.lastname }}</td>
+                                        <td>{{ app.email }}</td>
+                                        <td>{{ app.phoneNumber }}</td>
+                                        <td>{{ app.city || 'N/A' }}</td>
+                                        <td>
+                                            <!-- Resume Icon and Download Link -->
+                                            <a *ngIf="app.resume" [href]="app.resume" class="btn btn-link"
+                                                title="Télécharger le CV"
+                                                [attr.aria-label]="'Télécharger le CV de ' + app.firstname + ' ' + app.lastname"
+                                                target="_blank" download>
+                                                <i class="bi bi-file-earmark-arrow-down" style="font-size: 1.5em;"></i>
+                                            </a>
+                                            <span *ngIf="!app.resume">N/A</span>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-secondary" (click)="viewApplication(app)">Voir
+                                                Détails</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </section>
+                </article>
+            </div>
+        </div>
+    </section>
+</main>

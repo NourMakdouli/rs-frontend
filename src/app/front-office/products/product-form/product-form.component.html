@@ -1,0 +1,184 @@
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Product Form</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home">Acceuil</a></li>
+        <li class="breadcrumb-item"><a routerLink="/productsByUser">Products</a></li>
+        <li class="breadcrumb-item active">Product Form</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Product Form</h5>
+
+            <form class="row g-3" [formGroup]="productForm" (ngSubmit)="onSubmit()">
+
+              <!-- Title -->
+              <div class="col-12">
+                <label for="title" class="form-label">Title</label>
+                <input formControlName="title" id="title" class="form-control" 
+                  [ngClass]="{ 'is-invalid': f['title'].invalid && (f['title'].touched || submitted) }" />
+                <div *ngIf="f['title'].invalid && (f['title'].touched || submitted)" class="invalid-feedback">
+                  <div *ngIf="f['title'].errors?.['required']">Title is required</div>
+                  <div *ngIf="f['title'].errors?.['minLength']">Title must be at least 3 characters</div>
+                </div>
+              </div>
+
+
+              <!-- Postal Code and Number of Pieces -->
+              <div class="col-md-6">
+                <label for="postalCode" class="form-label">Postal Code</label>
+                <input formControlName="postalCode" id="postalCode" class="form-control" />
+              </div>
+              <div class="col-md-6">
+                <label for="numberOfPieces" class="form-label">Number of Pieces</label>
+                <input type="number" formControlName="numberOfPieces" id="numberOfPieces" class="form-control" />
+              </div>
+              <!-- Address -->
+              <div class="col-12">
+                <label for="address" class="form-label">Address</label>
+                <input formControlName="address" id="address" class="form-control" 
+                  [ngClass]="{ 'is-invalid': f['address'].invalid && (f['address'].touched || submitted) }" />
+                <div *ngIf="f['address'].invalid && (f['address'].touched || submitted)" class="invalid-feedback">
+                  <div *ngIf="f['address'].errors?.['required']">Address is required</div>
+                </div>
+              </div>
+
+              <!-- Type, Condition, and Surface (Same Row) -->
+              <div class="col-md-4">
+                <label for="type" class="form-label">Type</label>
+                <select formControlName="type" id="type" class="form-select">
+                  <option value="sale">Sale</option>
+                  <option value="rental">Rental</option>
+                  <option value="life_annuities">Life Annuity</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="condition" class="form-label">Condition</label>
+                <select formControlName="condition" id="condition" class="form-select">
+                  <option value="new">New</option>
+                  <option value="old">Old</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="surface" class="form-label">Surface</label>
+                <input type="number" formControlName="surface" id="surface" class="form-control" />
+              </div>
+
+              <!-- Energy Consumption and Number of Rooms -->
+              <div class="col-md-6">
+                <label for="energyConsumption" class="form-label">Energy Consumption</label>
+                <select formControlName="energyConsumption" id="energyConsumption" class="form-select">
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="numberOfRooms" class="form-label">Number of Rooms</label>
+                <input type="number" formControlName="numberOfRooms" id="numberOfRooms" class="form-control" />
+              </div>
+
+              <!-- Description -->
+              <div class="col-12">
+                <label for="description" class="form-label">Description</label>
+                <editor [init]="{
+                  height: 300,
+                  menubar: false,
+                  plugins: [
+                    'advlist autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table paste code help wordcount'
+                  ],
+                  toolbar:
+                    'undo redo | formatselect | bold italic backcolor | \
+                    alignleft aligncenter alignright alignjustify | \
+                    bullist numlist outdent indent | removeformat | help'
+                }" formControlName="description"></editor>
+                <div *ngIf="f['description'].invalid && (f['description'].touched || submitted)" class="invalid-feedback">
+                  <div *ngIf="f['description'].errors?.['required']">Description is required</div>
+                  <div *ngIf="f['description'].errors?.['minLength']">Description must be at least 10 characters</div>
+                </div>
+              </div>
+
+              <!-- Price Excluding Fees and Fees -->
+              <div class="col-md-6">
+                <label for="priceExcludingFees" class="form-label">Price Excluding Fees</label>
+                <input type="number" step="0.01" formControlName="priceExcludingFees" id="priceExcludingFees" class="form-control" 
+                  [ngClass]="{ 'is-invalid': f['priceExcludingFees'].invalid && (f['priceExcludingFees'].touched || submitted) }" />
+                <div *ngIf="f['priceExcludingFees'].invalid && (f['priceExcludingFees'].touched || submitted)" class="invalid-feedback">
+                  <div *ngIf="f['priceExcludingFees'].errors?.['required']">Price is required</div>
+                  <div *ngIf="f['priceExcludingFees'].errors?.['positiveNumber']">Price must be a positive number</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="fees" class="form-label">Fees</label>
+                <input type="number" step="0.01" formControlName="fees" id="fees" class="form-control" 
+                  [ngClass]="{ 'is-invalid': f['fees'].invalid && (f['fees'].touched || submitted) }" />
+                <div *ngIf="f['fees'].invalid && (f['fees'].touched || submitted)" class="invalid-feedback">
+                  <div *ngIf="f['fees'].errors?.['required']">Fees are required</div>
+                  <div *ngIf="f['fees'].errors?.['positiveNumber']">Fees must be a positive number</div>
+                </div>
+              </div>
+
+              <!-- Photos -->
+              <div class="col-12">
+                <label for="photos" class="form-label">Photos</label>
+                <div formArrayName="photos">
+                  <div *ngFor="let photo of photos.controls; let i = index" [formGroupName]="i" class="mb-3">
+                    <div class="input-group mb-2">
+                      <input type="file" class="form-control" (change)="onFileChange($event, i)" />
+                      <button type="button" class="btn btn-danger" (click)="removePhotoField(i)" *ngIf="photos.length > 1">Remove</button>
+                    </div>
+                    <div class="card" *ngIf="previewImages[i]" style="width: 18rem;">
+                      <img [src]="previewImages[i]" alt="Photo Preview" class="card-img-top" />
+                      <div class="card-body">
+                        <h5 class="card-title">Preview</h5>
+                        <p class="card-text">This is an image preview of the uploaded photo.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="f['photos'].invalid && submitted" class="invalid-feedback d-block">
+                  <div *ngIf="f['photos'].errors?.['minimumImagesRequired']">At least one image is required</div>
+                </div>
+                <button type="button" class="btn btn-primary" (click)="addPhotoField()" *ngIf="photos.length < 5">Add Photo</button>
+              </div>
+
+              <!-- Keywords -->
+              <div class="col-12">
+                <label for="keywords" class="form-label">Keywords</label>
+                <div formArrayName="keywords">
+                  <div *ngFor="let keyword of keywords.controls; let i = index" [formGroupName]="i" class="input-group mb-2">
+                    <input type="text" formControlName="keyword" class="form-control" (change)="onKeywordChange(i)" />
+                    <button type="button" class="btn btn-danger" (click)="removeKeywordField(i)" *ngIf="keywords.length > 1">Remove</button>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-primary" (click)="addKeywordField()" *ngIf="keywords.length < 5">Add Keyword</button>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid || !productForm.dirty">
+                  Save
+                </button>
+              </div>
+
+            </form><!-- End Multi Columns Form -->
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>

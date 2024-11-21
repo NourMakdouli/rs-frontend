@@ -1,0 +1,61 @@
+<main id="main" class="main">
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="row g-3 needs-validation" novalidate>
+  <section class="section register flex-column align-items-center justify-content-center pt-6">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+          <div class="card">
+
+            <div class="card-body">
+
+              <div class="pt-2 pb-2">
+                <h5 class="card-title text-center pb-0 fs-4">Connexion à votre compte</h5>
+                <p class="text-center small">Entrez votre adresse email et votre mot de passe pour vous connecter</p>
+              </div>
+              
+              <div class="row g-3 needs-validation">
+
+                <div class="col-12">
+                  <label for="email" class="form-label">Email</label>
+                  <div class="input-group has-validation">
+                    <span class="input-group-text" id="inputGroupPrepend">&#64;</span>
+                    <input type="email" formControlName="email" id="email" required class="form-control" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+                    <div class="invalid-feedback">Veuillez entrer votre adresse email.</div>
+                  </div>
+
+                  <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                    <div *ngIf="f['email'].hasError('required')">L'email est obligatoire</div>
+                    <div *ngIf="f['email'].hasError('email')">Format de l'email invalide</div>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <label for="password" class="form-label">Mot de passe</label>
+                  <input type="password" formControlName="password" id="password" class="form-control" required [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
+                  
+                  <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                    <div *ngIf="f['password'].hasError('required')">Le mot de passe est obligatoire</div>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <button class="btn btn-primary w-100" [disabled]="loading" type="submit">Se connecter</button>
+                  <div *ngIf="loading">Chargement...</div>
+                </div>
+                
+                <div class="col-12">
+                  <p class="small mb-0">Pas encore de compte ? <a routerLink="/register">Créer un compte</a></p>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+</form>
+</main>

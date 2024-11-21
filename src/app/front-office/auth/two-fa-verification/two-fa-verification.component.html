@@ -1,0 +1,23 @@
+<main id="main">
+    <div class="container">
+        <h2>Two-Factor Authentication</h2>
+        <p>Please enter the 2FA code from your authenticator app.</p>
+        <form (ngSubmit)="verifyCode()">
+          <div class="form-group">
+            <label for="code">2FA Code</label>
+            <input
+              type="text"
+              id="code"
+              class="form-control"
+              [(ngModel)]="code"
+              name="code"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-primary" [disabled]="loading">
+            Verify
+          </button>
+        </form>
+      </div>
+      
+</main>

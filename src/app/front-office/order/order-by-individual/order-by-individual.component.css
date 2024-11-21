@@ -1,0 +1,59 @@
+img.product-photo {
+    border-radius: 5px;
+    max-width: 60px;
+    max-height: 60px;
+    width: auto;
+    height: auto;
+  }
+  
+
+  th a {
+    color: #333; /* Default icon color */
+    cursor: pointer; /* Change cursor to pointer to indicate clickable */
+}
+
+th a:hover {
+    color: var(--reseausite-secondary); /* Color change on hover */
+}
+/* Center the modal content */
+.modal-content {
+    margin: 15% auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 600px;
+    background-color: #fff;
+    border-radius: 5px;
+  }
+  .alert {
+    padding: 15px;
+    background-color: #4caf50; /* Green background */
+    color: white; /* White text */
+    margin-bottom: 15px;
+    position: relative;
+  }
+  
+  .alert .btn-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  /* Animate the modal */
+  .modal-content {
+    animation-name: modalopen;
+    animation-duration: 0.5s;
+  }
+  .highlight {
+    background-color: #e0f7fa;
+    border: 2px solid #00796b;
+    padding: 10px;
+  }
+  @keyframes modalopen {
+    from { opacity: 0 }
+    to { opacity: 1 }
+  }
+  

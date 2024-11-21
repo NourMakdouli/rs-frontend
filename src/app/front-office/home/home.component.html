@@ -1,0 +1,43 @@
+<main id="main" class="main">
+  <section id="home-bar" class="container-fluid">
+    <div class="d-flex justify-content-evenly w-100">
+      <div class="mt-5">
+        <img src="https://reseau.site/image/Commercant_reseau.site.png" alt="Mr Reseau Site" class="logo_mr_rs">
+      </div>
+      <div class="pt-5">
+        <div class="text-center">
+          <img src="https://reseau.site/image/logo.png" class="logo_home" alt="Logo">
+        </div>
+        <p>Rechercher un commerçant, un produit, un restaurant, une entreprise locale …</p>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Rechercher..." id="search_input_home" value="">
+          <button class="btn btn-outline-secondary" type="button" id="search_btn_home">
+            <span class="fa fa-search" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+      <div>
+        <img type="image/svg" src="../../../assets/images/map.svg" width="315.996" height="346.992"/>
+      </div>
+    </div>
+    
+    <div class="btngroup d-flex justify-content-center">
+      <button type="button" class="btn btn_marketplace stat_marketplace" (click)="showSection('stores')">Commerçants</button>
+      <button type="button" class="btn btn_marketplace stat_marketplace" (click)="showSection('products')">Produits</button>
+      <button type="button" class="btn btn_marketplace stat_marketplace" (click)="showSection('reductions')">Réductions</button>
+      <button type="button" class="btn btn_marketplace stat_marketplace" (click)="showSection('actualites')">Actualités</button>
+      <button type="button" class="btn btn_marketplace stat_marketplace" (click)="showSection('jobOffers')">Offres d'emplois</button>
+
+    </div>
+    
+    <div>
+      <app-stores *ngIf="currentSection === 'stores'"></app-stores>
+      <app-products *ngIf="currentSection === 'products'"></app-products>
+      <app-discounts *ngIf="currentSection === 'reductions'"></app-discounts>
+      <app-articles *ngIf="currentSection === 'actualites'"></app-articles>
+      <app-job-offers *ngIf="currentSection === 'jobOffers'"></app-job-offers>
+
+    </div>
+    
+  </section>
+</main>

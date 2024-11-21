@@ -1,0 +1,74 @@
+<div *ngIf="blog">
+
+<main role="main" id="main" class="main">
+
+
+    
+
+
+
+
+
+
+
+
+        <!-- 
+        
+        
+        If there are no products 
+        If there is no name for store 
+        If there is no description for store 
+        If there is no image for store :( 
+        if the user is not authenticated )
+        
+        
+        
+        -->
+    <section class="jumbotron text-center">
+      <div class="container">
+        <h1 class="jumbotron-heading">        <h1>{{ blog.name }}</h1>
+    </h1>
+        <p class="lead text-muted" *ngIf="blog.description" >
+        {{ blog.description | characterLimit:100 }} </p>
+        <p>
+          Rating:
+          <ng-container *ngFor="let star of getStarsArray(blog.globalRating)">
+            <i class="star-icon" [ngClass]="{
+                'bi bi-star-fill': star === 'full',
+                'bi bi-star-half': star === 'half',
+                'bi bi-star': star === 'empty'
+              }"></i>
+          </ng-container>
+          ({{ blog.numberOfReviews }} reviews)
+        </p>
+        
+      </div>
+    </section>
+
+
+  
+    <app-products [storeId]="blogId"></app-products>
+
+
+  
+  </main>
+
+</div>
+    <!-- Review Form -->
+<!-- Review Form -->
+<app-review-form [blogId]="blogId" [userId]="userId" (reviewSubmitted)="onReviewSubmitted()"></app-review-form>
+  
+    <!-- Reviews List -->
+    <app-review-list [blogId]="blogId"></app-review-list>
+
+
+
+
+
+
+
+
+
+
+
+  

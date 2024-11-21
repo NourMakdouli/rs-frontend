@@ -1,0 +1,129 @@
+<main id="main" class="main">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Acheter des Jetons</h5>
+      <p>Veuillez remplir le formulaire ci-dessous pour acheter des jetons.</p>
+
+      <!-- Information Message in French -->
+      <p class="text-info">
+        <strong>Note :</strong> 1 jeton équivaut à 1 euro et coûte 1 euro.
+      </p>
+      <!-- Token Purchase Form with Angular and Bootstrap Validation -->
+      <form
+        [formGroup]="buyTokensForm"
+        (ngSubmit)="onSubmit()"
+        class="row g-3 needs-validation"
+        novalidate
+      >
+        <!-- Number of Tokens Field -->
+        <div class="col-md-6">
+          <label for="tokenAmount" class="form-label">Nombre de Jetons</label>
+          <input
+            type="number"
+            formControlName="tokenAmount"
+            id="tokenAmount"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': buyTokensForm.get('tokenAmount')?.invalid && buyTokensForm.get('tokenAmount')?.touched,
+              'is-valid': buyTokensForm.get('tokenAmount')?.valid
+            }"
+            required
+          />
+          <div *ngIf="buyTokensForm.get('tokenAmount')?.invalid && buyTokensForm.get('tokenAmount')?.touched" class="invalid-feedback">
+            Veuillez entrer un nombre valide de jetons.
+          </div>
+        </div>
+
+        <!-- Card Name Field -->
+        <div class="col-md-6">
+          <label for="cardName" class="form-label">Nom sur la Carte</label>
+          <input
+            type="text"
+            formControlName="cardName"
+            id="cardName"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': buyTokensForm.get('cardName')?.invalid && buyTokensForm.get('cardName')?.touched,
+              'is-valid': buyTokensForm.get('cardName')?.valid
+            }"
+            required
+          />
+          <div *ngIf="buyTokensForm.get('cardName')?.invalid && buyTokensForm.get('cardName')?.touched" class="invalid-feedback">
+            Veuillez entrer le nom indiqué sur la carte.
+          </div>
+        </div>
+
+        <!-- Card Number Field -->
+        <div class="col-md-6">
+          <label for="cardNumber" class="form-label">Numéro de Carte</label>
+          <input
+            type="text"
+            formControlName="cardNumber"
+            id="cardNumber"
+            class="form-control"
+            maxlength="16"
+            [ngClass]="{
+              'is-invalid': buyTokensForm.get('cardNumber')?.invalid && buyTokensForm.get('cardNumber')?.touched,
+              'is-valid': buyTokensForm.get('cardNumber')?.valid
+            }"
+            required
+          />
+          <div *ngIf="buyTokensForm.get('cardNumber')?.invalid && buyTokensForm.get('cardNumber')?.touched" class="invalid-feedback">
+            Veuillez entrer un numéro de carte valide de 16 chiffres.
+          </div>
+        </div>
+
+        <!-- Expiration Date Field -->
+        <div class="col-md-3">
+          <label for="cardExpiration" class="form-label">Date d'Expiration</label>
+          <input
+            type="text" placeholder="(MMAA)"
+            formControlName="cardExpiration"
+            id="cardExpiration"
+            class="form-control"
+            maxlength="4"
+            [ngClass]="{
+              'is-invalid': buyTokensForm.get('cardExpiration')?.invalid && buyTokensForm.get('cardExpiration')?.touched,
+              'is-valid': buyTokensForm.get('cardExpiration')?.valid
+            }"
+            required
+          />
+          <div *ngIf="buyTokensForm.get('cardExpiration')?.invalid && buyTokensForm.get('cardExpiration')?.touched" class="invalid-feedback">
+            Veuillez entrer une date d'expiration valide (MMAA).
+          </div>
+        </div>
+
+        <!-- CVV Field -->
+        <div class="col-md-3">
+          <label for="cardCvx" class="form-label">CVV</label>
+          <input
+            type="text"
+            formControlName="cardCvx"
+            id="cardCvx"
+            class="form-control"
+            maxlength="4"
+            [ngClass]="{
+              'is-invalid': buyTokensForm.get('cardCvx')?.invalid && buyTokensForm.get('cardCvx')?.touched,
+              'is-valid': buyTokensForm.get('cardCvx')?.valid
+            }"
+            required
+          />
+          <div *ngIf="buyTokensForm.get('cardCvx')?.invalid && buyTokensForm.get('cardCvx')?.touched" class="invalid-feedback">
+            Veuillez entrer un code CVV valide.
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+
+            Acheter des Jetons
+          </button>
+        </div>
+      
+      </form>
+      <!-- End Token Purchase Form -->
+    </div>
+  </div>
+</main>

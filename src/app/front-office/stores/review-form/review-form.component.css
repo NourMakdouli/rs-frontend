@@ -1,0 +1,42 @@
+.review-section {
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    padding: 20px;
+  }
+  
+  .review-form .form-control {
+    border-radius: 5px;
+  }
+  
+  .rating {
+    display: flex;
+    gap: 4px;
+  }
+  
+  .star-input {
+    display: none; /* Hide the radio input */
+  }
+  
+  .star-label {
+    font-size: 24px;
+    color: #ffd700 !important;
+    cursor: pointer;
+  }
+  
+  .filled-star {
+    color: #ffd700 !important;
+  }
+  
+  .empty-star {
+    color: #d3d3d3 !important;
+  }
+  
+  .btn-primary {
+    background-color:  var(--reseausite-primary-rgb);
+    border-color:  var(--reseausite-primary-rgb);
+    border-radius: 5px;
+    padding: 8px 16px;
+  }
+  .text-danger {
+    font-size: 0.9em;
+  }

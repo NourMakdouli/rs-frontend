@@ -1,0 +1,121 @@
+.icon-hover:hover {
+    border-color: #3b71ca !important;
+    background-color: white !important;
+    color: #3b71ca !important;
+  }
+  
+  .icon-hover:hover i {
+    color: #3b71ca !important;
+  }
+  /* Custom CSS */
+/* Reduce padding and margins */
+:host ,
+.section,
+.container-fluid,
+.row {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.carousel-item {
+  background-position: center;
+}
+
+
+.carousel-inner {
+  display: flex; 
+  align-items: center;
+  justify-items: center;
+  height: 500px;
+  border-radius: 10px;
+  /* Optional: Add rounded corners to the image */
+}
+
+
+.carousel-inner img {
+  object-fit: contain;         /* Scale the image to cover the container while maintaining aspect ratio */
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05); /* Optional: Add a subtle shadow for visual effect */
+
+}
+.col-lg-5,
+.col-lg-7 {
+  padding-left: 50px;
+  padding-right: 100px;
+}
+
+.img-thumbnail {
+  padding: 0;
+  margin: 0;
+}
+
+.pagetitle,
+.nav-link,
+.card-title {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+/* Custom CSS */
+.product-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+.text-success{
+  font-size: 1rem;
+}
+.product-price {
+  font-size: 2rem;
+  color: #0300a7;
+}
+
+.product-description {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.btn-lg {
+  font-size: 1.125rem;
+  padding: 0.75rem 1.25rem;
+}
+
+.similar-item-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.similar-item-price {
+  font-size: 1.125rem;
+  color: #333;
+}
+
+.breadcrumb.fs-5 .breadcrumb-item a {
+  font-size: 1.125rem;
+}
+
+/* Custom CSS for Comments Section */
+.comments-section .card {
+  border: none;
+  background-color: #f0f2f5;
+}
+
+.comments-section .card-body {
+  padding: 1rem;
+}
+
+.comments-section .form-control {
+  font-size: 1rem;
+}
+
+.comments-section .form-label {
+  font-size: 1rem;
+}
+
+.comments-section p {
+  font-size: 1rem;
+}
+
+.comments-section .small {
+  font-size: 0.875rem;
+}

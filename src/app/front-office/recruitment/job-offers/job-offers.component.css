@@ -1,0 +1,129 @@
+
+
+.heading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.heading-container h4 {
+    font-family: var(--reseausite-font);
+    font-size: 24px;
+    color: #333;
+}
+.heading-container h3 {
+    font-family: var(--reseausite-font);
+    font-size: 24px;
+    color: var( --reseausite-primary);
+}
+
+
+.commercants-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; 
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.commercant {
+    text-align: center;
+}
+.modal img {
+    width: 200px;
+    height: auto;
+    object-fit: cover; 
+}
+.commercant img {
+    width: 250px;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Styles for the buttons */
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between the buttons */
+    margin-top: 20px;
+}
+
+
+.card {
+    height: 500px; /* Adjust as needed */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Hide any overflow */
+
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+  .card-body{
+    padding: 0 0 10px 0;
+  }  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+.product-image {
+    width: 100%; 
+    height: 200px; /* Set a fixed height */
+    object-fit: cover; 
+    display: block;
+}
+
+  
+.custom-button {
+    background-color: #28a745; /* Green background */
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.custom-button:hover {
+    transform: scale(1.05); /* Slightly increases the button size */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Adds a stronger shadow on hover */
+    background-color: #218838; /* Darker green on hover */
+}
+
+/* Responsive CSS */
+
+/* For tablets and smaller screens */
+@media (max-width: 768px) {
+    .commercant img {
+        width: 200px; /* Shrink the image size */
+    }
+
+    .custom-button {
+        font-size: 14px; /* Reduce button text size */
+        padding: 10px 20px;
+    }
+}
+
+/* For mobile devices */
+@media (max-width: 480px) {
+    .commercants-container {
+        flex-direction: column; /* Stack images vertically */
+        align-items: center;
+    }
+
+    .commercant img {
+        width: 150px; /* Further shrink the image size for mobile */
+    }
+
+    .buttons-container {
+        flex-direction: column; /* Stack buttons vertically */
+    }
+
+    .custom-button {
+        width: 100%; /* Full-width buttons */
+        font-size: 14px;
+        padding: 12px 0;
+    }
+}

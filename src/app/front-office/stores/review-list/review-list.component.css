@@ -1,0 +1,26 @@
+.review-section {
+  background-color: none;
+}
+
+.username {
+  color: black;
+  font-weight: bold;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+}
+
+.star-icon {
+  margin-right: 2px;
+}
+
+.actions.text-muted:hover {
+  color: #00913b !important;
+}
+
+.no-reviews-message p {
+  color: #555;
+  text-align: center;
+}

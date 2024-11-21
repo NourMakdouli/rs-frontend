@@ -1,0 +1,83 @@
+<main id="main" class="main">
+  <!-- Page Title -->
+  <div class="pagetitle">
+    <h1>Store Payments</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+        <li class="breadcrumb-item active">PayOuts</li>
+      </ol>
+    </nav>
+  </div>
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h6 class="card-title">Payout Settings</h6>
+
+            <div class="automation-status-container">
+              <span>
+                Current Automation Status:
+                <strong [ngClass]="{'status-enabled': isAutomated, 'status-disabled': !isAutomated}">
+                  {{ isAutomated ? 'Enabled' : 'Disabled' }}
+                </strong>
+              </span>
+            
+              <button class="toggle-automation-btn" (click)="confirmToggleAutomationStatus()">
+                {{ isAutomated ? 'Disable' : 'Enable' }} Automation
+              </button>
+            </div>
+            
+    </div>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="loading-spinner">Loading...</div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  <div *ngIf="payIns.length === 0 && !isLoading" class="no-payins-message">
+    <img src="assets/img/paper.svg" class="img py-5" alt="Page Not Found">
+    No PayIns to display.</div>
+ 
+  <!-- Data Table -->
+  <table *ngIf="payIns.length > 0" class="styled-table">
+    <thead>
+      <tr>
+        <th>PayIn ID</th>
+        <th>Order ID</th>
+        <th>Store ID</th>
+        <th>Amount</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let payIn of payIns">
+        <td>{{ payIn._id }}</td>
+        <td>{{ payIn.orderId }}</td>
+        <td>{{ payIn.storeId }}</td>
+        <td>{{ payIn.amount | currency: 'EUR' }}</td>
+        <td>{{ payIn.status }}</td>
+        <td>
+          <button 
+            class="action-btn"
+            (click)="initiatePayout(payIn._id)"
+            [disabled]="isAutomated">
+            Payout
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+          </div>
+        </div> 
+      </div> 
+
+  </section> 
+
+</main>
+
+  <!-- No PayIns Message -->

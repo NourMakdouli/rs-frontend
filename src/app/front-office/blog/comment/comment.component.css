@@ -1,0 +1,52 @@
+/* Button Styling */
+.action-button {
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 0.875rem; /* Small text size */
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  /* Like button: Reduced margin */
+  .like-button {
+    margin-right: 0.75rem; /* Reduce this value */
+  }
+  
+  /* Dislike and Reply keep default spacing */
+  .action-button:not(.like-button) {
+    margin-right: 1rem;
+  }
+  
+  .action-button i {
+    margin-right: 0.5rem;
+  }
+  
+  .action-button:hover {
+    color: #1266f1; /* Blue on hover */
+  }
+  
+  .action-button:focus {
+    outline: none;
+  }
+  
+  /* Avatar and Comment Spacing */
+  .d-flex {
+    display: flex;
+  }
+  
+  .flex-shrink-0 img {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .ms-3 {
+    margin-left: 1rem;
+  }
+  
+  .shadow-sm {
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075);
+  }
+  

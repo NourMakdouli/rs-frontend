@@ -1,0 +1,17 @@
+img.product-photo {
+    border-radius: 5px;
+    max-width: 60px;
+    max-height: 60px;
+    width: auto;
+    height: auto;
+  }
+  
+
+  th a {
+    color: #333; /* Default icon color */
+    cursor: pointer; /* Change cursor to pointer to indicate clickable */
+}
+
+th a:hover {
+    color: var(--reseausite-secondary); /* Color change on hover */
+}

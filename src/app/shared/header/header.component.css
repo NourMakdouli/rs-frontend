@@ -1,0 +1,137 @@
+.icon-btn {
+  background: none;         /* Remove background */
+  border: none;             /* Remove border */ 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;          /* Change cursor to pointer */
+}
+
+
+.notification-icon {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.notification-item.unread {
+  font-weight: bold;
+  background-color: #f8f9fa; /* Light background for unread notifications */
+  cursor: pointer;
+}
+
+.notification-item.unread:hover {
+  background-color: #e9ecef; /* Darken background slightly on hover */
+}
+
+.notification-content {
+  flex-grow: 1;
+}
+
+
+.icon-btn i {
+  font-size: 22px;
+  color: #fff;              /* White color for icons */
+}
+
+.bounce-animation {
+  animation: bounce 0.3s ease;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+
+.icon-btn:hover i {
+  color: #00ff26;           /* Change icon color on hover */
+  transform: scale(1.1);    /* Slightly enlarge the icon on hover */
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+
+.btn-info {
+  color: #fff;
+  background: var(--reseausite-secondary);
+  border-color: var(--reseausite-secondary);
+  height: 27px;
+  width: 180px;
+  padding: 0px 0px 0px 0px !important;
+}
+
+.img-logo {
+  border-radius: 105px;
+  height: 30px;
+  width: 30px;
+}
+
+.btn-info:hover {
+  color: #fff !important;
+  background-color: var(--reseausite-secondary);
+  border-color: var(--reseausite-secondary);
+}
+
+.text-first {
+  font-size: 14px;
+}
+
+
+
+hr {
+  margin: 0.5rem 0;
+  background-color: black;
+  border: 1;
+  opacity: 0.25;
+}
+
+
+
+
+
+
+
+/* Offsetting the join red button */
+.site-link {
+  margin-left: 100px;
+}
+
+@media screen and (max-width: 991px) {
+  .collapse:not(.show) {
+    display: flex;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .collapse:not(.show) {
+    display: flex !important;
+    flex-direction: column;
+    align-self: center;
+  }
+
+  .btn-info {
+    width: 123px !important;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  .d-flex {
+    margin-top: 5px;
+  }
+
+  .btn-group {
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    border-radius: .2rem;
+  }
+}

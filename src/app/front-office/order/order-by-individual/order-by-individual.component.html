@@ -1,0 +1,181 @@
+<main id="main" class="main">
+  <!-- Page Title -->
+  <div class="pagetitle">
+    <h1>Mes commandes</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home">Acceuil</a></li>
+        <li class="breadcrumb-item active">Mes Commandes</li>
+      </ol>
+    </nav>
+  </div>
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="card">
+          <div class="card-body">
+            
+            <!-- Dismissible Alert for Successful Order -->
+            <div *ngIf="showAlert" class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Success!</strong> Your order (ID: {{ selectedOrder?._id }}) has been confirmed.
+              <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+            </div>
+            
+            <!-- Table with stripped rows -->
+            <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
+              <div class="datatable-top">
+                <div class="datatable-dropdown" *ngIf="orderList.length > 0">
+                  <label>
+                    <select class="datatable-selector" name="per-page">
+                      <option value="5">5</option>
+                      <option value="10" selected="">10</option>
+                      <option value="15">15</option>
+                      <option value="-1">All</option>
+                    </select> entries per page
+                  </label>
+                </div>
+                <div class="datatable-search" *ngIf="orderList.length > 0">
+                  <input class="datatable-input" placeholder="Search..." type="search" name="search"
+                    title="Search within table">
+                </div>
+              </div>
+
+              <!-- Empty State Message -->
+              <div *ngIf="!orderList.length" class="alert alert-info">
+                No orders available at the moment.
+              </div>
+
+              <!-- Orders Table -->
+              <table class="table table-borderless datatable datatable-table" *ngIf="orderList.length > 0">
+                <thead>
+                  <tr>
+                    <th>Order Code</th>
+                    <th scope="col"><a (click)="sortData('totalPrice'); $event.preventDefault()"><i
+                          class="fa fa-sort"></i> Total Price</a></th>
+                    <th>Number of Items</th>
+                    <th scope="col"><a (click)="sortData('status'); $event.preventDefault()"><i class="fa fa-sort"></i>
+                        Status</a></th>
+                    <th>Location</th>
+                    <th scope="col"><a (click)="sortData('createdAt'); $event.preventDefault()"><i
+                          class="fa fa-sort"></i> Date</a></th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let order of orderList">
+                    <td>{{ order._id }}
+                      <span *ngIf="selectedOrder && order._id === selectedOrder._id" class="highlight"> <-- Your recent order </span>
+                    </td>
+                    <td>{{ order.totalPrice | currency }}</td>
+                    <td>{{ order.cartItems.length }}</td>
+                    <td>
+                      <span [ngClass]="getBadgeClasses(order.status)">
+                        {{ order.status | titlecase }}
+                      </span>
+                    </td>
+                    <td>{{ order.location }}</td>
+                    <td>{{ order.createdAt | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+                    <td>
+                      <!-- Button to Open Modal for Order Details -->
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        [attr.data-bs-target]="'#orderModal' + order._id">
+                        View Details
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- Modals for Each Order -->
+              <div *ngFor="let order of orderList">
+                <div class="modal fade" id="orderModal{{ order._id }}" tabindex="-1"
+                  [attr.aria-labelledby]="'orderModalLabel' + order._id" aria-hidden="true">
+                  <div class="modal-dialog modal-lg"> <!-- Ensure large modal -->
+                    <div class="modal-content">
+                      <!-- Modal Header -->
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="orderModalLabel{{ order._id }}">Order Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+
+                      <!-- Modal Body -->
+                      <div class="modal-body">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <p><strong>Order ID:</strong> {{ order._id }}</p>
+                            <p><strong>Date:</strong> {{ order.createdAt | date: 'medium' }}</p>
+                          </div>
+                          <div class="col-md-6">
+                            <p><strong>Total Price:</strong> {{ order.totalPrice | currency }}</p>
+                            <p><strong>Status:</strong> {{ order.status | titlecase }}</p>
+                          </div>
+                          <div class="col-md-6">
+                            <p><strong>Location:</strong> {{ order.location }}</p>
+                          </div>
+                        </div>
+
+                        <!-- Cart Items Section -->
+                        <h6 class="mt-4">Cart Items</h6>
+                        <div *ngFor="let item of order.cartItems" class="card mb-3">
+                          <div class="row g-0">
+                            <div class="col-md-4">
+                              <img src="{{ item.image }}" class="img-fluid rounded-start mt-3 mx-1"
+                                alt="{{ item.title }}" style="max-height: 150px;">
+                            </div>
+                            <div class="col-md-8">
+                              <div class="card-body">
+                                <h5 class="card-title">{{ item.title }}</h5>
+                                <p class="card-text" [innerHTML]="item.description"></p>
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <p><strong>Price:</strong> {{ item.price | currency }}</p>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <p><strong>Quantity:</strong> {{ item.quantity }}</p>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <p><strong>Total:</strong> {{ (item.price * item.quantity) | currency }}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Modal Footer -->
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="datatable-bottom">
+                <div class="datatable-info">Showing 1 to 10 of 100 entries</div>
+                <nav class="datatable-pagination">
+                  <ul class="datatable-pagination-list">
+                    <li class="datatable-pagination-list-item datatable-hidden datatable-disabled"><button data-page="1"
+                        class="datatable-pagination-list-item-link" aria-label="Page 1">‹</button></li>
+                    <li class="datatable-pagination-list-item datatable-active"><button data-page="1"
+                        class="datatable-pagination-list-item-link" aria-label="Page 1">1</button></li>
+                    <li class="datatable-pagination-list-item"><button data-page="2"
+                        class="datatable-pagination-list-item-link" aria-label="Page 2">2</button></li>
+                    <li class="datatable-pagination-list-item"><button data-page="3"
+                        class="datatable-pagination-list-item-link" aria-label="Page 3">3</button></li>
+                    <!-- Add more pagination here as necessary -->
+                  </ul>
+                </nav>
+              </div>
+            </div>
+            <!-- End Table with stripped rows -->
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>

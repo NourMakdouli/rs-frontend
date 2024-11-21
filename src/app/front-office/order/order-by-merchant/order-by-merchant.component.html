@@ -1,0 +1,139 @@
+<main id="main" class="main">
+  <!-- Page Title -->
+  <div class="pagetitle">
+    <h1>Orders by Merchant</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+        <li class="breadcrumb-item active">Orders</li>
+      </ol>
+    </nav>
+  </div>
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h6 class="card-title">The orders were your prducts were made.</h6>
+
+
+            <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
+              <div class="datatable-top">
+                <div class="datatable-dropdown" *ngIf="orderByMerchant.length > 0">
+                  <label>
+                    <select class="datatable-selector" name="per-page">
+                      <option value="5">5</option>
+                      <option value="10" selected="">10</option>
+                      <option value="15">15</option>
+                      <option value="-1">All</option>
+                    </select> entries per page
+                  </label>
+                </div>
+                <div class="datatable-search" *ngIf="orderByMerchant.length > 0">
+                  <input class="datatable-input" placeholder="Search..." type="search" name="search"
+                    title="Search within table">
+                </div>
+              </div>
+          
+              <div class="datatable-top"></div>
+
+              <!-- Orders Table -->
+              <table class="table table-borderless datatable datatable-table">
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Date</th>
+
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Status</th>
+
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <ng-container *ngFor="let order of orderByMerchant">
+                    <!-- Cart Items Loop -->
+                    <ng-container *ngFor="let item of order.cartItems">
+                      <tr>
+                        <!-- Order ID -->
+                        <td>{{ order._id }}</td>
+                   
+                        <!-- Date Created -->
+                        <td>{{ order.createdAt | date: 'yyyy-MM-dd' }} </td>
+
+                        <!-- Cart Item Details -->
+                        <td>
+                          <img src="{{ item.image }}" class="img-fluid rounded" alt="{{ item.title }}"
+                            style="max-height: 80px;">
+                        </td>
+                        <td>{{ item.title }}</td>
+                        <td [innerHTML]="item.description"></td>
+                        <td>  <span [ngClass]="getBadgeClasses(order.status)">
+                          {{ item.status | titlecase }}
+                        </span></td> 
+                        <td>{{ item.price | currency }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.total | currency }}</td>
+                      </tr>
+                    </ng-container>
+                  </ng-container>
+                </tbody>
+                    <!-- Empty State Message -->
+           
+              </table>
+              <div *ngIf="!orderByMerchant.length" class="alert alert-info text-center">
+                No orders available at the moment.
+              </div>
+              <div class="datatable-bottom">
+                <div class="datatable-info">Showing 1 to 10 of 100 entries</div>
+                <nav class="datatable-pagination">
+                  <ul class="datatable-pagination-list">
+                    <li class="datatable-pagination-list-item datatable-hidden datatable-disabled">
+                      <button data-page="1" class="datatable-pagination-list-item-link" aria-label="Page 1">‹</button>
+                    </li>
+                    <li class="datatable-pagination-list-item datatable-active">
+                      <button data-page="1" class="datatable-pagination-list-item-link" aria-label="Page 1">1</button>
+                    </li>
+                    <li class="datatable-pagination-list-item">
+                      <button data-page="2" class="datatable-pagination-list-item-link" aria-label="Page 2">2</button>
+                    </li>
+                    <li class="datatable-pagination-list-item">
+                      <button data-page="3" class="datatable-pagination-list-item-link" aria-label="Page 3">3</button>
+                    </li>
+                    <li class="datatable-pagination-list-item">
+                      <button data-page="4" class="datatable-pagination-list-item-link" aria-label="Page 4">4</button>
+                    </li>
+                    <li class="datatable-pagination-list-item">
+                      <button data-page="5" class="datatable-pagination-list-item-link" aria-label="Page 5">5</button>
+                    </li>
+                    <li class="datatable-pagination-list-item">
+                      <button data-page="6" class="datatable-pagination-list-item-link" aria-label="Page 6">6</button>
+                    </li>
+                    <li class="datatable-pagination-list-item">
+                      <button data-page="7" class="datatable-pagination-list-item-link" aria-label="Page 7">7</button>
+                    </li>
+                    <li class="datatable-pagination-list-item datatable-ellipsis datatable-disabled">
+                      <button class="datatable-pagination-list-item-link">…</button>
+                    </li>
+                    <li class="datatable-pagination-list-item">
+                      <button data-page="10" class="datatable-pagination-list-item-link" aria-label="Page 10">10</button>
+                    </li>
+                    <li class="datatable-pagination-list-item">
+                      <button data-page="2" class="datatable-pagination-list-item-link" aria-label="Page 2">›</button>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+            <!-- End Table with stripped rows -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

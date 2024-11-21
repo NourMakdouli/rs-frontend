@@ -1,0 +1,103 @@
+<section class="review-section">
+  <div class="container my-1 py-1 text-body">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-12 col-lg-10 col-xl-8">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h4 class="text-body mb-0">Commentaires</h4>
+          <div class="card">
+            <div class="card-body p-1 d-flex align-items-center">
+              <h6 class="text-primary fw-bold small mb-0 me-1">Afficher les commentaires </h6>
+              <div class="form-check form-switch">
+                <input 
+                  class="form-check-input" 
+                  type="checkbox" 
+                  id="commentToggleSwitch" 
+                  [(ngModel)]="showComments"
+                />
+                <label class="form-check-label" for="commentToggleSwitch"></label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="showComments">
+          <div *ngIf="reviews.length; else noReviews">
+            <div *ngFor="let review of reviews" class="card mb-3">
+              <div class="card-body" *ngIf="review.author">
+                <div class="d-flex flex-start">
+                  <img 
+                    class="rounded-circle shadow-1-strong me-3" 
+                    [src]="review.author.image || 'assets/images/favicons/logowithbackground.jpg'" 
+                    [alt]="review.author.username || 'avatar'" 
+                    width="40" 
+                    height="40" />
+
+                  <div class="w-100">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                      <div>
+                        <h6 class="username mb-0">
+                          {{ review.author.username || 'Auteur inconnu' }}
+                        </h6>
+                        <p class="small mb-0 text-muted">
+                          {{ review.createdAt | date: 'short' }}
+                        </p>
+                       <!--<p class="text-muted small mb-0">
+                          {{ review.author.firstname || '' }} {{ review.author.lastname || '' }}
+                        </p>--> 
+                      </div>
+                      <div class="rating">
+                        <ng-container *ngFor="let star of getStarsArray(review.rating)">
+                          <i class="star-icon" [ngClass]="{
+                              'bi bi-star-fill': star === 'full',
+                              'bi bi-star-half': star === 'half',
+                              'bi bi-star': star === 'empty'
+                            }"></i>
+                        </ng-container>
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <p>{{ review.content }}</p>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                      <p class="small mb-0 actions text-muted">
+                        <a
+                        *ngIf="currentUser && review.author._id === currentUser._id"
+                        class="text-muted"
+                        (click)="deleteReview(review._id!)"
+                        >Supprimer</a
+                      >
+                      <span
+                        *ngIf="currentUser && review.author._id === currentUser._id"
+                        > • </span
+                      >
+                      <a href="#!" class="text-muted">Traduire</a>
+                    </p>
+                      <p class="small mb-0 ">
+                        <i class="far fa-check-circle"
+                           [ngClass]="{
+                             'text-success': review.hasPurchased,
+                             'text-muted': !review.hasPurchased
+                           }"></i>
+                      </p>
+                      
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <ng-template #noReviews>
+            <div class="alert alert-secondary text-center" role="alert">
+              <p>Soyez le premier à poster un avis !</p>
+            </div>
+          </ng-template>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

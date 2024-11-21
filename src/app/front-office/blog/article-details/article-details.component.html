@@ -1,0 +1,66 @@
+<main id="main" class="main">
+  <div class="mt-2 mx-2">
+    <div class="row">
+      <div class="col-lg-8">
+        <!-- Post content -->
+        <article *ngIf="article">
+          <header class="mb-4">
+            <h1 class="fw-bolder mb-1 fst-italic">{{ article.title }}</h1>
+            <div class="text-muted fst-italic mb-2">
+              Posted on {{ article.createdAt | date }} by {{ article.author.lastname }}
+            </div>
+          </header>
+          <figure class="mb-4">
+            <img class="img-fluid rounded" [src]="article.image" alt="..." />
+          </figure>
+          <section class="mb-5">
+         
+              <p [innerHTML]="article.content" class="fs-5 mb-4"></p>
+
+
+            <!-- Like and Dislike buttons -->
+            <div class="d-flex align-items-center">
+              <button (click)="likeArticle()" class="btn btn-outline-success me-2">
+                <i class="fa fa-thumbs-up"></i> Like ({{ article.likes.length }})
+              </button>
+              <button (click)="dislikeArticle()" class="btn btn-outline-danger">
+                <i class="fa fa-thumbs-down"></i> Dislike ({{ article.dislikes.length }})
+              </button>
+            </div>
+          </section>
+        </article>
+
+        <!-- Comments section -->
+        <section class="mb-5">
+          <div class="card bg-light">
+            <div class="card-body">
+              <!-- Comment form -->
+              <form class="mb-4">
+                <textarea [(ngModel)]="newCommentContent" name="newCommentContent" class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
+                <button (click)="submitComment()" class="btn btn-primary mt-2">Submit Comment</button>
+              </form>
+
+              <!-- Display comments -->
+              <div *ngFor="let comment of comments">
+                <app-comment [comment]="comment" [userId]="userId"></app-comment>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Side widgets -->
+      <div class="col-lg-4" id="unique-sidebar">
+        <!-- Similar posts -->
+        <div class="card mb-4">
+          <div class="card-header"><h4 class="fst-italic">Similar posts</h4></div>
+          <div class="card-body">
+            <ul class="list-unstyled">
+              <!-- Similar posts logic here -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
