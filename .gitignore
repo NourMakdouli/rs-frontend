@@ -6,12 +6,6 @@
 /out-tsc
 /bazel-out
 
-# Environment variables
-.env
-
-# Docker files
-docker-compose.yml
-
 # Node
 /node_modules
 npm-debug.log

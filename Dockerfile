@@ -20,6 +20,8 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 # Copy the Angular build output to the Nginx html directory
 COPY --from=build /app/dist/frontend /usr/share/nginx/html
 
+# Adding a comment to force metadata refresh
+
 # Expose port 80
 EXPOSE 80
 
