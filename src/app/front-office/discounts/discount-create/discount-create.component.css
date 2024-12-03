@@ -1,0 +1,13 @@
+.dropdown-menu {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  
+  .dropdown-toggle::after {
+    margin-left: 0.5em;
+  }
+  
+  .form-check {
+    margin-bottom: 0.5rem;
+  }
+  

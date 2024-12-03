@@ -2,45 +2,57 @@
   <div class="mt-2 mx-2">
     <div class="row">
       <div class="col-lg-8">
-        <!-- Post content -->
-        <article *ngIf="article">
-          <header class="mb-4">
-            <h1 class="fw-bolder mb-1 fst-italic">{{ article.title }}</h1>
-            <div class="text-muted fst-italic mb-2">
-              Posted on {{ article.createdAt | date }} by {{ article.author.lastname }}
-            </div>
-          </header>
-          <figure class="mb-4">
-            <img class="img-fluid rounded" [src]="article.image" alt="..." />
-          </figure>
-          <section class="mb-5">
-         
-              <p [innerHTML]="article.content" class="fs-5 mb-4"></p>
+        <div class="card top-selling overflow-auto">
+          <div class="card-body pb-0">
+            <!-- Article Content -->
+            <article *ngIf="article">
+              <header class="mb-4">
+                <h1 class="fw-bolder mb-1 fst-italic">{{ article.title }}</h1>
+                <div class="text-muted fst-italic mb-2">
+                  Publié le {{ article.createdAt | date }} par {{ article.author.lastname }}
+                </div>
+              </header>
+              <figure class="mb-4 article-image-container">
+                <img [src]="article.image" alt="{{ article.title }}" />
+              </figure>
+              <section class="mb-5">
+                <p [innerHTML]="article.content" class="fs-5 mb-4"></p>
 
+                <div>
+                  <span *ngFor="let tag of tags" class="badge bg-secondary me-1">{{ tag.name }}</span>
+                </div>
 
-            <!-- Like and Dislike buttons -->
-            <div class="d-flex align-items-center">
-              <button (click)="likeArticle()" class="btn btn-outline-success me-2">
-                <i class="fa fa-thumbs-up"></i> Like ({{ article.likes.length }})
-              </button>
-              <button (click)="dislikeArticle()" class="btn btn-outline-danger">
-                <i class="fa fa-thumbs-down"></i> Dislike ({{ article.dislikes.length }})
-              </button>
-            </div>
-          </section>
-        </article>
+                <!-- Like and Dislike Buttons -->
+                <div class="d-flex align-items-center mt-3">
+                  <button (click)="likeArticle()" class="btn btn-outline-success me-2">
+                    <i class="fa fa-thumbs-up"></i> J'aime ({{ article.likes.length }})
+                  </button>
+                  <button (click)="dislikeArticle()" class="btn btn-outline-danger">
+                    <i class="fa fa-thumbs-down"></i> Je n'aime pas ({{ article.dislikes.length }})
+                  </button>
+                </div>
+              </section>
+            </article>
+          </div>
+        </div>
 
-        <!-- Comments section -->
+        <!-- Comments Section -->
         <section class="mb-5">
           <div class="card bg-light">
             <div class="card-body">
-              <!-- Comment form -->
+              <!-- Comment Form -->
               <form class="mb-4">
-                <textarea [(ngModel)]="newCommentContent" name="newCommentContent" class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
-                <button (click)="submitComment()" class="btn btn-primary mt-2">Submit Comment</button>
+                <textarea
+                  [(ngModel)]="newCommentContent"
+                  name="newCommentContent"
+                  class="form-control"
+                  rows="3"
+                  placeholder="Participez à la discussion et laissez un commentaire !"
+                ></textarea>
+                <button (click)="submitComment()" class="btn btn-primary mt-2">Soumettre</button>
               </form>
 
-              <!-- Display comments -->
+              <!-- Display Comments -->
               <div *ngFor="let comment of comments">
                 <app-comment [comment]="comment" [userId]="userId"></app-comment>
               </div>
@@ -49,16 +61,45 @@
         </section>
       </div>
 
-      <!-- Side widgets -->
-      <div class="col-lg-4" id="unique-sidebar">
-        <!-- Similar posts -->
-        <div class="card mb-4">
-          <div class="card-header"><h4 class="fst-italic">Similar posts</h4></div>
-          <div class="card-body">
+      <!-- Sidebar Widgets -->
+      <div class="col-md-4">
+        <div class="position-sticky"  style="top: 2rem;">
+          <div class="p-4 mb-3 bg-body-tertiary rounded barShadow">
+            <h4 class="fst-italic">À propos de ce Blog:</h4>
+            <p>{{currentBlog?.description}}</p>
+          </div>
+
+          <div >
+            <h4 class="fst-italic ">Articles similaires</h4>
             <ul class="list-unstyled">
-              <!-- Similar posts logic here -->
+              <li *ngIf="similarPosts.length === 0">Aucun article similaire trouvé.</li>
+
+              <li *ngFor="let similarArticle of similarPosts">
+                <a
+                  class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top"
+                  (click)="navigateToArticle(similarArticle._id)"
+                >
+                  <img
+                    class="similar-article-image"
+                    [src]="similarArticle.image"
+                    alt="{{ similarArticle.title }}"
+                  />
+                  <div class="col-lg-8">
+                    <h6 class="mb-0">{{ similarArticle.title }}</h6>
+                    <small class="text-body-secondary">
+                      <p *ngIf="similarArticle.author">
+                        Par {{ similarArticle.author.firstname }} {{ similarArticle.author.lastname }}
+                      </p>
+                      {{ similarArticle.createdAt | date }}
+                    </small>
+                  </div>
+                </a>
+              </li>
+              
             </ul>
           </div>
+
+        
         </div>
       </div>
     </div>

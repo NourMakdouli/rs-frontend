@@ -48,6 +48,8 @@ import { InvitationFormComponent } from './referrals/invitation-form/invitation-
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { BuyTokensComponent } from './tokens/buy-tokens/buy-tokens.component';
 import { PaymentStatusForTokenComponent } from './tokens/payment-status-for-token/payment-status-for-token.component';
+import { DiscountCreateComponent } from './discounts/discount-create/discount-create.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -89,7 +91,8 @@ import { PaymentStatusForTokenComponent } from './tokens/payment-status-for-toke
 InvitationFormComponent,
 BuyTokensComponent,
 
-PaymentStatusForTokenComponent
+PaymentStatusForTokenComponent,
+  DiscountCreateComponent
 
   ],
   imports: [
@@ -103,7 +106,9 @@ PaymentStatusForTokenComponent
     ReactiveFormsModule,
     MarketplaceModule,
     NgxIntlTelInputModule,
-    ClipboardModule
+    ClipboardModule,
+    NgSelectModule,
+
     
     
 

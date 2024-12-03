@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import jwtDecode from 'jwt-decode';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { Tag } from 'src/app/core/models/tag';
 import { ArticleService } from 'src/app/core/services/article.service';
@@ -25,7 +26,10 @@ export class CreateArticleComponent implements OnInit {
     private articleService: ArticleService,
     private fileUploadService: FileUploadService,
     private router: Router,
-    private tagsService: TagsService,private authService:AuthService
+    private tagsService: TagsService,
+    private authService:AuthService,
+    private toastr: ToastrService
+
   ) {}
 
   ngOnInit(): void {
@@ -42,6 +46,11 @@ this.authService.currentUser.subscribe((user) => {
     });
     console.log("current User",this.userId);
   } else  {
+    this.toastr.error('You need to login in order to see this.', 'Error', {
+      progressBar: true,
+      closeButton: true,
+    });
+
     console.log('No user found, redirecting to login...');
     this.router.navigate(['/login']);   }
 })
@@ -135,9 +144,20 @@ this.authService.currentUser.subscribe((user) => {
     this.articleService.createArticle(this.articleForm.value).subscribe(
       (res) => {
         console.log('Article created successfully', res);
+        this.toastr.success('Article created successfully', 'Success', {
+          progressBar: true,
+          closeButton: true,
+        });
+
         this.router.navigate(['/articlesByUser']); // Redirect to article list or another route
       },
       (err) => {
+        this.toastr.error('Article creation failed', 'Error', {
+          progressBar: true,
+          closeButton: true,
+        });
+    
+    
         console.error('Article creation failed', err);
       }
     );

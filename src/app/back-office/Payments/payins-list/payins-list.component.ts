@@ -26,14 +26,14 @@ export class PayinsListComponent implements OnInit {
   }
 
   loadAutomationStatus() {
-    this.adminPayoutService.getPayoutAutomationStatus().subscribe(
-      (status) => {
+    this.adminPayoutService.getPayoutAutomationStatus().subscribe({
+      next:(status) => {
         this.isAutomated = status.isAutomated;
       },
-      (error) => {
+      error:(error) => {
         console.error('Failed to load automation status:', error);
       }
-    );
+   } );
   }
 
   async confirmToggleAutomationStatus() {
@@ -82,15 +82,18 @@ export class PayinsListComponent implements OnInit {
 
   fetchPayIns() {
     this.isLoading = true;
-    this.adminPayoutService.getPayInsToBePaidOut().subscribe(
-      (data) => {
+    this.adminPayoutService.getPayInsToBePaidOut().subscribe({
+
+
+      next:(data) => {
         this.payIns = data;
         this.isLoading = false;
       },
-      (error) => {
+      error: (error) => {
         this.errorMessage = 'Failed to load PayIns';
         this.isLoading = false;
       }
+    }
     );
   }
 

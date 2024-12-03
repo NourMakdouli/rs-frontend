@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Product } from '../models/product';
@@ -37,8 +37,12 @@ export class ProductService {
     console.log(id);
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
-
-
+  
+  getProductsByIds(ids: string[]): Observable<Product[]> {
+    const params = new HttpParams().set('ids', ids.join(','));
+    console.log('Requesting products with IDs:', ids.join(','));
+    return this.http.get<Product[]>(`${this.apiUrl}/by-ids`, { params });
+  }
   getProductsByStoreId(id: string): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.apiUrl}/store/${id}`);
   }

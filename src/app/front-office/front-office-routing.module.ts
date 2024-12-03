@@ -30,6 +30,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { InvitationFormComponent } from './referrals/invitation-form/invitation-form.component';
 import { BuyTokensComponent } from './tokens/buy-tokens/buy-tokens.component';
 import { PaymentStatusForTokenComponent } from './tokens/payment-status-for-token/payment-status-for-token.component';
+import { DiscountCreateComponent } from './discounts/discount-create/discount-create.component';
 
 const routes: Routes = [
   {
@@ -45,7 +46,7 @@ const routes: Routes = [
       { path: 'two-factor-settings', component: TwoFactorSettingsComponent },
 
       { path: 'discounts', component: DiscountsListComponent },
-      { path: 'discounts/create', component: DiscountFormComponent },
+      { path: 'discounts/create', component: DiscountCreateComponent },
       { path: 'invitation', component: InvitationFormComponent },
 
       { path: 'discounts/edit/:id', component: DiscountFormComponent },

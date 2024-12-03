@@ -19,39 +19,36 @@ export class ArticleService {
     return this.http.post(`${this.apiUrl}`, articleData);
   }
 
-  // Get all articles
   getAllArticles(): Observable<Article[]> {
     return this.http.get<Article[]>(`${this.apiUrl}`);
   }
 
-  // Get a specific article by ID
+  searchArticles(searchTerm: string): Observable<Article[]> {
+    return this.http.get<Article[]>(`${this.apiUrl}/search`, {
+      params: { query: searchTerm }
+    });
+  }
   getArticleById(articleId: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/${articleId}`);
   }
-
-  // Like an article
+  getSimilarArticles(articleId: string): Observable<Article[]> {
+    return this.http.get<Article[]>(`${this.apiUrl}/${articleId}/similar`);
+  }
   likeArticle(articleId: string, userId: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/${articleId}/like`, { userId });
   }
 
-  // Dislike an article
   dislikeArticle(articleId: string, userId: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/${articleId}/dislike`, { userId });
   }
 
-  // getPublishedArticlesByAuthor(authorId: string): Observable<Article[]> {
-  //   return this.http.get<Article[]>(`${this.apiUrl}/published/author/${authorId}`);
-  // } 
-
-
+  getArticlesByTag(tagId: string): Observable<Article[]> {
+    return this.http.get<Article[]>(`${this.apiUrl}/tag/${tagId}`);
+  }
   getArticlesByAuthor(authorId: string): Observable<Article[]> {
     return this.http.get<Article[]>(`${this.apiUrl}/author/${authorId}`);
 
   }
-  // getAllPublishedArticles(): Observable<Article[]> {
-  //   return this.http.get<Article[]>(`${this.apiUrl}/published`);
-  // }
-
 
   deleteArticle(articleId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${articleId}`);

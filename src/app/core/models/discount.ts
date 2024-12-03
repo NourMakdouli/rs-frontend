@@ -1,10 +1,18 @@
+
+export enum DiscountType {
+  Product = 'product',
+  Products = 'products',
+  Store = 'store',
+}
 export interface Discount {
     _id?: string;
-    type: 'product' | 'products' | 'store';
+    type: DiscountType;
     percentage: number;
     startDate: Date;
     endDate: Date;
     products?: string[];  
-    store?: string;    
+    store?: string; 
+    createdAt?: Date;  
+    updatedAt?: Date;   
   }
   

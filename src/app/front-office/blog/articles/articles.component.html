@@ -1,33 +1,115 @@
-<main >
-  <section class="jumbotron text-center">
-    <div class="container">
-      <h1 class="jumbotron-heading">Les Actualités</h1>
-    </div>
-  </section>
+<!-- articles.component.html -->
+  <div class="heading-container">
+    <h4>
+      Nos Actualités
+    </h4>
+  </div>
+  
+  <div class="container">
+    <div class="row">
+      <!-- Blog entries-->
+      <div class="col-lg-8">
+        <!-- Featured blog post-->
+        <div class="card mb-4" *ngIf="featuredArticle">
+          <a [routerLink]="['/article-details', featuredArticle._id]">
+            <img
+              class="card-img-top"
+              [src]="featuredArticle.image"
+              [alt]="featuredArticle.title"
+            />
+          </a>
+          <div class="card-body">
+            <div class="small text-muted">{{ featuredArticle.createdAt | date: 'MMMM d, y' }}</div>
+            <h2 class="card-title">{{ featuredArticle.title }}</h2>
+            <p class="card-text" [innerHTML]="featuredArticle.content | slice:0:200"></p>
+            <a class="btn btn-primary" [routerLink]="['/article-details', featuredArticle._id]">Read more →</a>
+          </div>
+        </div>
 
-  <div class="album py-5 bg-light">
-    <div class="container">
-      <div class="row">
-        <!-- Loop through articles -->
-        <div class="col-md-4" *ngFor="let article of articles | isDraftFilter: false">
-          <div class="card mb-4 box-shadow">
-            <a [routerLink]="['/article-details', article._id]">
-              <img 
-                class="card-img-top" 
-                [src]="article.image" 
-                [alt]="article.title" 
-                style="height: 200px; width: 100%; object-fit: cover;">
-            </a>
-            <div class="card-body">
-              <div class="small text-muted">{{ article.createdAt | date:'MMMM d, y' }}</div>
-              <h2 class="card-title h3">{{ article.title }}</h2>
-              <div class="card-text" [innerHTML]="(article.content | slice:0:100) + '...'"></div>
-              <a class="btn btn-primary" [routerLink]="['/article-details', article._id]">Read more →</a>
+     
+        <div  *ngIf="nonFeaturedArticles.length === 0" class="alert alert-dark alert-dismissible fade show" role="alert">
+         Pas d'articles
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <!-- Nested row for non-featured blog posts-->
+        <div class="row">
+          <div
+            class="col-lg-6 d-flex align-items-stretch"
+            *ngFor="let article of nonFeaturedArticles"
+          >
+            <!-- Blog post-->
+            <div class="card mb-4 w-100">
+              <a [routerLink]="['/article-details', article._id]">
+                <img
+                  class="card-img-top"
+                  [src]="article.image"
+                  [alt]="article.title"
+                />
+              </a>
+              <div class="card-body d-flex flex-column">
+                <div class="small text-muted">{{ article.createdAt | date: 'MMMM d, y' }}</div>
+                <h2 class="card-title h4">{{ article.title }}</h2>
+                <p class="card-text" [innerHTML]="article.content | slice:0:100"></p>
+                <a
+                  class="btn btn-primary mt-auto"
+                  [routerLink]="['/article-details', article._id]"
+                  >Read more →</a
+                >
+              </div>
             </div>
           </div>
         </div>
-        <!-- End loop -->
+      </div>
+
+      <!-- Side widgets-->
+      <div class="col-lg-4">
+        <!-- Search widget-->
+        <div class="card mb-4">
+          <div class="card-header">Search</div>
+          <div class="card-body">
+            <div class="input-group">
+              <input
+                class="form-control"
+                type="text"
+                placeholder="Enter search term..."
+                [(ngModel)]="searchTerm"
+                (keyup.enter)="searchArticles()"
+                aria-label="Enter search term..."
+                aria-describedby="button-search"
+              />
+              <button class="btn btn-primary" id="button-search" (click)="searchArticles()">Go!</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Categories widget-->
+<!-- Categories widget-->
+<div class="card mb-4">
+  <div class="card-header">Categories</div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-12">
+        <ul class="list-unstyled mb-0">
+          <li *ngFor="let tag of visibleTags">
+            <a  (click)="filterByTag(tag); $event.preventDefault()">{{ tag.name }}</a>
+          </li>
+        </ul>
+        <!-- See More/Less Button -->
+        <button class="btn btn-link p-0 mt-2 text-center" (click)="toggleTags()">
+          {{ showAllTags ? 'See less' : 'See more' }}
+        </button>
       </div>
     </div>
   </div>
-</main>
+</div>
+
+        <!-- Side widget (optional)-->
+        <div class="card mb-4">
+          <div class="card-header">About</div>
+          <div class="card-body">
+            All of our posts are shared by our merchants.          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -338,6 +338,42 @@ h6 {
   color: var(--reseausite-primary) ;
   padding: 15px;
   border-bottom: none; /* Removes underline from header */
+}.card-text {
+  overflow: hidden; /* Ensures content exceeding the limit is hidden */
+  text-overflow: ellipsis; /* Adds "..." for overflowing text */
+  display: -webkit-box; /* Required for -webkit-line-clamp */
+  -webkit-line-clamp: 3; /* Limits text to 3 lines */
+  line-clamp: 3;
+  -webkit-box-orient: vertical; /* Sets the orientation to vertical */
+  line-height: 1.5em; /* Sets the height of each line */
+  max-height: calc(1.5em * 3); /* Matches the height of 3 lines */
+  margin-bottom: 10px;
+}
+
+.heading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.heading-container h4 {
+  font-family: var(--reseausite-font);
+  font-size: 24px;
+  color: #333;
+}
+.heading-container h3 {
+  font-family: var(--reseausite-font);
+  font-size: 24px;
+  color: var( --reseausite-primary);
+}
+.card-text.no-clamp {
+  display: block;
+  max-height: calc(1.5em * 3);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; /* Limits text to a single line for fallback */
 }
 
 /* Card footer styling */
@@ -412,24 +448,28 @@ h6 {
 }
 
 .accordion-button:not(.collapsed) {
-  color: inherit;  /* Inherit color to ensure consistency when accordion is expanded */
-  background: none;  /* Ensure background remains clear */
+  color: inherit;  
+  background: none;  
 }
 
 .accordion-flush .accordion-button {
-  padding: 15px 0;  /* Consistent padding for flush accordions */
-  border: 0;  /* No borders for flush style */
+  padding: 15px 0; 
+  border: 0; 
 }
 
+main {
+  display: block;
+  unicode-bidi: isolate;
+}
 .accordion-flush .accordion-button:not(.collapsed) {
-  box-shadow: none;  /* No box shadow in flush mode */
-  background: none;  /* No background in flush mode */
+  box-shadow: none;  
+  background: none;  
 }
 
 .accordion-flush .accordion-body {
-  padding: 15px;  /* Padding inside the accordion body */
-  color: inherit;  /* Inherit text color from parent */
-  font-size: 15px;  /* Appropriate font size for content */
+  padding: 15px;
+  color: inherit;
+  font-size: 15px; 
   
 }
 
@@ -891,7 +931,7 @@ h6 {
     margin-left: 0; /* Remove margin when sidebar is hidden */
     transition: all 0.3s ease; /* Smooth transition */
   }
-
+  /* When the sidebar is active, move main content to the right */
   /* When the sidebar is active, move main content to the right */
   .sidebar-active #main,
   .sidebar-active #footer {
@@ -906,6 +946,7 @@ h6 {
     left: 0;
   }
 }
+
 
 @media (min-width: 1200px) {
 

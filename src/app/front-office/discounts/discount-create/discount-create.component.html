@@ -1,0 +1,173 @@
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Formulaire de remise</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home">Accueil</a></li>
+        <li class="breadcrumb-item"><a routerLink="/discounts">Mes remises</a></li>
+        <li class="breadcrumb-item active">Formulaire de remise</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Créer une nouvelle remise</h5>
+            <p>
+              Remplissez le formulaire ci-dessous pour créer une nouvelle remise. Le type de remise sera déterminé automatiquement en fonction du nombre de produits que vous sélectionnez.
+            </p>
+
+            <!-- Discount Creation Form -->
+            <form
+              [formGroup]="discountForm"
+              (ngSubmit)="onSubmit()"
+              class="row g-3 needs-validation"
+              novalidate
+            >
+              <!-- Percentage -->
+              <div class="col-md-4">
+                <label for="percentage" class="form-label">Pourcentage (%)</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="percentage"
+                  formControlName="percentage"
+                  required
+                  [ngClass]="{
+                    'is-invalid':
+                      discountForm.get('percentage')?.invalid &&
+                      (discountForm.get('percentage')?.dirty || discountForm.get('percentage')?.touched),
+                    'is-valid':
+                      discountForm.get('percentage')?.valid &&
+                      (discountForm.get('percentage')?.dirty || discountForm.get('percentage')?.touched)
+                  }"
+                />
+                <div class="invalid-feedback">
+                  Veuillez fournir un pourcentage valide entre 1 et 100.
+                </div>
+                <div class="valid-feedback">C'est bon !</div>
+              </div>
+
+              <!-- Start Date -->
+              <div class="col-md-4">
+                <label for="startDate" class="form-label">Date de début</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="startDate"
+                  formControlName="startDate"
+                  required
+                  [ngClass]="{
+                    'is-invalid':
+                      (discountForm.get('startDate')?.invalid &&
+                        (discountForm.get('startDate')?.dirty ||
+                          discountForm.get('startDate')?.touched)) ||
+                      discountForm.hasError('startDateAfterEndDate')
+                  }"
+                />
+                <div class="invalid-feedback" *ngIf="discountForm.get('startDate')?.hasError('required')">
+                  Veuillez fournir une date de début.
+                </div>
+                <div class="invalid-feedback" *ngIf="discountForm.hasError('startDateAfterEndDate')">
+                  La date de début doit être antérieure à la date de fin.
+                </div>
+              </div>
+
+              <!-- End Date -->
+              <div class="col-md-4">
+                <label for="endDate" class="form-label">Date de fin</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="endDate"
+                  formControlName="endDate"
+                  required
+                  [ngClass]="{
+                    'is-invalid':
+                      (discountForm.get('endDate')?.invalid &&
+                        (discountForm.get('endDate')?.dirty ||
+                          discountForm.get('endDate')?.touched)) ||
+                      discountForm.hasError('startDateAfterEndDate')
+                  }"
+                />
+                <div class="invalid-feedback" *ngIf="discountForm.get('endDate')?.errors?.['required']">
+                  Veuillez fournir une date de fin.
+                </div>
+                <div class="invalid-feedback" *ngIf="discountForm.get('endDate')?.errors?.['futureDate']">
+                  La date de fin doit être aujourd'hui ou dans le futur.
+                </div>
+                <div class="invalid-feedback" *ngIf="discountForm.hasError('startDateAfterEndDate')">
+                  La date de début doit être antérieure à la date de fin.
+                </div>
+              </div>
+
+              <!-- Products Selection -->
+              <div class="col-md-12">
+                <label class="form-label">Sélectionner des produits</label>
+                <div class="dropdown">
+                  <button
+                    class="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="productsDropdown"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    {{ getSelectedProductsText() }}
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="productsDropdown">
+                    <li>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="selectAllProducts"
+                          [checked]="allSelected"
+                          (change)="toggleSelectAll($event)"
+                        />
+                        <label class="form-check-label" for="selectAllProducts">
+                          <i class="bi bi-check2-all"></i> Tout sélectionner
+                        </label>
+                      </div>
+                    </li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li *ngFor="let product of products">
+                      <div class="form-check ms-2">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          [id]="product._id"
+                          [value]="product._id"
+                          [checked]="isProductSelected(product._id)"
+                          (change)="onProductCheckboxChange($event)"
+                        />
+                        <label class="form-check-label" [for]="product._id">
+                          {{ product.title }}
+                        </label>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="form-text">
+                  Si aucun produit n'est sélectionné, la remise s'appliquera à tous les produits de votre magasin.
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="col-12">
+                <button class="btn btn-primary" type="submit" [disabled]="!discountForm.valid">
+                  Créer la remise
+                </button>
+              </div>
+            </form>
+            <!-- End Discount Creation Form -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>

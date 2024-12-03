@@ -2164,6 +2164,13 @@
   dependencies:
     "tslib" "^2.3.0"
 
+"@ng-select/ng-select@^11.2.0":
+  "integrity" "sha512-lTyw93kFdKGecp9eKmOP0PQSCaAJS8DCt4D60ns055+ixvRSp2fuXAuJUvn1e3gAsvpZor37osmYlOJ4LYwYIA=="
+  "resolved" "https://registry.npmjs.org/@ng-select/ng-select/-/ng-select-11.2.0.tgz"
+  "version" "11.2.0"
+  dependencies:
+    "tslib" "^2.3.1"
+
 "@ngtools/webpack@16.2.16":
   "integrity" "sha512-4gm2allK0Pjy/Lxb9IGRnhEZNEOJSOTWwy09VOdHouV2ODRK7Tto2LgteaFJUUSLkuvWRsI7pfuA6yrz8KDfHw=="
   "resolved" "https://registry.npmjs.org/@ngtools/webpack/-/webpack-16.2.16.tgz"
@@ -7468,7 +7475,7 @@
   "resolved" "https://registry.npmjs.org/tree-kill/-/tree-kill-1.2.2.tgz"
   "version" "1.2.2"
 
-"tslib@^2.0.0", "tslib@^2.0.3", "tslib@^2.1.0", "tslib@^2.3.0":
+"tslib@^2.0.0", "tslib@^2.0.3", "tslib@^2.1.0", "tslib@^2.3.0", "tslib@^2.3.1":
   "integrity" "sha512-gLXCKdN1/j47AiHiOkJN69hJmcbGTHI0ImLmbYLHykhgeN0jVGola9yVjFgzCUklsZQMW55o+dW7IXv3RCXDzA=="
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.7.0.tgz"
   "version" "2.7.0"

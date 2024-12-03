@@ -17,7 +17,6 @@ export class CommentComponent {
 
   constructor(
     private commentService: CommentService,
-    private authService: AuthService
   ) {}
 
   toggleReplyForm(): void {
@@ -35,6 +34,8 @@ export class CommentComponent {
       };
 
       this.commentService.createComment(replyData).subscribe((createdReply) => {
+        console.log("the comment",createdReply);
+
         if (!this.comment.replies) {
           this.comment.replies = [];
           console.log(this.comment.replies)
@@ -48,31 +49,33 @@ export class CommentComponent {
 
 likeComment(): void {
   if (this.userId) {
-    this.commentService.likeComment(this.comment._id, this.userId).subscribe(
-      (updatedComment) => {
+    this.commentService.likeComment(this.comment._id, this.userId).subscribe({
+
+  
+      next:(updatedComment) => {
         this.comment.likes = updatedComment.likes;
         this.comment.dislikes = updatedComment.dislikes;
       },
-      (error) => {
+      error:(error) => {
         console.error('Error liking comment:', error);
         alert('An error occurred while liking the comment.');
       }
-    );
+  });
   }
 }
 
 dislikeComment(): void {
   if (this.userId) {
-    this.commentService.dislikeComment(this.comment._id, this.userId).subscribe(
-      (updatedComment) => {
+    this.commentService.dislikeComment(this.comment._id, this.userId).subscribe({
+      next:(updatedComment) => {
         this.comment.likes = updatedComment.likes;
         this.comment.dislikes = updatedComment.dislikes;
       },
-      (error) => {
+      error:(error) => {
         console.error('Error disliking comment:', error);
         alert('An error occurred while disliking the comment.');
       }
-    );
+  });
   }
 }
 

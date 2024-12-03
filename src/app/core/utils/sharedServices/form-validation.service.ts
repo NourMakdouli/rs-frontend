@@ -19,6 +19,48 @@ export class FormValidationService {
         : { minLength: { requiredLength: length } };
     };
   }
+
+futureDateValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const selectedDate = new Date(control.value);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Reset time portion
+    return selectedDate >= today ? null : { futureDate: true };
+  };
+}
+
+
+startDateBeforeEndDateValidator(startDateField: string, endDateField: string) {
+  return (formGroup: FormGroup): ValidationErrors | null => {
+    const startDateControl = formGroup.controls[startDateField];
+    const endDateControl = formGroup.controls[endDateField];
+
+    if (!startDateControl || !endDateControl) {
+      return null;
+    }
+
+    const startDate = new Date(startDateControl.value);
+    const endDate = new Date(endDateControl.value);
+
+    if (startDate && endDate && startDate > endDate) {
+      endDateControl.setErrors({ startDateAfterEndDate: true });
+      return { startDateAfterEndDate: true };
+    } else {
+      if (endDateControl.errors) {
+        delete endDateControl.errors['startDateAfterEndDate'];
+        if (Object.keys(endDateControl.errors).length === 0) {
+          endDateControl.setErrors(null);
+        }
+      }
+      return null;
+    }
+  };
+}
+
+
+
+
+
   expirationDateValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value;

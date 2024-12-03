@@ -1,1 +1,251 @@
-<p>discount-list works!</p>
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Mes remises</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home">Accueil</a></li>
+        <li class="breadcrumb-item active">Mes remises</li>
+      </ol>
+    </nav>
+  </div>
+
+  <section class="section">
+    <div class="row">
+      <!-- Main Card for Filters and Discounts -->
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <!-- Filters and "+ Ajouter" Button -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <h5 class="card-title">Mes remises</h5>
+              <button class="btn btn-success" routerLink="/discounts/create">
+                + Ajouter une remise
+              </button>
+            </div>
+            <form [formGroup]="filterForm" (ngSubmit)="onFilterChange()" class="row g-3 mb-4 align-items-end">
+              
+              <div class="col-md-3">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    formControlName="activeOnly"
+                    id="activeOnly"
+                  />
+                  <label class="form-check-label" for="activeOnly">
+                    Afficher les remises actives
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-2">
+
+
+
+                <select id="discountType" class="form-select" formControlName="type" >
+                  <option value="">Type de Remise: Tous</option>
+                  <option value="product">Produit</option>
+                  <option value="products">Produits</option>
+                  <option value="store">Magasin</option>
+                </select>
+              </div>
+              
+              <div class="col-md-2">
+                <button class="btn btn-primary" type="submit"><i class="bi bi-filter"></i></button>
+              </div>
+            </form>
+          
+
+            <!-- Discounts Table -->
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Pourcentage</th>
+                  <th>Valide du</th>
+                  <th>Valide au</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let discount of discounts">
+                  <td>{{ getDiscountTypeLabel(discount.type) }}</td>
+                  <td>{{ discount.percentage }}%</td>
+                  <td>{{ discount.startDate | date: 'shortDate' }}</td>
+                  <td>{{ discount.endDate | date: 'shortDate' }}</td>
+                  <td>
+                    <span class="badge"
+                      [ngClass]="{
+                        'bg-success': isDiscountActive(discount),
+                        'bg-secondary': !isDiscountActive(discount)
+                      }"
+                    >
+                      {{ isDiscountActive(discount) ? 'Active' : 'Expirée' }}
+                    </span>
+                  </td>
+                  <td>
+                    <button
+                    class="btn btn-sm btn-outline-primary me-2"
+                    (click)="openEditModal(discount)"
+                    data-bs-toggle="modal"
+                    data-bs-target="#editDiscountModal"
+                  >
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                    <button
+                      class="btn btn-sm btn-outline-danger me-2"
+                      (click)="onDeleteDiscount(discount)"
+                    >
+                      <i class="bi bi-trash"></i>
+                    </button>
+
+                    <button
+                    class="btn btn-sm btn-outline-info me-2"
+                    (click)="showProducts(discount)"
+                    data-bs-toggle="modal"
+                    data-bs-target="#productsModal"
+                  >
+                    Afficher les produits
+                  </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+
+            <div   *ngIf="discounts.length === 0" class="alert alert-primary alert-dismissible fade show text-center" role="alert">
+              <p>Aucune remise trouvée. Cliquez sur "+ Ajouter" pour créer une nouvelle remise.</p>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <div
+  class="modal fade"
+  id="productsModal"
+  tabindex="-1"
+  aria-labelledby="productsModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="productsModalLabel">
+          Produits concernés
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Fermer"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <li *ngFor="let product of modalProducts">{{ product.title }}</li>
+        </ul>
+        <p *ngIf="modalProducts.length === 0">
+          Cette remise s'applique à tous les produits.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+        >
+          Fermer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- Edit Discount Modal -->
+<div
+  class="modal fade"
+  id="editDiscountModal"
+  tabindex="-1"
+  aria-labelledby="editDiscountModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form [formGroup]="editDiscountForm" (ngSubmit)="onEditDiscountSubmit()">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editDiscountModalLabel">
+            Modifier la remise
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Fermer"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <!-- Percentage -->
+          <div class="mb-3">
+            <label for="editPercentage" class="form-label">Pourcentage (%)</label>
+            <input
+              type="number"
+              class="form-control"
+              id="editPercentage"
+              formControlName="percentage"
+              required
+              min="1"
+              max="100"
+            />
+          </div>
+          <!-- End Date -->
+          <div class="mb-3">
+            <label for="editEndDate" class="form-label">Date de fin</label>
+            <input
+              type="date"
+              class="form-control"
+              id="editEndDate"
+              formControlName="endDate"
+              required
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Annuler
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="editDiscountForm.invalid"
+          >
+            Enregistrer
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+</main>

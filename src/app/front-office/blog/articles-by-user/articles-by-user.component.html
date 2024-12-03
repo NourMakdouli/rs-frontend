@@ -1,30 +1,29 @@
-<main id="main" class="main"> 
+<main id="main" class="main">
   <div class="pagetitle">
-    <h1>Create New Article</h1>
+    <h1>Mes articles</h1>
     <nav>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a routerLink="/home">Acceuil</a></li>
-        <li class="breadcrumb-item"><a routerLink="/articlesByUser">My Articles</a></li>
-        <li class="breadcrumb-item active">Create Article</li>
+        <li class="breadcrumb-item"><a routerLink="/home">Accueil</a></li>
+        <li class="breadcrumb-item"><a routerLink="/articlesByUser">Mes Articles</a></li>
       </ol>
     </nav>
   </div>
   <div class="row">
     <div class="col">
 
-      <!-- Heading and Add Article Button on the same line -->
+      <!-- Titre et bouton Ajouter un article sur la même ligne -->
       <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Published Articles</h2>
+        <h2>Articles publiés</h2>
         <button [routerLink]="['/create-article']" class="btn btn-primary btn-add-article">
-          <i class="fa fa-plus"></i> Add Article
+          <i class="fa fa-plus"></i> Ajouter un article
         </button>
       </div>
 
       <div *ngIf="!published.length" class="alert alert-info">
-        You have no published articles at the moment.
+        Vous n'avez aucun article publié pour le moment.
       </div>
 
-      <!-- Published Articles List -->
+      <!-- Liste des articles publiés -->
       <ul class="list-listings">
         <li *ngFor="let article of published">
           <div class="listing-image">
@@ -38,23 +37,23 @@
                 <li><i class="fa fa-calendar"></i> <small>{{ article.createdAt | date }}</small></li>
                 <li><i class="fa fa-thumbs-up"></i> <small>{{ article.likes.length }} </small></li>
                 <li><i class="fa fa-thumbs-down"></i> <small>{{ article.dislikes.length }} </small></li>
-                <li><i class="fa fa-comment"></i> <small>{{ article.comments.length }} comments</small></li>
+                <li><i class="fa fa-comment"></i> <small>{{ article.comments.length }} commentaires</small></li>
               </ul>
               <div class="actions">
-                <button class="delete" (click)="deleteArticle(article._id)">Delete</button>
-                <button class="see-more" [routerLink]="['/article-details', article._id]">See More</button>
+                <button class="delete" (click)="deleteArticle(article._id)">Supprimer</button>
+                <button class="see-more" [routerLink]="['/article-details', article._id]">Voir plus</button>
               </div>
             </div>
           </div>
         </li>
       </ul>
 
-      <h2>Draft Articles</h2>
+      <h2>Articles brouillons</h2>
       <div *ngIf="!drafts.length" class="alert alert-info">
-        You have no drafts at the moment.
+        Vous n'avez aucun brouillon pour le moment.
       </div>
 
-      <!-- Draft Articles List -->
+      <!-- Liste des articles brouillons -->
       <ul class="list-listings">
         <li *ngFor="let article of drafts">
           <div class="listing-image">
@@ -63,13 +62,14 @@
           <div class="listing-body">
             <h3>{{ article.title }}</h3>
             <p [innerHTML]="article.content"></p>
+            
             <div class="meta-info">
               <ul>
                 <li><i class="fa fa-calendar"></i> <small>{{ article.createdAt | date }}</small></li>
               </ul>
               <div class="actions">
-                <button class="delete" (click)="deleteArticle(article._id)">Delete</button>
-                <button class="publish" (click)="publishArticle(article._id)">Publish</button>
+                <button class="delete" (click)="deleteArticle(article._id)">Supprimer</button>
+                <button class="publish" (click)="publishArticle(article._id)">Publier</button>
               </div>
             </div>
           </div>

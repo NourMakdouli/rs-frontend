@@ -13,7 +13,7 @@ export interface Article {
     image: string;
     createdAt: string;
     updatedAt?: string;
-    tags?: Tag[];
+    tags?: string[];
     isDraft:boolean;
 
   }

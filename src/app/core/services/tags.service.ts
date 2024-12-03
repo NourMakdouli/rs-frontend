@@ -1,4 +1,3 @@
-// src/app/core/services/tags.service.ts
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -21,4 +20,9 @@ export class TagsService {
   createTag(name: string): Observable<Tag> {
     return this.http.post<Tag>(this.apiUrl, { name });
   }
+
+  getTagById(tagId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${tagId}`);
+  }
+
 }

@@ -11,7 +11,9 @@ export class BlogService {
 
   constructor(private http: HttpClient) {}
 
-
+  getBlogById(id: string): Observable<Blog> {
+    return this.http.get<Blog>(`${this.apiUrl}/${id}`);
+  }
   updateBlog(id: string, blogData: Partial<Blog>): Observable<Blog> {
     return this.http.patch<Blog>(`${this.apiUrl}/${id}`, blogData);
   }
@@ -21,9 +23,7 @@ export class BlogService {
   }
 
 
-  getBlogById(id: string): Observable<Blog> {
-    return this.http.get<Blog>(`${this.apiUrl}/${id}`);
-  }
+
 // Method to get a blog by owner ID
 getBlogByOwner(ownerId: string): Observable<Blog> {
   return this.http.get<Blog>(`${this.apiUrl}/owner/${ownerId}`);
