@@ -24,7 +24,6 @@
     <div class="btngroup d-flex justify-content-center">
       <button type="button" class="btn btn_marketplace stat_marketplace" (click)="showSection('stores')">Commerçants</button>
       <button type="button" class="btn btn_marketplace stat_marketplace" (click)="showSection('products')">Produits</button>
-      <button type="button" class="btn btn_marketplace stat_marketplace" (click)="showSection('reductions')">Réductions</button>
       <button type="button" class="btn btn_marketplace stat_marketplace" (click)="showSection('actualites')">Actualités</button>
       <button type="button" class="btn btn_marketplace stat_marketplace" (click)="showSection('jobOffers')">Offres d'emplois</button>
 
@@ -33,7 +32,6 @@
     <div>
       <app-stores *ngIf="currentSection === 'stores'"></app-stores>
       <app-products *ngIf="currentSection === 'products'"></app-products>
-      <app-discounts *ngIf="currentSection === 'reductions'"></app-discounts>
       <app-articles *ngIf="currentSection === 'actualites'"></app-articles>
       <app-job-offers *ngIf="currentSection === 'jobOffers'"></app-job-offers>
 
