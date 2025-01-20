@@ -10,8 +10,7 @@ import { User } from 'src/app/core/models/user';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { JobApplicationService } from 'src/app/core/services/job-application.service';
 import { JobOfferService } from 'src/app/core/services/job-offer.service';
-import { ProductService } from 'src/app/core/services/product.service';
-import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-job-offers-by-user',

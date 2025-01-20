@@ -56,13 +56,16 @@
 
 
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Hauteur minimale pour occuper tout l'écran */
+  margin: 0; /* Retire les marges par défaut */
   font-family: var(--reseausite-font, "Arial", sans-serif);
-  background: #f6f9ff  !important;
-  color: #444444  !important;
+  background: #f6f9ff !important;
+  color: #444444 !important;
   box-sizing: border-box;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
-
 }
 
 /*---------------------------------------------------------------------------------------------------------
@@ -96,6 +99,7 @@ h6 {
 # Main
 --------------------------------------------------------------*/
 #main {
+  flex: 1; /* Permet au contenu de prendre tout l'espace disponible */
   margin-top: 60px;
   padding: 20px 30px;
   transition: all 0.3s;

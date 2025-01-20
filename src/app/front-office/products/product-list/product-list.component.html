@@ -3,7 +3,7 @@
     <h1>Mes Produits</h1>
     <nav>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a routerLink="/home">Acceuil</a></li>
+        <li class="breadcrumb-item"><a routerLink="/home">Accueil</a></li>
         <li class="breadcrumb-item active">Mes biens</li>
       </ol>
     </nav>
@@ -13,7 +13,7 @@
       <!-- Row for Title and Button -->
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h5 class="card-title mb-0">Stock <span>| Aujourd'hui</span></h5>
-        <button class="btn btn-primary" [routerLink]="['/product-create']">+ Add Product</button>
+        <button class="btn btn-primary" [routerLink]="['/product-create']">+ Ajouter un produit</button>
       </div>
 
       <!-- Search and Pagination Controls -->
@@ -24,32 +24,55 @@
               <option value="5">5</option>
               <option value="10" selected>10</option>
               <option value="15">15</option>
-              <option value="-1">All</option>
-            </select> entries per page
+              <option value="-1">Tout</option>
+            </select> entrées par page
           </label>
         </div>
         <div class="datatable-search">
-          <input class="datatable-input" placeholder="Search..." type="search"
-          [(ngModel)]="searchText" autocomplete="off" name="search" title="Search within table">
+          <input class="datatable-input" placeholder="Rechercher..." type="search"
+          [(ngModel)]="searchText" autocomplete="off" name="search" title="Rechercher dans le tableau">
         </div>
       </div>
 
       <!-- Empty State Message -->
       <div *ngIf="!products.length" class="alert alert-info">
-        No products available at the moment.
+        Aucun produit disponible pour le moment.
       </div>
 
       <!-- Product Table -->
       <table class="table table-borderless" *ngIf="products.length">
         <thead>
           <tr>           
-            <th scope="col"><a (click)="sortData('photos'); $event.preventDefault()"><i class="fa fa-sort"></i> Aperçu</a></th>
-            <th scope="col"><a (click)="sortData('createdAt'); $event.preventDefault()"><i class="fa fa-sort"></i> Date</a></th>
-            <th scope="col"><a (click)="sortData('title'); $event.preventDefault()"><i class="fa fa-sort"></i> Titre</a></th>
-            <th scope="col"><a (click)="sortData('type'); $event.preventDefault()"><i class="fa fa-sort"></i> Type</a></th>
-            <th scope="col"><a (click)="sortData('address'); $event.preventDefault()"><i class="fa fa-sort"></i> Adresse</a></th>
-            <th scope="col"><a (click)="sortData('priceExcludingFees'); $event.preventDefault()"><i class="fa fa-sort"></i> Prix Hors Frais</a></th>
-            
+            <th scope="col">
+              <a (click)="sortData('photos'); $event.preventDefault()">
+                <i class="fa fa-sort"></i> Aperçu
+              </a>
+            </th>
+            <th scope="col">
+              <a (click)="sortData('createdAt'); $event.preventDefault()">
+                <i class="fa fa-sort"></i> Date
+              </a>
+            </th>
+            <th scope="col">
+              <a (click)="sortData('title'); $event.preventDefault()">
+                <i class="fa fa-sort"></i> Titre
+              </a>
+            </th>
+            <th scope="col">
+              <a (click)="sortData('type'); $event.preventDefault()">
+                <i class="fa fa-sort"></i> Type
+              </a>
+            </th>
+            <th scope="col">
+              <a (click)="sortData('address'); $event.preventDefault()">
+                <i class="fa fa-sort"></i> Adresse
+              </a>
+            </th>
+            <th scope="col">
+              <a (click)="sortData('priceExcludingFees'); $event.preventDefault()">
+                <i class="fa fa-sort"></i> Prix Hors Frais
+              </a>
+            </th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
@@ -58,7 +81,7 @@
           <tr *ngFor="let product of products">
             <th scope="row">
               <a href="#">
-                <img *ngIf="product.photos && product.photos.length" [src]="product.photos[0]" alt="Product Photo" class="product-photo">
+                <img *ngIf="product.photos && product.photos.length" [src]="product.photos[0]" alt="Photo du produit" class="product-photo">
               </a>
             </th>
             <td>{{ product.createdAt | date:'medium' }}</td>
@@ -73,7 +96,6 @@
               <button [routerLink]="['/product-edit', product._id]" class="action-btn edit-btn" title="Modifier le produit">
                 <i class="fa fa-edit"></i>
               </button>
-              
             </td>
           </tr>
         </tbody>

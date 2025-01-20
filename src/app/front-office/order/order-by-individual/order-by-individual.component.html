@@ -26,7 +26,7 @@
             <!-- Table with stripped rows -->
             <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
               <div class="datatable-top">
-                <div class="datatable-dropdown" *ngIf="orderList.length > 0">
+                <div class="datatable-dropdown" >
                   <label>
                     <select class="datatable-selector" name="per-page">
                       <option value="5">5</option>
@@ -36,19 +36,16 @@
                     </select> entries per page
                   </label>
                 </div>
-                <div class="datatable-search" *ngIf="orderList.length > 0">
+                <div class="datatable-search" >
                   <input class="datatable-input" placeholder="Search..." type="search" name="search"
                     title="Search within table">
                 </div>
               </div>
 
-              <!-- Empty State Message -->
-              <div *ngIf="!orderList.length" class="alert alert-info">
-                No orders available at the moment.
-              </div>
+
 
               <!-- Orders Table -->
-              <table class="table table-borderless datatable datatable-table" *ngIf="orderList.length > 0">
+              <table class="table table-borderless datatable datatable-table" >
                 <thead>
                   <tr>
                     <th>Order Code</th>
@@ -63,7 +60,9 @@
                     <th>Actions</th>
                   </tr>
                 </thead>
+
                 <tbody>
+                 
                   <tr *ngFor="let order of orderList">
                     <td>{{ order._id }}
                       <span *ngIf="selectedOrder && order._id === selectedOrder._id" class="highlight"> <-- Your recent order </span>
@@ -81,13 +80,16 @@
                       <!-- Button to Open Modal for Order Details -->
                       <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                         [attr.data-bs-target]="'#orderModal' + order._id">
-                        View Details
+                        Voir les details
                       </button>
                     </td>
                   </tr>
                 </tbody>
-              </table>
 
+              </table>
+              <div *ngIf="!orderList.length" class="text-center">
+                Pas d'ordre disponible pour le moment.
+              </div>
               <!-- Modals for Each Order -->
               <div *ngFor="let order of orderList">
                 <div class="modal fade" id="orderModal{{ order._id }}" tabindex="-1"
@@ -104,7 +106,7 @@
                       <div class="modal-body">
                         <div class="row">
                           <div class="col-md-6">
-                            <p><strong>Order ID:</strong> {{ order._id }}</p>
+                            <p><strong>Order ID:</strong> {{ order.code }}</p>
                             <p><strong>Date:</strong> {{ order.createdAt | date: 'medium' }}</p>
                           </div>
                           <div class="col-md-6">

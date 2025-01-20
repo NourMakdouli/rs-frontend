@@ -60,42 +60,57 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.isAuthenticated) {
       this.initializeUserData();
     }
-  }
-
-  private initializeUserData(): void {
-    this.user = this.authService.currentUserValue;
     this.cartCount = this.cartService.getCartCount();
-    this.wishlistProduct = this.user?.favorites;
-    this.wishlistCount = this.wishlistProduct?.length || 0;
-    console.log('The user favorites', this.user?.favorites);
-
-    if (this.user?._id) {
-      this.notificationService.connect(this.user._id);
-      console.log('Connected to NotificationService with user ID:', this.user._id);
-
-      const httpSub = this.notificationService.getUserNotifications(this.user._id).subscribe({
-        next:(notifications) => {
-          console.log('The notifications are:', notifications);
-          this.notifications = notifications;
-
-        },
-        error:(error) => {
-          console.error('Error fetching notifications:', error);
-        }
-    });
-      this.subscriptions.add(httpSub);
-
-      const notifSub = this.notificationService.getNotifications().subscribe((notification) => {
-        this.notifications.unshift(notification);
-      });
-      this.subscriptions.add(notifSub);
-    }
-
     const cartSub = this.cartService.cartUpdated.subscribe((count: number) => {
       this.cartCount = count;
     });
     this.subscriptions.add(cartSub);
   }
+
+  private initializeUserData(): void {
+    this.user = this.authService.currentUserValue;
+    this.cartCount = this.cartService.getCartCount();
+    this.wishlistProduct = this.user?.favorites || [];
+    this.wishlistCount = this.wishlistProduct.length;
+    console.log('The user favorites:', this.user?.favorites);
+  
+    if (this.user?._id) {
+      // Connect to Notification Service
+      this.notificationService.connect(this.user._id);
+      console.log('Connected to NotificationService with user ID:', this.user._id);
+  
+      // Fetch initial notifications
+      const httpSub = this.notificationService.getUserNotifications(this.user._id).subscribe({
+        next: (notifications) => {
+          console.log('Fetched notifications:', notifications);
+          // Avoid duplications by replacing the array
+          this.notifications = notifications || [];
+        },
+        error: (error) => {
+          console.error('Error fetching notifications:', error);
+        },
+      });
+      this.subscriptions.add(httpSub);
+  
+      // Listen for new notifications in real time
+      const notifSub = this.notificationService.getNotifications().subscribe((notification) => {
+        console.log('New real-time notification:', notification);
+  
+        // Add the new notification only if it's not a duplicate
+        if (!this.notifications.some((n) => n._id === notification._id)) {
+          this.notifications.unshift(notification);
+        }
+      });
+      this.subscriptions.add(notifSub);
+    }
+  
+    // Listen for cart updates
+    const cartSub = this.cartService.cartUpdated.subscribe((count: number) => {
+      this.cartCount = count;
+    });
+    this.subscriptions.add(cartSub);
+  }
+  
 
   private clearUserData(): void {
     this.user = null;

@@ -10,9 +10,8 @@
     </li><!-- end Home Nav -->
 
     <li class="nav-item">
-      <a class="nav-link collapsed" routerLink="/marketplace/cart" routerLinkActive="active">
-        <i class="bi bi-person-lines-fill"></i>
-        <span>Contact</span>
+      <a class="nav-link collapsed" routerLink="/job-offers-by-merchant" routerLinkActive="active">
+        <i class="bi bi-briefcase"></i>        <span>Offres d'emploi</span>
       </a>
     </li><!-- End Contacts Nav -->
 
@@ -40,12 +39,13 @@
     <li class="nav-item" *ngIf="isMerchant()">
       <a class="nav-link collapsed" routerLink="/orders-by-individual">
         <i class="bi bi-bag-fill"></i>
-        <span>Cmmands Made By me</span>
+        <span>Commandes personnelles</span>
       </a>
     </li><!-- End Merchant Orders Nav -->
 
     <li class="nav-item">
-      <a class="nav-link collapsed" routerLink="/marketpalace/products">
+          
+      <a [routerLink]="['/store-details', currentUser?.store]" class="nav-link collapsed" >
         <i class="bi bi-envelope"></i>
         <span>Avis & Notes</span>
       </a>
@@ -58,9 +58,9 @@
     </li><!-- End Contact Page Nav -->
 
     <li class="nav-item">
-      <a class="nav-link collapsed" href="pages-register.html">
+      <a class="nav-link collapsed" href="/invitation">
         <i class="bi bi-wallet2"></i>
-        <span>Mes parrainanges</span>
+        <span>Gagner des Jetons</span>
       </a>
     </li><!-- End Register Page Nav -->
     <li class="nav-item" *ngIf="isMerchant()"></li>

@@ -18,6 +18,8 @@ import { Product } from 'src/app/core/models/product';
 export class CartComponent implements OnInit, OnDestroy {
   cartProducts: CartItem[] = [];
   cartTotal = 0;
+  tokenBalance = 0; 
+  tokenInput = 0;  
   private userId: string;
   private cartSub: Subscription;
 
@@ -35,6 +37,9 @@ export class CartComponent implements OnInit, OnDestroy {
     this.authService.currentUser.subscribe((user) => {
       if (user) {
         this.userId = user._id;
+
+        this.tokenBalance = user.tokenBalance || 0;
+
         this.cartSub = this.cartService.cartUpdated.subscribe(() => {
           this.cartProducts = this.cartService.getItems();
           this.calculateCartTotal();
@@ -50,7 +55,23 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   calculateCartTotal() {
-    this.cartTotal = this.cartProducts.reduce((total, item) => total + item.total, 0);
+    const originalTotal = this.cartProducts.reduce((total, item) => total + item.total, 0);
+    this.cartTotal = originalTotal - this.tokenInput;
+  }
+
+  onTokenInputChange(event: any) {
+    const value = Number(event.target.value);
+
+    
+    if (value > this.tokenBalance) {
+      this.tokenInput = this.tokenBalance; 
+    } else if (value < 0) {
+      this.tokenInput = 0; 
+    } else {
+      this.tokenInput = value;
+    }
+
+    this.calculateCartTotal(); 
   }
 
   removeFromCart(product: CartItem) {
@@ -85,6 +106,10 @@ export class CartComponent implements OnInit, OnDestroy {
 
   checkout() {
     if (this.authService.isAuthenticated) {
+      if (this.tokenInput > this.tokenBalance) {
+        alert('You cannot use more tokens than you have!');
+        return;
+      }
       this.validateCart().then((isValid) => {
         if (isValid) {
           const cartItems = this.cartProducts;
@@ -105,7 +130,6 @@ export class CartComponent implements OnInit, OnDestroy {
             }
           });
         } else {
-          // Cart is invalid, user has been notified.
         }
       }).catch(() => {
         Swal.fire('Error', 'Unable to validate cart at this time. Please try again later.', 'error');

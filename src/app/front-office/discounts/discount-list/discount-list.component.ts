@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { DiscountService } from 'src/app/core/services/discount.service';
 import { ProductService } from 'src/app/core/services/product.service';
 import Swal from 'sweetalert2';
-declare var bootstrap: any; // Ensure this is declared at the top of your component
+declare var bootstrap: any; 
 
 @Component({
   selector: 'app-discount-list',
@@ -241,6 +241,7 @@ if (this.selectedDiscount._id)
 
   isDiscountActive(discount: Discount): boolean {
     const now = new Date();
+    console.log("11",new Date(discount.startDate) <= now && new Date(discount.endDate) >= now)
     return new Date(discount.startDate) <= now && new Date(discount.endDate) >= now;
   }
 

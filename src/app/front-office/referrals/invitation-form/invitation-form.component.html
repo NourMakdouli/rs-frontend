@@ -1,39 +1,114 @@
 <main id="main" class="main">
-    <div class="invite-container">
-        <h2>Invite a Friend</h2>
-      
-        <form [formGroup]="inviteForm" (ngSubmit)="onSubmit()">
-          <div>
-            <label for="firstName">First Name *</label>
-            <input id="firstName" formControlName="firstName" required />
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Inviter un Ami</h5>
+      <p class="text-info">
+        <strong>Gagnez des jetons :</strong><br />
+        Vous gagnez <strong>10 jetons</strong> si votre ami s'inscrit en utilisant votre lien,<br />
+        et <strong>20 jetons</strong> supplémentaires lorsqu'il effectue son premier achat.
+      </p>
+      <p>Remplissez le formulaire ci-dessous pour inviter un ami.</p>
+
+      <!-- Formulaire d'invitation -->
+      <form
+        [formGroup]="inviteForm"
+        (ngSubmit)="onSubmit()"
+        class="row g-3 needs-validation"
+        novalidate
+      >
+        <!-- Prénom -->
+        <div class="col-md-6">
+          <label for="firstName" class="form-label">Prénom *</label>
+          <input
+            id="firstName"
+            type="text"
+            formControlName="firstName"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': inviteForm.get('firstName')?.invalid && inviteForm.get('firstName')?.touched,
+              'is-valid': inviteForm.get('firstName')?.valid
+            }"
+            required
+          />
+          <div *ngIf="inviteForm.get('firstName')?.invalid && inviteForm.get('firstName')?.touched" class="invalid-feedback">
+            Veuillez entrer un prénom.
           </div>
-      
-          <div>
-            <label for="lastName">Last Name *</label>
-            <input id="lastName" formControlName="lastName" required />
+        </div>
+
+        <!-- Nom de famille -->
+        <div class="col-md-6">
+          <label for="lastName" class="form-label">Nom de Famille *</label>
+          <input
+            id="lastName"
+            type="text"
+            formControlName="lastName"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': inviteForm.get('lastName')?.invalid && inviteForm.get('lastName')?.touched,
+              'is-valid': inviteForm.get('lastName')?.valid
+            }"
+            required
+          />
+          <div *ngIf="inviteForm.get('lastName')?.invalid && inviteForm.get('lastName')?.touched" class="invalid-feedback">
+            Veuillez entrer un nom de famille.
           </div>
-      
-          <div>
-            <label for="email">Email *</label>
-            <input id="email" formControlName="email" type="email" required />
+        </div>
+
+        <!-- Email -->
+        <div class="col-md-12">
+          <label for="email" class="form-label">Email *</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': inviteForm.get('email')?.invalid && inviteForm.get('email')?.touched,
+              'is-valid': inviteForm.get('email')?.valid
+            }"
+            required
+          />
+          <div *ngIf="inviteForm.get('email')?.invalid && inviteForm.get('email')?.touched" class="invalid-feedback">
+            Veuillez entrer une adresse email valide.
           </div>
-      
-          <div>
-            <label for="message">Personal Message</label>
-            <textarea id="message" formControlName="message"></textarea>
-          </div>
-      
-          <button type="submit">Send Invitation</button>
-        </form>
-      
-        <h3>Or share your referral link:</h3>
-        <div class="referral-link">
-          <input type="text" [value]="referralLink" readonly />
-          <button (click)="copyReferralLink()">
-            {{ isLinkCopied ? 'Copied!' : 'Copy Link' }}
+        </div>
+
+        <!-- Message personnel -->
+        <div class="col-md-12">
+          <label for="message" class="form-label">Message Personnel</label>
+          <textarea
+            id="message"
+            formControlName="message"
+            class="form-control"
+            rows="4"
+          ></textarea>
+        </div>
+
+        <!-- Bouton d'envoi -->
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary" [disabled]="inviteForm.invalid">
+            Envoyer l'Invitation
           </button>
         </div>
-      </div>
-      
+      </form>
 
+      <!-- Lien de parrainage -->
+      <h6 class="mt-4">Ou partagez votre lien de parrainage :</h6>
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          [value]="referralLink"
+          readonly
+        />
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          (click)="copyReferralLink()"
+        >
+          {{ isLinkCopied ? 'Copié !' : 'Copier le Lien' }}
+        </button>
+      </div>
+    </div>
+  </div>
 </main>

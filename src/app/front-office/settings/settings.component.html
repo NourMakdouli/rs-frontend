@@ -1,15 +1,13 @@
 <main id="main" class="main">
-
-    <div class="pagetitle">
-      <h1>Profile</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Users</li>
-          <li class="breadcrumb-item active">Profile</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
+  <div class="pagetitle">
+    <h1>Profil</h1>
+    <nav>
+      <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="/home">Acceuil</a></li>        <li class="breadcrumb-item">Utilisateurs</li>
+        <li class="breadcrumb-item active">Profil</li>
+      </ol>
+    </nav>
+  </div><!-- Fin Titre de la page -->
 
     <section class="section profile">
       <div class="row">
@@ -44,16 +42,16 @@
               <ul class="nav nav-tabs nav-tabs-bordered" role="tablist">
 
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview" aria-selected="true" role="tab">Overview</button>
+                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview" aria-selected="true" role="tab">Aperçu</button>
                 </li>
 
 
 
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings" aria-selected="false" tabindex="-1" role="tab">Enable Payment</button>
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings" aria-selected="false" tabindex="-1" role="tab">Activer le paiement</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit" aria-selected="false" tabindex="-1" role="tab">2 factor autnetification</button>
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit" aria-selected="false" tabindex="-1" role="tab">Authentification à 2 facteurs</button>
                   </li>
 
              
@@ -62,19 +60,23 @@
               <div class="tab-content pt-2">
 
                 <div class="tab-pane fade show active profile-overview" id="profile-overview" role="tabpanel">
-                  <h5 class="card-title">Profile Settings</h5>
-                  <p class="small fst-italic">This page contains the different settings that you can modift to personalize your brwsing experience.</p>
-
-                  <h5 class="card-title">Profile settings Details</h5>
+                  <h5 class="card-title">Paramètres du profil</h5>
+                  <p class="small fst-italic">Cette page contient les différents paramètres que vous pouvez modifier pour personnaliser votre expérience de navigation.</p>
+  
+                  <h5 class="card-title">Détails du profil</h5>
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                    <div class="col-lg-3 col-md-4 label ">Nom complet</div>
                     <div class="col-lg-9 col-md-8">{{ currentUser.firstname }} {{ currentUser.lastname }}</div>
                   </div>
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Username</div>
+                    <div class="col-lg-3 col-md-4 label">Nom d'utilisateur</div>
                     <div class="col-lg-9 col-md-8">{{ currentUser.username }}</div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Solde des jetons</div>
+                    <div class="col-lg-9 col-md-8">{{ currentUser.tokenBalance}}</div>
                   </div>
                 
                   <div class="row">
@@ -82,21 +84,21 @@
                     <div class="col-lg-9 col-md-8">{{ currentUser.role }}</div>
                   </div>
                 
-                  <h5 class="card-title mt-4">Settings Status</h5>
+                  <h5 class="card-title mt-4">Vente activée</h5>
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Selling Enabled</div>
                     <div class="col-lg-9 col-md-8">
                       <span [ngClass]="isSellingEnabled ? 'text-success' : 'text-danger'">
-                        {{ isSellingEnabled ? 'Enabled' : 'Disabled' }}
+                        {{ isSellingEnabled ? 'Activée' : 'Désactivée' }}
                       </span>
                     </div>
                   </div>
                 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Two-Factor Authentication</div>
+                    <div class="col-lg-3 col-md-4 label">Authentification à deux facteurs</div>
                     <div class="col-lg-9 col-md-8">
                       <span [ngClass]="isTwoFactorEnabled ? 'text-success' : 'text-danger'">
-                        {{ isTwoFactorEnabled ? 'Enabled' : 'Disabled' }}
+                        {{ isTwoFactorEnabled ? 'Activée' : 'Désactivée' }}
                       </span>
                     </div>
                   </div>
@@ -112,17 +114,16 @@
 <!-- Enable Payment Tab -->
 <div class="tab-pane fade pt-3" id="profile-settings" role="tabpanel" >
   <p class="text-center " *ngIf="!isSellingEnabled">
-    Enable payment and make everything profitable.
-  </p>
+    Activez les paiements et tirez profit de vos produits.  </p>
   <p class="text-center text-title"  *ngIf="isSellingEnabled">
-All your products are available for sale.  </p>
+    Tous vos produits sont disponibles à la vente.
+  </p>
 
 
   <!-- Check if selling is enabled -->
-  <div *ngIf="!isSellingEnabled">
+  <div *ngIf="!isSellingEnabled" class="text-center">
     <button class="btn btn-primary" (click)="enableSelling()" [disabled]="isLoading">
-      {{ isLoading ? 'Processing...' : 'Enable Selling' }}
-    </button>
+      {{ isLoading ? 'Traitement en cours...' : 'Activer la vente' }}    </button>
   </div>
   <!-- Bank Account Registration Form
  <input [(ngModel)]="documentId" placeholder="Document ID" />
@@ -134,7 +135,7 @@ All your products are available for sale.  </p>
     <button (click)="simulate()">Simulate Document Status</button>
    -->
   <div *ngIf="showBankForm">
-    <h3>Register Bank Account</h3>
+    <h3>Enregistrer un compte bancaire</h3>
     <form (ngSubmit)="registerBankAccount()" #bankForm="ngForm" class="needs-validation" novalidate>
       <div class="row mb-3">
         <label for="iban" class="col-md-4 col-form-label">IBAN</label>
@@ -152,11 +153,10 @@ All your products are available for sale.  </p>
             #ibanInput="ngModel"
           />
           <div *ngIf="ibanInput.invalid && (ibanInput.dirty || ibanInput.touched)" class="invalid-feedback">
-            <div *ngIf="ibanInput.hasError('required')">IBAN is required.</div>
-            <div *ngIf="ibanInput.hasError('pattern')">Please provide a valid IBAN.</div>
+            <div *ngIf="ibanInput.hasError('required')">L'IBAN est requis.</div>
+            <div *ngIf="ibanInput.hasError('pattern')">Veuillez entrer un IBAN valide.</div>
             <div *ngIf="ibanInput.hasError('minlength') || ibanInput.hasError('maxlength')">
-              IBAN must be between 15 and 34 characters.
-            </div>
+              L'IBAN doit comporter entre 15 et 34 caractères.            </div>
           </div>
         </div>
       </div>
@@ -177,11 +177,10 @@ All your products are available for sale.  </p>
             #bicInput="ngModel"
           />
           <div *ngIf="bicInput.invalid && (bicInput.dirty || bicInput.touched)" class="invalid-feedback">
-            <div *ngIf="bicInput.hasError('required')">BIC is required.</div>
-            <div *ngIf="bicInput.hasError('pattern')">Please provide a valid BIC.</div>
+            <div *ngIf="bicInput.hasError('required')">BIC est requis.</div>
+            <div *ngIf="bicInput.hasError('pattern')">Veuillez entrer un BIC valide.</div>
             <div *ngIf="bicInput.hasError('minlength') || bicInput.hasError('maxlength')">
-              BIC must be 8 or 11 characters.
-            </div>
+              Le BIC doit comporter 8 ou 11 caractères.            </div>
           </div>
         </div>
       </div>
@@ -194,24 +193,14 @@ All your products are available for sale.  </p>
     </form>
     
   </div>
-<!-- Document Upload Form for KYC Verification -->
-<div *ngIf="isSellingEnabled && showBankForm">
-  <h3>Upload KYC Document</h3>
-  <p class="text-muted">Please upload your ID or proof of address to complete KYC verification.</p>
-  <input type="file" (change)="onFileSelected($event)" accept=".pdf,.jpg,.jpeg,.png" />
 
-  <button class="btn btn-primary mt-2" (click)="uploadKycDocument()" [disabled]="isLoading || !selectedFile">
-    {{ isLoading ? 'Uploading...' : 'Upload Document' }}
-  </button>
-</div>
 
   <!-- Selling Enabled Message with Disable Option -->
   <div *ngIf="isSellingEnabled && !showBankForm" class="text-center">
     <div class="alert alert-success" role="alert">
-      Selling is currently enabled.
-    </div>
+      La vente est actuellement activée.    </div>
     <button class="btn btn-danger" (click)="disableSelling()" [disabled]="isLoading">
-      {{ isLoading ? 'Processing...' : 'Disable Selling' }}
+      {{ isLoading ? 'Processing...' : 'Désactiver la vente' }}
     </button>
   </div>
 </div>

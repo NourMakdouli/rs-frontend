@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Clipboard } from '@angular/cdk/clipboard';
 import { InvitationService } from 'src/app/core/services/invitation.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { UserService } from 'src/app/core/services/user.service';
@@ -26,7 +25,6 @@ export class InvitationFormComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private invitationService: InvitationService,
-    private clipboard: Clipboard,
     private authService: AuthService,
     private usersService: UserService,
     private router: Router
@@ -40,7 +38,6 @@ export class InvitationFormComponent implements OnInit, OnDestroy {
       this.id = this.user._id;
       console.log(" this.id", this.user._id);
   
-      // Now that this.id is set, call getReferralLink()
       this.getReferralLink();
     } else {
       this.router.navigate(['/login']);

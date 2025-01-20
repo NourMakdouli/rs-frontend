@@ -57,18 +57,18 @@
             <ul class="nav nav-tabs nav-tabs-bordered">
               <li class="nav-item">
                 <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">
-                  Overview
+                  Aperçu
                 </button>
               </li>
               <li class="nav-item">
                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">
-                  Edit Profile
+                  Editer le Profile
                 </button>
               </li>
               <!-- New Store Tab Button -->
               <li class="nav-item" *ngIf="user?.role === 'MERCHANT'">
                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#store-tab">
-                  Edit Store
+                  Editer Store
                 </button>
               </li>
               <li class="nav-item">
@@ -133,6 +133,12 @@
                           </div>
                           <div class="col-lg-9 col-md-8">
                             {{ user?.countryOfResidence }}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-3 col-md-4 label">Token Balance</div>
+                          <div class="col-lg-9 col-md-8">
+                            {{ user?.tokenBalance }}
                           </div>
                         </div>
                       </div>
@@ -516,7 +522,7 @@
                   </div>
 
                   <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Change Password</button>
+                    <button type="submit" class="btn btn-primary">Chnager le mot de passe</button>
                   </div>
                 </form>
               </div>

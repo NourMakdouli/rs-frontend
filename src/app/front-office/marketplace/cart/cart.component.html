@@ -1,103 +1,135 @@
 <main id="main" class="main">
-    <div class="pagetitle">
-      <h1>Shopping Cart</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a routerLink="/home">Acceuil</a></li>
-          <li class="breadcrumb-item">Pages</li>
-          <li class="breadcrumb-item active">Mon Panier</li>
-        </ol>
-      </nav>
-    </div>
-  
-    <section class="section" *ngIf="cartProducts.length > 0">
-      <div class="row justify-content-center align-items-center">
-        <div class="col-12">
-          <div class="card card-registration card-registration-2" style="border-radius: 15px;">
-            <div class="card-body p-0">
-              <div class="row g-0">
-                <div class="col-lg-8">
-                  <div class="p-5">
-                    <div class="d-flex justify-content-between align-items-center mb-5">
-                      <h1 class="fw-bold mb-0">Shopping Cart</h1>
-                      <h6 class="mb-0 text-muted">{{ cartProducts.length }} items</h6>
+  <div class="pagetitle">
+    <h1>Panier</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home">Accueil</a></li>
+        <li class="breadcrumb-item">Pages</li>
+        <li class="breadcrumb-item active">Mon Panier</li>
+      </ol>
+    </nav>
+  </div>
+
+  <section class="section" *ngIf="cartProducts.length > 0">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-12">
+        <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+          <div class="card-body p-0">
+            <div class="row g-0">
+              <div class="col-lg-8">
+                <div class="p-5">
+                  <div class="d-flex justify-content-between align-items-center mb-5">
+                    <h1 class="fw-bold mb-0">Panier</h1>
+                    <h6 class="mb-0 text-muted">{{ cartProducts.length }} articles</h6>
+                  </div>
+                  <hr class="my-4">
+
+                  <div class="row mb-4 d-flex justify-content-between align-items-center" *ngFor="let product of cartProducts">
+                    <div class="col-md-2 col-lg-2 col-xl-2">
+                      <img [src]="product.image" class="img-fluid rounded-3" alt="{{ product.title }}">
                     </div>
-                    <hr class="my-4">
-  
-                    <div class="row mb-4 d-flex justify-content-between align-items-center" *ngFor="let product of cartProducts">
-                      <div class="col-md-2 col-lg-2 col-xl-2">
-                        <img [src]="product.image" class="img-fluid rounded-3" alt="{{ product.title }}">
-                      </div>
-                      <div class="col-md-3 col-lg-3 col-xl-3">
-                        <h6 class="text-muted">{{ product.title }}</h6>
-                        <div [innerHTML]="product.description"></div>
-                      </div>
-                      <div class="col-md-3 col-lg-3 col-xl-2 d-flex ">
-                        <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2" (click)="updateQuantity(product, -1)">
-                          <i class="fa fa-minus"></i>
-                        </button>
-                        <input id="form1" min="0" name="quantity" [value]="product.quantity" type="number" class="form-control form-control-sm text-center" readonly />
-                        <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2" (click)="updateQuantity(product, 1)">
-                          <i class="fa fa-plus"></i>
-                        </button>
-                      </div>
-                      <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                        <h6 class="mb-0">€ {{ product.total }}</h6>
-                      </div>
-                      
-                      <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                        <a href="javascript:void(0);" class="text-red" (click)="removeFromCart(product)"><i class="fa fa-times"></i></a>
-                      </div>
+                    <div class="col-md-3 col-lg-3 col-xl-3">
+                      <h6 class="text-muted">{{ product.title }}</h6>
+                      <div [innerHTML]="product.description"></div>
                     </div>
-                    <hr class="my-4">
-                    <div class="pt-5">
-                      <h6 class="mb-0"><a routerLink="/" class="text-body"><i class="fa fa-arrow-left me-2"></i>Back to shop</a></h6>
+                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex ">
+                      <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2" (click)="updateQuantity(product, -1)">
+                        <i class="fa fa-minus"></i>
+                      </button>
+                      <input id="form1" min="0" name="quantity" [value]="product.quantity" type="number" class="form-control form-control-sm text-center" readonly />
+                      <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2" (click)="updateQuantity(product, 1)">
+                        <i class="fa fa-plus"></i>
+                      </button>
                     </div>
+                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                      <h6 class="mb-0">€ {{ product.price }}</h6>
+                    </div>
+                    
+                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                      <a href="javascript:void(0);" class="text-red" (click)="removeFromCart(product)">
+                        <i class="fa fa-times"></i>
+                      </a>
+                    </div>
+                  </div>
+                  <hr class="my-4">
+                  <div class="pt-5">
+                    <h6 class="mb-0">
+                      <a routerLink="/" class="text-body"><i class="fa fa-arrow-left me-2"></i>Retour à la boutique</a>
+                    </h6>
                   </div>
                 </div>
-                <div class="col-lg-4 bg-body-tertiary">
-                  <div class="p-5">
-                    <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
-                    <hr class="my-4">
-                    <div class="d-flex justify-content-between mb-4">
-                      <h5 class="text-uppercase">items {{ cartProducts.length }}</h5>
-                      <h5>€ {{ cartTotal }}</h5>
-                    </div>
-                    <h5 class="text-uppercase mb-3">Pay with Tokens</h5>
-                    <div class="mb-5">
-                      <div data-mdb-input-init class="form-outline">
-                        <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
-                        <label class="form-label" for="form3Examplea2">Enter amount in tokens.</label>
-                      </div>
-                    </div>
-                    <hr class="my-4">
-                    <div class="d-flex justify-content-between mb-5">
-                      <h5 class="text-uppercase">Total price</h5>
-                      <h5>€ {{ cartTotal }}</h5>
-                    </div>
-                    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-block btn-lg" data-mdb-ripple-color="dark" (click)="checkout()">Checkout</button>
+              </div>
+              <div class="col-lg-4 bg-body-tertiary">
+                <div class="p-5">
+                  <h3 class="fw-bold mb-5 mt-2 pt-1">Résumé</h3>
+                  <hr class="my-4">
+                  <div class="d-flex justify-content-between mb-4">
+                    <h5 class="text-uppercase">Articles {{ cartProducts.length }}</h5>
+                    <h5>€ {{ cartTotal }}</h5>
                   </div>
+                  <h5 class="text-uppercase mb-3">Payer avec des Tokens</h5>
+                  <div *ngIf="tokenBalance > 0; else noTokens" class="mb-5">
+                    <div class="form-outline">
+                      <input 
+                        type="number" 
+                        id="tokenInput" 
+                        class="form-control form-control-lg"
+                        [value]="tokenInput" 
+                        (input)="onTokenInputChange($event)" 
+                        [max]="tokenBalance"
+                        min="0"
+                      />
+                      <label class="form-label" for="tokenInput">
+                        Entrez le montant en tokens (Max: {{ tokenBalance }} tokens)
+                      </label>
+                    </div>
+                  </div>
+                  <ng-template #noTokens>
+                    <p class="text-danger">Vous n'avez pas de tokens disponibles.</p>
+                  </ng-template>
+                  <hr class="my-4">
+                  
+                  <div class="d-flex justify-content-between mb-5">
+                    <h5 class="text-uppercase">Prix total après tokens</h5>
+                    <h5>€ {{ cartTotal }}</h5>
+                  </div>
+                  <button 
+                    type="button" 
+                    class="btn btn-dark btn-block btn-lg" 
+                    (click)="checkout()"
+                  >
+                    Passer à la caisse
+                  </button>
+                  
+                  <hr class="my-4">
+                  <div class="d-flex justify-content-between mb-5">
+                    <h5 class="text-uppercase">Prix total</h5>
+                    <h5>€ {{ cartTotal }}</h5>
+                  </div>
+                  <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-block btn-lg" data-mdb-ripple-color="dark" (click)="checkout()">Passer à la caisse</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-  
-    <section class="section" *ngIf="cartProducts.length === 0">
-      <div class="row justify-content-center align-items-center">
-        <div class="col-12">
-          <div class="card card-registration card-registration-2" style="border-radius: 15px;">
-            <div class="card-body p-5 text-center">
-              <h1 class="fw-bold mb-0">Your Cart is Empty</h1>
-              <img src="../../../../assets/images/81c4fc9a4c06cf57abf23606689f7426.jpg" alt="No products found" style="max-width: 100%; height: auto;">
-              <br>
-              <a routerLink="/marketplace" class="btn btn-success mt-3 rounded-pill"><i class="fa fa-arrow-left mr-2"></i> Back to Shop</a>
-            </div>
+    </div>
+  </section>
+
+  <section class="section" *ngIf="cartProducts.length === 0">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-12">
+        <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+          <div class="card-body p-5 text-center">
+            <h1 class="fw-bold mb-0">Votre panier est vide</h1>
+            <img src="../../../../assets/images/81c4fc9a4c06cf57abf23606689f7426.jpg" alt="Aucun produit trouvé" style="max-width: 100%; height: auto;">
+            <br>
+            <a routerLink="/marketplace" class="btn btn-success mt-3 rounded-pill">
+              <i class="fa fa-arrow-left mr-2"></i> Retour à la boutique
+            </a>
           </div>
         </div>
       </div>
-    </section>
-  </main>
-  
+    </div>
+  </section>
+</main>

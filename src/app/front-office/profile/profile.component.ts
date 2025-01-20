@@ -85,12 +85,14 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUserData();
+  
   }
 
   private loadUserData(): void {
     this.user = this.authService.currentUserValue;
     if (this.user) {
       this.profileForm.patchValue(this.user);
+      console.log("this is the current user",this.user);
 
       if (this.user.role === 'MERCHANT' && this.user.store) {
         this.fetchStoreDetails(this.user.store);

@@ -4,7 +4,6 @@ import { User } from 'src/app/core/models/user';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { BlogService } from 'src/app/core/services/blog.service';
 import { PaymentService } from 'src/app/core/services/payment.service';
-import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-settings',
@@ -34,7 +33,6 @@ export class SettingsComponent implements OnInit {
     private authService: AuthService
   ) {}
   ngOnInit() {
-    // Fetch the current user and blog details
     const user = this.authService.currentUserValue;
     if (user) {
 
@@ -52,7 +50,6 @@ export class SettingsComponent implements OnInit {
       });
     } else {
       console.error('No current user found');
-      // Handle the case when there is no current user, for example, by redirecting or showing an error message.
     }
 
   }
@@ -66,7 +63,7 @@ export class SettingsComponent implements OnInit {
         .then(() => {
           this.isLoading = false;
           this.showBankForm = true;
-          this.isSellingEnabled = true; // Ensure these are set correctly
+          this.isSellingEnabled = true;
           console.log('isSellingEnabled:', this.isSellingEnabled);
           console.log('showBankForm:', this.showBankForm);
         })
@@ -138,8 +135,8 @@ export class SettingsComponent implements OnInit {
     this.isLoading = true;
     this.paymentService
       .registerBlogBankAccount(this.currentBlog._id, this.bankAccountDetails)
-      .subscribe(
-        (response) => {
+      .subscribe({
+        next:(response) => {
           this.isLoading = false;
           alert('Bank account registered successfully.');
           this.currentBlog.bankMangoPayId = response.Id;
@@ -149,8 +146,7 @@ export class SettingsComponent implements OnInit {
             .updateBlog(this.currentBlog._id, { bankMangoPayId: response.Id })
             .subscribe({
               next:() => {
-                // Successfully updated
-                // You can now enable the blog to start selling products
+
                 console.log('updated successfully youve done this');
 
               },
@@ -159,12 +155,12 @@ export class SettingsComponent implements OnInit {
               }
         });
         },
-        (error) => {
+        error:(error) => {
           this.isLoading = false;
           console.error('Error registering bank account:', error);
           alert('Failed to register bank account. Please try again.');
         }
-      );
+  });
   }
 
   disableSelling() {
@@ -181,7 +177,7 @@ export class SettingsComponent implements OnInit {
       error:(error) => {
         this.isLoading = false;
         console.error('Error disabling selling:', error);
-        alert('Failed to disable selling. Please try again.');
+        alert('Failed to Désactiver la vente. Please try again.');
       }
      } );
   }

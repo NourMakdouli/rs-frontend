@@ -69,7 +69,12 @@ this.router.navigate(['/marketplace/cart']);
 
   }
   addToCart(product: Product) {
-    const success = this.cartService.addToCart(product);
+    const priceToAdd = product.isDiscounted ? product.effectivePrice : product.priceExcludingFees;
+
+    // Create a copy of the product with the adjusted price
+    const productToAdd = { ...product, price: priceToAdd };
+  
+    const success = this.cartService.addToCart(productToAdd);
     if (success) {
       this.toastr.success('Product added to cart', 'Success');
     } else {

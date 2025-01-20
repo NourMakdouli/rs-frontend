@@ -31,6 +31,7 @@ import { InvitationFormComponent } from './referrals/invitation-form/invitation-
 import { BuyTokensComponent } from './tokens/buy-tokens/buy-tokens.component';
 import { PaymentStatusForTokenComponent } from './tokens/payment-status-for-token/payment-status-for-token.component';
 import { DiscountCreateComponent } from './discounts/discount-create/discount-create.component';
+import { ReviewListComponent } from './stores/review-list/review-list.component';
 
 const routes: Routes = [
   {
@@ -70,7 +71,7 @@ const routes: Routes = [
       { path: 'job-offers-by-merchant', component: JobOffersByUserComponent },
       { path: 'profile-settings', component: SettingsComponent },
 
-
+      
 
     
       { path: 'buy-tokens', component: BuyTokensComponent },
