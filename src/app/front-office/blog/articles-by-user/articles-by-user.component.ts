@@ -36,25 +36,24 @@ throw new Error('Method not implemented.');
 
   deleteArticle(articleId: string): void {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you really want to delete this article? This action cannot be undone.",
+      title: 'Êtes-vous sûr(e) ?',
+      text: "Voulez-vous vraiment supprimer cet article ? Cette action est irréversible.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonText: 'Oui, supprimez-le !'
     }).then((result) => {
       if (result.isConfirmed) {
         this.articleService.deleteArticle(articleId).subscribe(() => {
-          this.toastr.success('Article deleted successfully');
+          this.toastr.success('Article supprimé avec succès');
           // Remove the article from the articles, drafts, and published lists
           this.articles = this.articles.filter(article => article._id !== articleId);
           this.drafts = this.drafts.filter(article => article._id !== articleId);
           this.published = this.published.filter(article => article._id !== articleId);
-  
           Swal.fire(
-            'Deleted!',
-            'The article has been deleted.',
+            'Supprimé !',
+            "L'article a été supprimé.",
             'success'
           );
         });
@@ -62,32 +61,30 @@ throw new Error('Method not implemented.');
     });
   }
   
-
-    publishArticle(articleId: string): void {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "Do you really want to publish this article?",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, publish it!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.articleService.publishArticle(articleId, this.userId).subscribe((updatedArticle: Article) => {
-            this.toastr.success('Article published successfully');
-            // Move the article from drafts to published
-            this.drafts = this.drafts.filter(article => article._id !== articleId);
-            this.published.push(updatedArticle);
-    
-            Swal.fire(
-              'Published!',
-              'The article has been published.',
-              'success'
-            );
-          });
-        }
-      });
-    }
-    
+  publishArticle(articleId: string): void {
+    Swal.fire({
+      title: 'Êtes-vous sûr(e) ?',
+      text: "Voulez-vous vraiment publier cet article ?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, publiez-le !'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.articleService.publishArticle(articleId, this.userId).subscribe((updatedArticle: Article) => {
+          this.toastr.success('Article publié avec succès');
+          // Move the article from drafts to published
+          this.drafts = this.drafts.filter(article => article._id !== articleId);
+          this.published.push(updatedArticle);
+  
+          Swal.fire(
+            'Publié !',
+            "L'article a été publié.",
+            'success'
+          );
+        });
+      }
+    });
+  }
 }

@@ -49,24 +49,24 @@ export class ReviewListComponent implements OnInit {
   }
   deleteReview(reviewId: string): void {
     Swal.fire({
-      title: 'Are you sure you want to delete this review?',
-      text: 'This action cannot be undone.',
+      title: 'Êtes-vous sûr(e) de vouloir supprimer cet avis ?',
+      text: 'Cette action est irréversible.',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it'
+      confirmButtonText: 'Oui, supprimez-le'
     }).then((result) => {
       if (result.isConfirmed) {
         this.reviewService.deleteReview(reviewId).subscribe(
           () => {
             // Remove the deleted review from the reviews array
             this.reviews = this.reviews.filter((review) => review._id !== reviewId);
-            Swal.fire('Deleted', 'Your review has been deleted.', 'success');
+            Swal.fire('Supprimé', 'Votre avis a été supprimé.', 'success');
           },
           (error) => {
-            console.error('Error deleting review:', error);
-            Swal.fire('Error', 'An error occurred while deleting the review.', 'error');
+            console.error('Erreur lors de la suppression de l\'avis :', error);
+            Swal.fire('Erreur', 'Une erreur est survenue lors de la suppression de l\'avis.', 'error');
           }
         );
       }

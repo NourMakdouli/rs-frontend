@@ -1,23 +1,23 @@
-<main id="main">
-    <div class="container">
-        <h2>Two-Factor Authentication</h2>
-        <p>Please enter the 2FA code from your authenticator app.</p>
-        <form (ngSubmit)="verifyCode()">
+<main id="main" class="d-flex justify-content-center align-items-center vh-100">
+  <div class="container card shadow p-4" style="max-width: 400px;">
+      <h2 class="text-center mb-3">Authentification à Deux Facteurs</h2>
+      <p class="text-center">Veuillez entrer le code 2FA de votre application d'authentification.</p>
+      <form (ngSubmit)="verifyCode()">
           <div class="form-group">
-            <label for="code">2FA Code</label>
-            <input
-              type="text"
-              id="code"
-              class="form-control"
-              [(ngModel)]="code"
-              name="code"
-              required
-            />
+              <label for="code" class="font-weight-bold">Code 2FA</label>
+              <input
+                  type="text"
+                  id="code"
+                  class="form-control text-center"
+                  [(ngModel)]="code"
+                  name="code"
+                  required
+                  aria-label="Entrer le code d'authentification à deux facteurs"
+              />
           </div>
-          <button type="submit" class="btn btn-primary" [disabled]="loading">
-            Verify
+          <button type="submit" class="btn btn-primary btn-block mt-3" [disabled]="loading">
+              Vérifier
           </button>
-        </form>
-      </div>
-      
+      </form>
+  </div>
 </main>
